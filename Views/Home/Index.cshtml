@@ -124,72 +124,40 @@
             <p class="section-subtitle">Chúng tôi cung cấp đa dạng dịch vụ y tế với trang thiết bị hiện đại cùng đội ngũ chuyên gia hàng đầu</p>
         </div>
         
-        <div class="row g-4 mt-2">
-            <!-- 8 Chuyên khoa mẫu -->
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="glass-card page-card department-card border-0">
-                    <div class="dept-icon"><i class="fa-solid fa-stethoscope"></i></div>
-                    <h5 class="fw-bold">Nội tổng quát</h5>
-                    <p class="small text-muted">Khám và điều trị các bệnh lý nội khoa thông thường.</p>
-                    <a href="#" class="btn btn-sm btn-link text-decoration-none">Xem chi tiết &rarr;</a>
+        <div class="row g-4 mt-2 justify-content-center">
+            @if(ViewBag.Departments != null && ((IEnumerable<HUTECH_Hospital.Models.Department>)ViewBag.Departments).Any())
+            {
+                foreach(var dept in (IEnumerable<HUTECH_Hospital.Models.Department>)ViewBag.Departments)
+                {
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="glass-card page-card department-card border-0 h-100">
+                            @if (!string.IsNullOrEmpty(dept.ImageUrl))
+                            {
+                                <div class="dept-icon p-0 overflow-hidden" style="border-radius: 50%;">
+                                    <img src="@dept.ImageUrl" style="width: 100%; height: 100%; object-fit: cover;" />
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="dept-icon"><i class="fa-solid fa-stethoscope"></i></div>
+                            }
+                            <h5 class="fw-bold">@dept.Name</h5>
+                            <p class="small text-muted" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">@dept.Description</p>
+                            <a asp-controller="Department" asp-action="Details" asp-route-id="@dept.Id" class="btn btn-sm btn-link text-decoration-none px-0 mt-auto">Xem chi tiết &rarr;</a>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12 text-center text-muted">
+                    <p>Hệ thống hiện đang cập nhật danh mục chuyên khoa.</p>
                 </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="glass-card page-card department-card border-0">
-                    <div class="dept-icon"><i class="fa-solid fa-heart-pulse"></i></div>
-                    <h5 class="fw-bold">Tim mạch</h5>
-                    <p class="small text-muted">Chuẩn đoán chuyên sâu, điện tâm đồ, siêu âm тим.</p>
-                    <a href="#" class="btn btn-sm btn-link text-decoration-none">Xem chi tiết &rarr;</a>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="glass-card page-card department-card border-0">
-                    <div class="dept-icon"><i class="fa-solid fa-ear-listen"></i></div>
-                    <h5 class="fw-bold">Tai mũi họng</h5>
-                    <p class="small text-muted">Xử lý các tình trạng bệnh lý chuyên sâu TMH.</p>
-                    <a href="#" class="btn btn-sm btn-link text-decoration-none">Xem chi tiết &rarr;</a>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="glass-card page-card department-card border-0">
-                    <div class="dept-icon"><i class="fa-solid fa-hand-dots"></i></div>
-                    <h5 class="fw-bold">Da liễu</h5>
-                    <p class="small text-muted">Chẩn đoán và điều trị bệnh về da liễu.</p>
-                    <a href="#" class="btn btn-sm btn-link text-decoration-none">Xem chi tiết &rarr;</a>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="glass-card page-card department-card border-0">
-                    <div class="dept-icon"><i class="fa-solid fa-teeth-open"></i></div>
-                    <h5 class="fw-bold">Răng hàm mặt</h5>
-                    <p class="small text-muted">Chăm sóc nha chu, nhổ răng khôn an toàn.</p>
-                    <a href="#" class="btn btn-sm btn-link text-decoration-none">Xem chi tiết &rarr;</a>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="glass-card page-card department-card border-0">
-                    <div class="dept-icon"><i class="fa-solid fa-eye"></i></div>
-                    <h5 class="fw-bold">Mắt</h5>
-                    <p class="small text-muted">Đo khúc xạ, khám mống mắt, phẫu thuật nhẹ.</p>
-                    <a href="#" class="btn btn-sm btn-link text-decoration-none">Xem chi tiết &rarr;</a>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="glass-card page-card department-card border-0">
-                    <div class="dept-icon"><i class="fa-solid fa-bone"></i></div>
-                    <h5 class="fw-bold">Cơ xương khớp</h5>
-                    <p class="small text-muted">Cố định chấn thương, vật lý trị liệu phục hồi.</p>
-                    <a href="#" class="btn btn-sm btn-link text-decoration-none">Xem chi tiết &rarr;</a>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="glass-card page-card department-card border-0">
-                    <div class="dept-icon"><i class="fa-solid fa-user-shield"></i></div>
-                    <h5 class="fw-bold">Tư vấn sức khỏe</h5>
-                    <p class="small text-muted">Chăm sóc tâm lý, sức khỏe cho sinh viên.</p>
-                    <a href="#" class="btn btn-sm btn-link text-decoration-none">Xem chi tiết &rarr;</a>
-                </div>
-            </div>
+            }
+        </div>
+        
+        <div class="text-center mt-5">
+            <a asp-controller="Department" asp-action="Index" class="btn btn-medical-outline rounded-pill px-4">Xem toàn bộ chuyên khoa</a>
         </div>
     </div>
 </section>
@@ -202,56 +170,46 @@
             <p class="section-subtitle">Gặp gỡ các chuyên gia xuất sắc đang trực tiếp khám chữa bệnh tại HUTECH_Hospital</p>
         </div>
         
-        <div class="row g-4 mt-2">
-            <!-- Mock Doctor Data -->
-            <div class="col-lg-4 col-md-6 border-0">
-                <div class="glass-card page-card medical-card doctor-card shadow-sm h-100">
-                    <div class="avatar-wrap">
-                        <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=400&q=80" alt="Doctor" class="img-fluid" />
-                    </div>
-                    <div class="info">
-                        <h5 class="fw-bold mb-1">ThS.BS Nguyễn Minh An</h5>
-                        <p class="text-primary fw-medium small mb-2">Nội tổng quát</p>
-                        <p class="text-muted small"><i class="fa-regular fa-clock me-1"></i> 10 năm kinh nghiệm</p>
-                        <div class="d-flex gap-2 justify-content-center mt-3">
-                            <a href="#" class="btn btn-sm btn-light border w-50">Xem hồ sơ</a>
-                            <a href="#booking" class="btn btn-sm btn-medical-primary w-50">Đặt lịch</a>
+        <div class="row g-4 mt-2 justify-content-center">
+            @if(ViewBag.Doctors != null && ((IEnumerable<HUTECH_Hospital.Models.Doctor>)ViewBag.Doctors).Any())
+            {
+                foreach(var doc in (IEnumerable<HUTECH_Hospital.Models.Doctor>)ViewBag.Doctors)
+                {
+                    <div class="col-lg-3 col-md-6 border-0">
+                        <div class="glass-card page-card medical-card doctor-card shadow-sm h-100">
+                            <div class="avatar-wrap bg-light border-bottom border-4 border-primary">
+                                @if(!string.IsNullOrEmpty(doc.AvatarUrl))
+                                {
+                                    <img src="@doc.AvatarUrl" alt="Doctor" class="img-fluid object-fit-cover w-100" />
+                                }
+                                else
+                                {
+                                    <img src="https://ui-avatars.com/api/?name=@(doc.FullName)&background=random&size=300" alt="Doctor" class="img-fluid w-100" />
+                                }
+                            </div>
+                            <div class="info pt-3">
+                                <h5 class="fw-bold text-dark mb-1">@doc.Degree @doc.FullName</h5>
+                                <p class="text-primary fw-medium small mb-2"><i class="fa-solid fa-stethoscope me-1"></i>@(doc.Department?.Name ?? "N/A")</p>
+                                <p class="text-muted small"><i class="fa-regular fa-clock me-1"></i> @doc.ExperienceYears năm kinh nghiệm</p>
+                                <div class="d-flex gap-2 justify-content-center mt-3">
+                                    <a asp-controller="Doctors" asp-action="Details" asp-route-id="@doc.Id" class="btn btn-sm btn-light border w-50">Hồ sơ</a>
+                                    <a href="/Appointment/Create?doctorId=@doc.Id" class="btn btn-sm btn-medical-primary w-50">Đặt lịch</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                }
+            }
+            else
+            {
+                <div class="col-12 text-center text-muted">
+                    <p>Hệ thống hiện đang cập nhật danh bạ y sĩ.</p>
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-6 border-0">
-                <div class="glass-card page-card medical-card doctor-card shadow-sm h-100">
-                    <div class="avatar-wrap">
-                        <img src="https://images.unsplash.com/photo-1594824436998-d1a29cd6d2c4?auto=format&fit=crop&w=400&q=80" alt="Doctor" class="img-fluid" />
-                    </div>
-                    <div class="info">
-                        <h5 class="fw-bold mb-1">BS Trần Thanh Bình</h5>
-                        <p class="text-primary fw-medium small mb-2">Tim mạch</p>
-                        <p class="text-muted small"><i class="fa-regular fa-clock me-1"></i> 8 năm kinh nghiệm</p>
-                        <div class="d-flex gap-2 justify-content-center mt-3">
-                            <a href="#" class="btn btn-sm btn-light border w-50">Xem hồ sơ</a>
-                            <a href="#booking" class="btn btn-sm btn-medical-primary w-50">Đặt lịch</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 border-0">
-                <div class="glass-card page-card medical-card doctor-card shadow-sm h-100">
-                    <div class="avatar-wrap">
-                        <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=400&q=80" alt="Doctor" class="img-fluid" />
-                    </div>
-                    <div class="info">
-                        <h5 class="fw-bold mb-1">BS Lê Hoàng My</h5>
-                        <p class="text-primary fw-medium small mb-2">Da liễu</p>
-                        <p class="text-muted small"><i class="fa-regular fa-clock me-1"></i> 6 năm kinh nghiệm</p>
-                        <div class="d-flex gap-2 justify-content-center mt-3">
-                            <a href="#" class="btn btn-sm btn-light border w-50">Xem hồ sơ</a>
-                            <a href="#booking" class="btn btn-sm btn-medical-primary w-50">Đặt lịch</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            }
+        </div>
+        
+        <div class="text-center mt-5">
+            <a asp-controller="Doctors" asp-action="Index" class="btn btn-medical-outline rounded-pill px-4">Khám phá đội ngũ Y khoa</a>
         </div>
     </div>
 </section>

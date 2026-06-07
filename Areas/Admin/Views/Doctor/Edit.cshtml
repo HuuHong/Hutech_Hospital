@@ -1,15 +1,19 @@
-@model HUTECH_Hospital.ViewModels.DoctorCreateViewModel
+@model HUTECH_Hospital.ViewModels.DoctorEditViewModel
 @{
-    ViewData["Title"] = "Thêm Bác Sĩ Mới";
+    ViewData["Title"] = "Chỉnh sửa Bác sĩ";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
 <div class="d-flex align-items-center mb-4 gap-3">
     <a asp-action="Index" class="btn btn-light rounded-circle shadow-sm" style="width:40px;height:40px;padding:8px;"><i class="fa-solid fa-arrow-left"></i></a>
-    <h2 class="fw-bold m-0 text-dark">Lập Thẻ Bác Sĩ Mới</h2>
+    <h2 class="fw-bold m-0 text-dark">Lưu Trữ Hồ Sơ: @Model.FullName</h2>
 </div>
 
-<form asp-action="Create" enctype="multipart/form-data">
+<form asp-action="Edit" enctype="multipart/form-data">
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="ApplicationUserId" />
+    <input type="hidden" asp-for="AvatarUrl" />
+    
     <div asp-validation-summary="ModelOnly" class="alert alert-danger shadow-sm rounded-3"></div>
 
     <div class="row g-4">
@@ -23,7 +27,7 @@
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label asp-for="DoctorCode" class="form-label fw-bold"></label>
-                            <input asp-for="DoctorCode" class="form-control bg-light" placeholder="VD: BS001" />
+                            <input asp-for="DoctorCode" class="form-control bg-light" />
                             <span asp-validation-for="DoctorCode" class="text-danger small"></span>
                         </div>
                         <div class="col-md-6">
@@ -35,12 +39,12 @@
                         </div>
                         <div class="col-md-6">
                             <label asp-for="Degree" class="form-label fw-bold"></label>
-                            <input asp-for="Degree" class="form-control bg-light" placeholder="VD: Thạc sĩ, Tiến sĩ..." />
+                            <input asp-for="Degree" class="form-control bg-light" />
                             <span asp-validation-for="Degree" class="text-danger small"></span>
                         </div>
                         <div class="col-md-6">
                             <label asp-for="Specialization" class="form-label fw-bold"></label>
-                            <input asp-for="Specialization" class="form-control bg-light" placeholder="VD: Khám bệnh đa khoa..." />
+                            <input asp-for="Specialization" class="form-control bg-light" />
                             <span asp-validation-for="Specialization" class="text-danger small"></span>
                         </div>
                         <div class="col-md-6">
@@ -54,33 +58,22 @@
 
             <div class="card border-0 shadow-sm rounded-4 mb-4">
                 <div class="card-header bg-white border-bottom p-4">
-                    <h5 class="fw-bold m-0"><i class="fa-solid fa-address-card text-info me-2"></i>Thông tin cá nhân & Đăng nhập</h5>
+                    <h5 class="fw-bold m-0"><i class="fa-solid fa-address-card text-info me-2"></i>Thông tin cá nhân</h5>
                 </div>
                 <div class="card-body p-4">
                     <div class="row g-3">
                         <div class="col-md-12">
                             <label asp-for="FullName" class="form-label fw-bold"></label>
-                            <input asp-for="FullName" class="form-control bg-light" placeholder="Tên bệnh viện hiển thị" />
+                            <input asp-for="FullName" class="form-control bg-light" />
                             <span asp-validation-for="FullName" class="text-danger small"></span>
                         </div>
                         <div class="col-md-6">
-                            <label asp-for="Email" class="form-label fw-bold"></label>
-                            <input asp-for="Email" class="form-control bg-light" />
-                            <span asp-validation-for="Email" class="text-danger small"></span>
+                            <label class="form-label fw-bold text-muted"><i class="fa-solid fa-lock me-2"></i>Email Đăng nhập (Chỉ đọc)</label>
+                            <input asp-for="Email" class="form-control bg-light" readonly />
                         </div>
                         <div class="col-md-6">
                             <label asp-for="PhoneNumber" class="form-label fw-bold"></label>
                             <input asp-for="PhoneNumber" class="form-control bg-light" />
-                        </div>
-                        <div class="col-md-6">
-                            <label asp-for="Password" class="form-label fw-bold"></label>
-                            <input asp-for="Password" class="form-control bg-light" type="password" />
-                            <span asp-validation-for="Password" class="text-danger small"></span>
-                        </div>
-                        <div class="col-md-6">
-                            <label asp-for="ConfirmPassword" class="form-label fw-bold"></label>
-                            <input asp-for="ConfirmPassword" class="form-control bg-light" type="password" />
-                            <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
                         </div>
                         <div class="col-md-6">
                             <label asp-for="Gender" class="form-label fw-bold"></label>
@@ -107,25 +100,33 @@
         <div class="col-lg-4">
             <div class="card border-0 shadow-sm rounded-4 mb-4">
                 <div class="card-body p-4 text-center">
-                    <div class="bg-light rounded-circle mx-auto d-flex align-items-center justify-content-center mb-3" style="width:140px;height:140px;font-size:4rem;color:#ccc;">
-                        <i class="fa-solid fa-user-doctor"></i>
-                    </div>
+                    @if (!string.IsNullOrEmpty(Model.AvatarUrl))
+                    {
+                        <img src="@Model.AvatarUrl" class="rounded-circle mx-auto mb-3 border shadow-sm" style="width:140px;height:140px;object-fit:cover;" />
+                    }
+                    else
+                    {
+                        <div class="bg-light rounded-circle mx-auto d-flex align-items-center justify-content-center mb-3" style="width:140px;height:140px;font-size:4rem;color:#ccc;">
+                            <i class="fa-solid fa-user-doctor"></i>
+                        </div>
+                    }
+                    
                     <div class="mb-4 text-start">
-                        <label asp-for="AvatarFile" class="form-label fw-bold">Ảnh Y Sĩ</label>
+                        <label asp-for="AvatarFile" class="form-label fw-bold"></label>
                         <input asp-for="AvatarFile" type="file" class="form-control form-control-sm bg-light" accept=".jpg,.png,.webp" />
+                        <span class="form-text text-muted">Bỏ trống nếu giữ ảnh nguyên trạng.</span>
                     </div>
                     <div class="text-start mb-3">
                         <label asp-for="Description" class="form-label fw-bold"></label>
-                        <textarea asp-for="Description" class="form-control bg-light" rows="4" placeholder="Giới thiệu bản thân..."></textarea>
+                        <textarea asp-for="Description" class="form-control bg-light" rows="6" placeholder="Giới thiệu bản thân..."></textarea>
                     </div>
                     <hr />
                     <div class="form-check form-switch text-start mb-4">
-                        <input asp-for="IsActive" class="form-check-input" type="checkbox" role="switch" checked>
+                        <input asp-for="IsActive" class="form-check-input" type="checkbox" role="switch">
                         <label class="form-check-label fw-bold" asp-for="IsActive">Kích hoạt Bác sĩ</label>
                     </div>
                     <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-primary rounded-pill fw-bold shadow-sm py-2">Xác nhận Tạo hồ sơ</button>
-                        <a asp-action="Index" class="btn btn-light rounded-pill fw-bold py-2">Hủy bỏ</a>
+                        <button type="submit" class="btn btn-warning text-dark rounded-pill fw-bold shadow-sm py-2">Xác nhận Lưu Sửa</button>
                     </div>
                 </div>
             </div>

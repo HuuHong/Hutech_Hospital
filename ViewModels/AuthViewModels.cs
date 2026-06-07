@@ -84,12 +84,26 @@ namespace HUTECH_Hospital.ViewModels
 
         public string? Gender { get; set; }
         public DateTime? DateOfBirth { get; set; }
-        public string? Address { get; set; }
+        public string Address { get; set; }
         
         [Required]
         public string Degree { get; set; } = null!;
         
         [Required]
         public string Specialization { get; set; } = null!;
+
+        // --- BỔ SUNG CHO PHẦN 2 ---
+        [Required(ErrorMessage = "Vui lòng chọn Chuyên khoa")]
+        public int DepartmentId { get; set; }
+        
+        public IEnumerable<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem>? Departments { get; set; }
+
+        public int ExperienceYears { get; set; }
+        
+        public string? Description { get; set; }
+        
+        public bool IsActive { get; set; } = true;
+        
+        public Microsoft.AspNetCore.Http.IFormFile? AvatarFile { get; set; }
     }
 }

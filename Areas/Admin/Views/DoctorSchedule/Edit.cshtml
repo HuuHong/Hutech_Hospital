@@ -1,0 +1,79 @@
+@model HUTECH_Hospital.ViewModels.DoctorScheduleViewModel
+@{
+    ViewData["Title"] = "Điều chỉnh Khung Giờ";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-flex align-items-center mb-4 gap-3">
+    <a asp-action="Index" class="btn btn-light rounded-circle shadow-sm" style="width:40px;height:40px;padding:8px;"><i class="fa-solid fa-arrow-left"></i></a>
+    <h2 class="fw-bold m-0 text-dark">Điều Phối Lại Ca Lịch Trực</h2>
+</div>
+
+<div class="row">
+    <div class="col-md-10 col-lg-8">
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body p-4 p-md-5">
+                <form asp-action="Edit">
+                    <input type="hidden" asp-for="Id" />
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger shadow-sm rounded-3"></div>
+
+                    <div class="row g-4 mb-4">
+                        <div class="col-12">
+                            <label asp-for="DoctorId" class="form-label fw-bold text-primary"><i class="fa-solid fa-user-doctor me-2"></i>Bác Sĩ Phụ Trách</label>
+                            <select asp-for="DoctorId" asp-items="Model.Doctors" class="form-select form-select-lg bg-light border-0">
+                                <option value="">-- Lựa chọn hệ thống nhân sự --</option>
+                            </select>
+                            <span asp-validation-for="DoctorId" class="text-danger small mt-1"></span>
+                        </div>
+                    </div>
+
+                    <div class="row g-4 p-4 rounded-4 bg-light border mb-4">
+                        <div class="col-md-12">
+                            <label asp-for="WorkDate" class="form-label fw-bold"></label>
+                            <input asp-for="WorkDate" class="form-control bg-white" type="date" />
+                            <span asp-validation-for="WorkDate" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="StartTime" class="form-label fw-bold"></label>
+                            <input asp-for="StartTime" class="form-control bg-white" type="time" />
+                            <span asp-validation-for="StartTime" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="EndTime" class="form-label fw-bold"></label>
+                            <input asp-for="EndTime" class="form-control bg-white" type="time" />
+                            <span asp-validation-for="EndTime" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Room" class="form-label fw-bold"></label>
+                            <input asp-for="Room" class="form-control bg-white" placeholder="Ví dụ: P.202" />
+                            <span asp-validation-for="Room" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="MaxPatients" class="form-label fw-bold"></label>
+                            <input asp-for="MaxPatients" class="form-control bg-white" type="number" min="1" max="100" />
+                            <span asp-validation-for="MaxPatients" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="Note" class="form-label fw-bold">Ghi chú điều hành hệ thống</label>
+                        <textarea asp-for="Note" class="form-control bg-light" rows="3"></textarea>
+                    </div>
+
+                    <div class="form-check form-switch mb-4 fs-5 w-auto d-inline-block border p-3 rounded-3 shadow-sm">
+                        <input asp-for="IsAvailable" class="form-check-input ms-0 me-3" type="checkbox" role="switch">
+                        <label class="form-check-label fw-bold text-success" asp-for="IsAvailable">Cấu hình: Bật Nhận Bệnh</label>
+                    </div>
+
+                    <div class="d-grid mt-2">
+                        <button type="submit" class="btn btn-warning text-dark btn-lg rounded-pill fw-bold shadow-sm">Hoàn thành Cập nhật</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

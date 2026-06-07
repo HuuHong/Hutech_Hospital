@@ -1,0 +1,53 @@
+@model HUTECH_Hospital.ViewModels.DepartmentViewModel
+@{
+    ViewData["Title"] = "Thêm Chuyên Khoa";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-flex align-items-center mb-4 gap-3">
+    <a asp-action="Index" class="btn btn-light rounded-circle shadow-sm" style="width:40px;height:40px;padding:8px;"><i class="fa-solid fa-arrow-left"></i></a>
+    <h2 class="fw-bold m-0 text-dark">Thêm Chuyên Khoa Mới</h2>
+</div>
+
+<div class="row">
+    <div class="col-md-8 col-lg-6">
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body p-4">
+                <form asp-action="Create" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                    
+                    <div class="mb-3">
+                        <label asp-for="Name" class="form-label fw-bold"></label>
+                        <input asp-for="Name" class="form-control form-control-lg bg-light" placeholder="Ví dụ: Khoa Tim Mạch" />
+                        <span asp-validation-for="Name" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Description" class="form-label fw-bold"></label>
+                        <textarea asp-for="Description" class="form-control bg-light" rows="4" placeholder="Mô tả tóm tắt..."></textarea>
+                        <span asp-validation-for="Description" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="ImageFile" class="form-label fw-bold"></label>
+                        <input asp-for="ImageFile" type="file" class="form-control bg-light" accept=".jpg,.jpeg,.png,.webp" />
+                        <div class="form-text">Các định dạng hỗ trợ: JPG, PNG, WEBP.</div>
+                    </div>
+
+                    <div class="form-check form-switch mb-4">
+                        <input asp-for="IsActive" class="form-check-input" type="checkbox" role="switch" checked>
+                        <label class="form-check-label" asp-for="IsActive">Kích hoạt hoạt động</label>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg rounded-pill fw-bold shadow-sm">Thêm chuyên khoa</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,116 @@
+@model HUTECH_Hospital.Models.Doctor
+@{
+    ViewData["Title"] = "Chi tiết Bác Sĩ";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-flex align-items-center justify-content-between mb-4 gap-3">
+    <div class="d-flex align-items-center gap-3">
+        <a asp-action="Index" class="btn btn-light rounded-circle shadow-sm" style="width:40px;height:40px;padding:8px;"><i class="fa-solid fa-arrow-left"></i></a>
+        <h2 class="fw-bold m-0 text-dark">Hồ sơ: @Model.FullName</h2>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning rounded-pill px-4 shadow-sm text-dark fw-bold"><i class="fa-solid fa-pen me-2"></i>Chỉnh sửa</a>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm rounded-4 text-center p-4">
+            @if (!string.IsNullOrEmpty(Model.AvatarUrl))
+            {
+                <img src="@Model.AvatarUrl" class="rounded-circle mx-auto border mb-3 shadow-sm" style="width:180px;height:180px;object-fit:cover;" />
+            }
+            else
+            {
+                <div class="bg-light rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center text-muted shadow-sm" style="width:180px;height:180px;font-size:4rem;">
+                    <i class="fa-solid fa-user-doctor"></i>
+                </div>
+            }
+            <h4 class="fw-bold mb-1">@Model.Degree @Model.FullName</h4>
+            <p class="text-primary mb-2">@Model.Department?.Name</p>
+            
+            <div class="mb-3">
+                @if (Model.IsActive)
+                {
+                    <span class="badge bg-success-subtle text-success rounded-pill px-3 py-1">Đang công tác</span>
+                }
+                else
+                {
+                    <span class="badge bg-danger-subtle text-danger rounded-pill px-3 py-1">Đã nghỉ việc / Khóa</span>
+                }
+            </div>
+            <div class="text-start mt-4 px-2">
+                <hr />
+                <p class="mb-2"><i class="fa-regular fa-envelope me-2 text-muted"></i>@Model.Email</p>
+                <p class="mb-2"><i class="fa-solid fa-phone me-2 text-muted"></i>@(Model.PhoneNumber ?? "---")</p>
+                <p class="mb-2"><i class="fa-solid fa-map-pin me-2 text-muted"></i>@(Model.Address ?? "---")</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-8">
+        <div class="card border-0 shadow-sm rounded-4 mb-4">
+            <div class="card-header bg-white border-bottom p-4">
+                <h5 class="fw-bold m-0"><i class="fa-solid fa-id-card text-info me-2"></i>Năng lực chuyên môn</h5>
+            </div>
+            <div class="card-body p-4">
+                <div class="row mb-3">
+                    <div class="col-sm-4 text-muted">Mã chứng chỉ (DoctorCode):</div>
+                    <div class="col-sm-8 fw-bold">@Model.DoctorCode</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4 text-muted">Bằng cấp:</div>
+                    <div class="col-sm-8 fw-bold">@Model.Degree</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4 text-muted">Chuyên khoa sâu:</div>
+                    <div class="col-sm-8 fw-bold">@Model.Specialization</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4 text-muted">Kinh nghiệm:</div>
+                    <div class="col-sm-8 fw-bold text-success">@Model.ExperienceYears năm</div>
+                </div>
+                <hr />
+                <h6 class="fw-bold mb-2">Lời tựa bình sinh</h6>
+                <p class="text-secondary">@Html.Raw((Model.Description ?? "Chưa có quá trình công tác").Replace("\n", "<br/>"))</p>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body p-4">
+                <h5 class="fw-bold mb-3"><i class="fa-regular fa-calendar-check text-primary me-2"></i>Lịch phân ca tuần gần nhất</h5>
+                @if (Model.DoctorSchedules != null && Model.DoctorSchedules.Any())
+                {
+                    <div class="table-responsive mt-3">
+                        <table class="table table-bordered align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Ngày trực</th>
+                                    <th>Thời gian</th>
+                                    <th>Phòng</th>
+                                    <th>BN tối đa</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var sched in Model.DoctorSchedules.OrderByDescending(s => s.WorkDate).Take(10))
+                                {
+                                    <tr>
+                                        <td class="fw-bold">@sched.WorkDate.ToString("dd/MM/yyyy")</td>
+                                        <td><span class="badge bg-primary text-white">@sched.StartTime.ToString(@"hh\:mm") - @sched.EndTime.ToString(@"hh\:mm")</span></td>
+                                        <td>@sched.Room</td>
+                                        <td>@sched.MaxPatients người</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <p class="text-muted fst-italic">Bác sĩ chưa được phần công ca trực nào trong hệ thống.</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>

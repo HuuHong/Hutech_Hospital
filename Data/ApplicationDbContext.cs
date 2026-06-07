@@ -13,6 +13,8 @@ namespace HUTECH_Hospital.Data
 
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<DoctorSchedule> DoctorSchedules { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -29,6 +31,20 @@ namespace HUTECH_Hospital.Data
                 .HasOne(d => d.ApplicationUser)
                 .WithOne(u => u.Doctor)
                 .HasForeignKey<Doctor>(d => d.ApplicationUserId);
+
+            // Configure 1-to-N relationship between Department and Doctor
+            builder.Entity<Doctor>()
+                .HasOne(d => d.Department)
+                .WithMany(dp => dp.Doctors)
+                .HasForeignKey(d => d.DepartmentId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Configure 1-to-N relationship between Doctor and DoctorSchedule
+            builder.Entity<DoctorSchedule>()
+                .HasOne(s => s.Doctor)
+                .WithMany(d => d.DoctorSchedules)
+                .HasForeignKey(s => s.DoctorId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
