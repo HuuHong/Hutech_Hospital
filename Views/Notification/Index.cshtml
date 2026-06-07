@@ -1,0 +1,46 @@
+@model IEnumerable<HUTECH_Hospital.Models.Notification>
+@{
+    ViewData["Title"] = "Thông báo của tôi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-section bg-light py-5">
+    <div class="container mt-5 pt-4">
+        <h2 class="fw-bold mb-4"><i class="fa-solid fa-bell text-warning me-2"></i>Thông báo từ Hệ thống</h2>
+
+        <div class="card border-0 shadow-sm rounded-4 page-card">
+            <div class="card-body p-0">
+                <div class="list-group list-group-flush rounded-4">
+                    @if (!Model.Any())
+                    {
+                        <div class="p-5 text-center text-muted">
+                            <i class="fa-regular fa-bell-slash fa-3x mb-3 opacity-25"></i>
+                            <h5>Bạn chưa có thông báo nào.</h5>
+                        </div>
+                    }
+                    else
+                    {
+                        foreach (var notification in Model)
+                        {
+                            var bgClass = notification.IsRead ? "bg-white" : "bg-primary bg-opacity-10 border-start border-4 border-primary";
+                            <a href="@(notification.IsRead ? "#" : "/Notification/Details/" + notification.Id)" class="list-group-item list-group-item-action @bgClass p-4">
+                                <div class="d-flex w-100 justify-content-between mb-2">
+                                    <h5 class="mb-1 fw-bold @(notification.IsRead ? "text-dark" : "text-primary")">
+                                        @if(notification.PatientId == null) { <i class="fa-solid fa-bullhorn text-danger me-2"></i> }
+                                        @notification.Title
+                                    </h5>
+                                    <small class="text-muted"><i class="fa-regular fa-clock me-1"></i>@notification.CreatedAt.ToString("dd/MM/yyyy HH:mm")</small>
+                                </div>
+                                <p class="mb-1 text-secondary">@notification.Content</p>
+                                @if (!notification.IsRead)
+                                {
+                                    <small class="text-primary fw-bold mt-2 d-block">Làm mới để đánh dấu đã đọc (Click)</small>
+                                }
+                            </a>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

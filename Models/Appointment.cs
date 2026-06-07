@@ -43,5 +43,7 @@ namespace HUTECH_Hospital.Models
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         public DateTime? UpdatedAt { get; set; }
+
+        public MedicalRecord? MedicalRecord { get; set; }
     }
 }

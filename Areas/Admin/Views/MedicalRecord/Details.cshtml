@@ -1,0 +1,95 @@
+@model HUTECH_Hospital.Models.MedicalRecord
+@{
+    ViewData["Title"] = "Chi tiết Hồ sơ khám (READ ONLY)";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold m-0">Hồ sơ Điện tử #@Model.Id</h2>
+    <a href="/Admin/MedicalRecord/Index" class="btn btn-outline-secondary"><i class="fa-solid fa-arrow-left"></i> Quay lại</a>
+</div>
+
+<div class="alert alert-info border-0 shadow-sm border-start border-info border-4">
+    <i class="fa-solid fa-lock me-2"></i> Chế độ <strong>Chỉ Xem (Read-Only)</strong>: Quản trị viên chỉ có quyền truy xuất xem dữ liệu, không có quyền sửa chữa hay tác động nhằm bảo mật dữ liệu y tế.
+</div>
+
+<div class="row">
+    <!-- Part left (Patient Info) -->
+    <div class="col-md-5">
+        <div class="card border-0 shadow-sm page-card mb-4">
+            <div class="card-header bg-white border-bottom py-3">
+                <h5 class="m-0 fw-bold"><i class="fa-solid fa-hospital-user text-primary me-2"></i>Bệnh nhân</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Họ tên:</strong> @Model.Patient?.FullName</p>
+                <p><strong>MSSV:</strong> @Model.Patient?.StudentCode</p>
+                <p><strong>Điện thoại:</strong> @Model.Patient?.PhoneNumber</p>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-sm page-card">
+            <div class="card-header bg-white border-bottom py-3">
+                <h5 class="m-0 fw-bold"><i class="fa-solid fa-user-doctor text-success me-2"></i>Bác sĩ phụ trách</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Họ tên:</strong> @Model.Doctor?.FullName</p>
+                <p><strong>Chuyên khoa:</strong> @Model.Doctor?.Specialization</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Part right (Medical Details) -->
+    <div class="col-md-7">
+        <div class="card border-0 shadow-sm page-card mb-4">
+            <div class="card-header bg-white border-bottom py-3">
+                <h5 class="m-0 fw-bold"><i class="fa-solid fa-file-waveform text-danger me-2"></i>Kết quả thăm khám</h5>
+            </div>
+            <div class="card-body bg-light">
+                <div class="mb-3">
+                    <small class="text-muted d-block text-uppercase fw-bold">Triệu chứng khai báo:</small>
+                    <div>@Model.Symptoms</div>
+                </div>
+                <div class="mb-3">
+                    <small class="text-muted d-block text-uppercase fw-bold">Chẩn đoán Bác sĩ:</small>
+                    <div class="fs-5 fw-bold text-dark border-start border-4 border-danger ps-3 py-1">@Model.Diagnosis</div>
+                </div>
+                <div class="mb-0">
+                    <small class="text-muted d-block text-uppercase fw-bold">Hướng điều trị:</small>
+                    <div>@Model.Treatment</div>
+                </div>
+            </div>
+        </div>
+
+        @if(Model.Prescription != null)
+        {
+            <div class="card border-0 shadow-sm page-card">
+                <div class="card-header bg-white border-bottom py-3">
+                    <h5 class="m-0 fw-bold"><i class="fa-solid fa-pills text-success me-2"></i>Đơn Thuốc Lưu Trữ</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Mã Thuốc</th>
+                                    <th>Tên Thuốc</th>
+                                    <th>SL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var pd in Model.Prescription.PrescriptionDetails)
+                                {
+                                    <tr>
+                                        <td>#@pd.MedicineId</td>
+                                        <td class="fw-bold">@pd.Medicine?.Name</td>
+                                        <td>@pd.Quantity</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,64 @@
+@model IEnumerable<HUTECH_Hospital.Models.MedicalRecord>
+@{
+    ViewData["Title"] = "Lịch sử khám bệnh";
+    Layout = "~/Areas/Doctor/Views/Shared/_DoctorLayout.cshtml";
+}
+
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-1">Lịch sử Khám Bệnh</h2>
+            <p class="text-muted">ID Bệnh nhân: <span class="fw-bold text-primary">#@ViewBag.PatientId</span></p>
+        </div>
+        <a href="javascript:history.back()" class="btn btn-outline-secondary">
+            <i class="fa-solid fa-arrow-left"></i> Quay lại
+        </a>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="empty-state page-card">
+            <i class="fa-solid fa-file-medical text-muted mb-3 opacity-25" style="font-size: 4rem;"></i>
+            <h4>Chưa có hồ sơ khám bệnh nào</h4>
+            <p class="text-muted">Bệnh nhân này chưa từng có kết quả khám nào được ghi nhận trên hệ thống.</p>
+        </div>
+    }
+    else
+    {
+        <div class="card border-0 shadow-sm page-card">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Mã HS</th>
+                                <th>Ngày khám</th>
+                                <th>Chẩn đoán</th>
+                                <th>Bác sĩ thực hiện</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td><span class="fw-bold text-primary">#@item.Id</span></td>
+                                    <td>@item.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
+                                    <td>
+                                        <span class="text-dark">@(item.Diagnosis.Length > 50 ? item.Diagnosis.Substring(0, 50) + "..." : item.Diagnosis)</span>
+                                    </td>
+                                    <td>@item.Doctor?.FullName</td>
+                                    <td>
+                                        <a href="/Doctor/MedicalRecord/Details/@item.Id" class="btn btn-sm btn-outline-info">
+                                            <i class="fa-solid fa-eye"></i> Xem chi tiết
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+</div>

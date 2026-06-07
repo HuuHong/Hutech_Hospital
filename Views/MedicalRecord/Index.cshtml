@@ -1,0 +1,55 @@
+@model IEnumerable<HUTECH_Hospital.Models.MedicalRecord>
+@{
+    ViewData["Title"] = "Hồ sơ khám của bạn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-section bg-light py-5">
+    <div class="container mt-5 pt-4">
+        <div class="row mb-4">
+            <div class="col-12">
+                <h2 class="fw-bold mb-3"><i class="fa-solid fa-file-medical text-primary me-2"></i>Hồ sơ Khám bệnh</h2>
+                <p class="text-muted">Quản lý kết quả khám và đơn thuốc của bạn.</p>
+            </div>
+        </div>
+
+        @if (!Model.Any())
+        {
+            <div class="empty-state page-card bg-white rounded-4 shadow-sm py-5 text-center">
+                <i class="fa-solid fa-folder-open text-muted mb-3 opacity-25" style="font-size: 3rem;"></i>
+                <h5>Bạn chưa có hồ sơ khám bệnh nào</h5>
+                <p class="text-muted">Sau khi hoàn thành cuộc khám, kết quả sẽ hiển thị tại đây.</p>
+                <a href="/Appointment/Create" class="btn btn-outline-primary mt-3">Đặt lịch khám ngay</a>
+            </div>
+        }
+        else
+        {
+            <div class="row g-4">
+                @foreach (var item in Model)
+                {
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 border-0 shadow-sm rounded-4 page-card">
+                            <div class="card-body p-4">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="badge bg-primary px-3 py-2">Mã HS: #@item.Id</span>
+                                    <small class="text-muted"><i class="fa-regular fa-calendar me-1"></i>@item.CreatedAt.ToString("dd/MM/yyyy")</small>
+                                </div>
+                                <h5 class="fw-bold text-dark text-truncate mb-2" title="@item.Diagnosis">@item.Diagnosis</h5>
+                                <p class="text-muted small mb-3">
+                                    <i class="fa-solid fa-user-doctor me-1"></i> Bác sĩ: @item.Doctor?.FullName
+                                </p>
+                                <div class="bg-light p-3 rounded-3 mb-4">
+                                    <small class="text-muted d-block mb-1">Hướng điều trị:</small>
+                                    <span class="text-dark">@(string.IsNullOrEmpty(item.Treatment) ? "Không có" : item.Treatment.Length > 40 ? item.Treatment.Substring(0, 40) + "..." : item.Treatment)</span>
+                                </div>
+                                <a href="/MedicalRecord/Details/@item.Id" class="btn btn-outline-primary w-100 rounded-pill">
+                                    <i class="fa-solid fa-eye me-1"></i> Xem chi tiết nồ sơ & đơn thuốc
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>

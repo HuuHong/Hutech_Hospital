@@ -1,0 +1,58 @@
+@model IEnumerable<HUTECH_Hospital.Models.Medicine>
+@{
+    ViewData["Title"] = "Quản lý Thuốc";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold m-0">Quản lý Thuốc & Vật tư</h2>
+    <a href="/Admin/Medicine/Create" class="btn btn-primary"><i class="fa-solid fa-plus me-2"></i>Thêm Thuốc Mới</a>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+
+<div class="card border-0 shadow-sm page-card">
+    <div class="card-body">
+        <form method="get" class="mb-4">
+            <div class="input-group">
+                <input type="text" name="keyword" class="form-control" placeholder="Tìm theo tên thuốc, mô tả..." value="@ViewBag.Keyword" />
+                <button class="btn btn-outline-secondary" type="submit"><i class="fa-solid fa-search"></i> Tìm kiếm</button>
+            </div>
+        </form>
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Tên thuốc</th>
+                        <th>Đơn vị</th>
+                        <th>Mô tả</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="fw-bold">@item.Name</td>
+                            <td>@item.Unit</td>
+                            <td>@(item.Description?.Length > 30 ? item.Description.Substring(0, 30) + "..." : item.Description)</td>
+                            <td>
+                                @if (item.IsActive) { <span class="badge bg-success">Đang dùng</span> }
+                                else { <span class="badge bg-secondary">Ngừng kinh doanh</span> }
+                            </td>
+                            <td>
+                                <a href="/Admin/Medicine/Edit/@item.Id" class="btn btn-sm btn-warning"><i class="fa-solid fa-pen"></i></a>
+                                <a href="/Admin/Medicine/Delete/@item.Id" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

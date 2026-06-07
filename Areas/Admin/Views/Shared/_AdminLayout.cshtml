@@ -55,7 +55,33 @@
                         <i class="fa-solid fa-calendar-check me-2"></i>Quản lý Phiếu Khám
                     </a>
                 </li>
-                <!-- Phân quyền chức năng khác có thể bỏ trống chờ Phase sau -->
+                <!-- Phase 4 Additions -->
+                <li class="nav-item border-top mt-2 pt-2 border-secondary">
+                    <span class="ps-3 text-secondary small fw-bold text-uppercase">Nghiệp vụ Y khoa</span>
+                </li>
+                <li class="nav-item">
+                    <a href="/Admin/MedicalRecord" class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "MedicalRecord" ? "active" : "")">
+                        <i class="fa-solid fa-file-medical me-2"></i>Kho Hồ sơ EHR
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/Admin/Medicine" class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Medicine" ? "active" : "")">
+                        <i class="fa-solid fa-pills me-2"></i>Danh mục Thuốc
+                    </a>
+                </li>
+                <li class="nav-item border-top mt-2 pt-2 border-secondary">
+                    <span class="ps-3 text-secondary small fw-bold text-uppercase">Truyền thông & LH</span>
+                </li>
+                <li class="nav-item">
+                    <a href="/Admin/Notification" class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Notification" ? "active" : "")">
+                        <i class="fa-solid fa-bullhorn me-2"></i>Gửi Thông báo
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/Admin/Feedback" class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Feedback" ? "active" : "")">
+                        <i class="fa-solid fa-comments me-2"></i>Phản hồi & CSKH
+                    </a>
+                </li>
                 <li class="nav-item mt-4">
                     <a href="/" class="nav-link text-info fw-bold" target="_blank">
                         <i class="fa-solid fa-globe me-2"></i>Xem Website Bệnh Viện
