@@ -1,34 +1,101 @@
 ## Bỏ qua các thư mục biên dịch và tệp nhị phân
 [Bb]in/
 [Oo]bj/
+[Oo]ut/
+[Ll]og/
+[Ll]ogs/
+*.dll
+*.exe
+*.pdb
+*.cache
+*.rsp
 
-## Thư mục cấu hình của IDE
+## Visual Studio & Visual Studio Code (Cấu hình cục bộ IDE)
 .vs/
-.vscode/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
 *.user
 *.userosscache
 *.sln.docstates
+*.suo
+*.userprefs
+*.code-workspace
+.localhistory/
 
-## Cơ sở dữ liệu nội bộ (Tránh lộ Data Website)
+## Cache hệ thống Runtime & Crash Dumps (Sinh ra khi chạy Web)
+*.crash
+*.dmp
+*.hdmp
+*.mdmp
+TestResults/
+*.coverage
+*.coveragexml
+ClientApp/dist/
+ClientApp/build/
+.aspnet/
+
+## JetBrains Rider/WebStorm
+.idea/
+*.sln.iml
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+## Mac/Linux/Windows OS Files
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+## CSDL nội bộ / SQL Server LocalDB
 *.mdf
 *.ldf
 *.ndf
-*.db
 *.sqlite
+*.sqlite3
+*.db
+*.db-shm
+*.db-wal
 app.db
 
-## Các file cấu hình chứa thông tin nhạy cảm (Connection String, JWT Secret, ...)
+## File cấu hình chứa thông tin nhạy cảm (Connection Strings, Tokens)
 appsettings.Development.json
+appsettings.Production.json
+appsettings.Staging.json
 secrets.json
+*.env
+.env.*
 
-## Log files báo lỗi
-*.log
-/logs/
+## User Uploads (Bảo vệ dữ liệu hình ảnh, tệp tin người dùng tải lên)
+wwwroot/uploads/
+!wwwroot/uploads/.keep
+wwwroot/images/temp/
 
-## Gói phụ thuộc (Trường hợp có npm)
+## NuGet Packages
+*.nupkg
+*.snupkg
+*.smdx
+*.symbols.nupkg
+packages/
+project.lock.json
+.nuget/
+
+## Node.js & Javascript Tools (Trường hợp dự án dùng npm/webpack)
 node_modules/
 npm-debug.log
+yarn-error.log
+.eslintcache
+.stylelintcache
 
-## Thư mục Cache và Môi trường
-.DS_Store
-Thumbs.db
+## ASP.NET Core Publish/Deploy
+Publish/
+publish/
+*.publishproj
