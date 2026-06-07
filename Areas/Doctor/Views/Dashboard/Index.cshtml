@@ -1,0 +1,38 @@
+@{
+    ViewData["Title"] = "Bác sĩ Dashboard";
+    Layout = "~/Areas/Doctor/Views/Shared/_DoctorLayout.cshtml";
+}
+
+<div class="row mb-4">
+    <div class="col-12">
+        <h2 class="fw-bold text-dark">Xin chào, BS. @User.Identity?.Name!</h2>
+        <p class="text-muted">Chúc bạn một ngày làm việc hiệu quả và mang lại nhiều sức khỏe cho bệnh nhân.</p>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-6 col-lg-3">
+        <div class="card border-0 shadow-sm rounded-4 p-4 text-center h-100">
+            <i class="fa-solid fa-users text-primary fs-1 mb-3"></i>
+            <h5 class="fw-bold text-dark mb-1">Bệnh nhân hôm nay</h5>
+            <h2 class="text-primary fw-bolder">0</h2>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+        <div class="card border-0 shadow-sm rounded-4 p-4 text-center h-100">
+            <i class="fa-solid fa-calendar-check text-success fs-1 mb-3"></i>
+            <h5 class="fw-bold text-dark mb-1">Lịch khám mới</h5>
+            <h2 class="text-success fw-bolder">0</h2>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card border-0 shadow-sm rounded-4 p-4 text-center bg-light">
+            <i class="fa-solid fa-flask fs-1 text-muted mb-3"></i>
+            <h5 class="fw-bold">Chức năng đang phát triển</h5>
+            <p class="text-muted small">Khu vực hồ sơ điện tử và ghi chú toa thuốc sẽ được mở ở Phase tiếp theo.</p>
+        </div>
+    </div>
+</div>

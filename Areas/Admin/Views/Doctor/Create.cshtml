@@ -1,0 +1,109 @@
+@model HUTECH_Hospital.ViewModels.DoctorCreateViewModel
+@{
+    ViewData["Title"] = "Tạo tài khoản Bác sĩ";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-flex align-items-center mb-4 border-bottom pb-3">
+    <a href="/Admin/Doctor" class="btn btn-light rounded-circle me-3 border"><i class="fa-solid fa-arrow-left"></i></a>
+    <h2 class="fw-bold text-dark mb-0">Tạo Mới Tài Khoản Bác Sĩ</h2>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm rounded-4 px-md-4 py-4">
+            <form asp-action="Create" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-4 small"></div>
+                
+                <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-key me-2"></i>Thông tin đăng nhập</h6>
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <label asp-for="Email" class="form-label small fw-bold">Email (Dùng để đăng nhập) <span class="text-danger">*</span></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="DoctorCode" class="form-label small fw-bold">Mã nhân sự (Doctor Code) <span class="text-danger">*</span></label>
+                        <input asp-for="DoctorCode" class="form-control" />
+                        <span asp-validation-for="DoctorCode" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Password" class="form-label small fw-bold">Mật khẩu <span class="text-danger">*</span></label>
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="ConfirmPassword" class="form-label small fw-bold">Xác nhận mật khẩu <span class="text-danger">*</span></label>
+                        <input asp-for="ConfirmPassword" class="form-control" />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <h6 class="fw-bold text-primary mb-3 mt-4"><i class="fa-solid fa-address-card me-2"></i>Hồ sơ chuyên môn & Cá nhân</h6>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label asp-for="FullName" class="form-label small fw-bold">Họ và tên Bác sĩ <span class="text-danger">*</span></label>
+                        <input asp-for="FullName" class="form-control" />
+                        <span asp-validation-for="FullName" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="PhoneNumber" class="form-label small fw-bold">Số điện thoại <span class="text-danger">*</span></label>
+                        <input asp-for="PhoneNumber" class="form-control" />
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Specialization" class="form-label small fw-bold">Chuyên khoa <span class="text-danger">*</span></label>
+                        <select asp-for="Specialization" class="form-select">
+                            <option value="">-- Chọn chuyên khoa --</option>
+                            <option value="Nội tổng quát">Nội tổng quát</option>
+                            <option value="Tim mạch">Tim mạch</option>
+                            <option value="Tai mũi họng">Tai mũi họng</option>
+                            <option value="Da liễu">Da liễu</option>
+                            <option value="Răng hàm mặt">Răng hàm mặt</option>
+                            <option value="Cơ xương khớp">Cơ xương khớp</option>
+                            <option value="Mắt">Mắt</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Degree" class="form-label small fw-bold">Học vị <span class="text-danger">*</span></label>
+                        <select asp-for="Degree" class="form-select">
+                            <option value="">-- Chọn học vị --</option>
+                            <option value="BS">Bác sĩ (BS)</option>
+                            <option value="ThS.BS">Thạc sĩ Bác sĩ (ThS.BS)</option>
+                            <option value="BS.CKI">Bác sĩ CKI (BS.CKI)</option>
+                            <option value="BS.CKII">Bác sĩ CKII (BS.CKII)</option>
+                            <option value="PGS.TS">PGS. TS. BS</option>
+                        </select>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <label asp-for="Gender" class="form-label small fw-bold">Giới tính</label>
+                        <select asp-for="Gender" class="form-select">
+                            <option value="">-- Chọn --</option>
+                            <option value="Nam">Nam</option>
+                            <option value="Nữ">Nữ</option>
+                        </select>
+                    </div>
+                    <div class="col-md-8">
+                        <label asp-for="DateOfBirth" class="form-label small fw-bold">Ngày sinh</label>
+                        <input asp-for="DateOfBirth" type="date" class="form-control" />
+                    </div>
+                    
+                    <div class="col-12 text-end mt-5 border-top pt-4">
+                        <button type="submit" class="btn btn-primary px-5 rounded-pill"><i class="fa-solid fa-plus me-2"></i> Khởi tạo Bác sĩ</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-4 mt-4 mt-lg-0">
+        <div class="card border-0 bg-light p-4 rounded-4">
+            <h6 class="fw-bold"><i class="fa-solid fa-circle-info text-info me-2"></i> LƯU Ý BẢO MẬT</h6>
+            <p class="small text-muted mb-2">Tài khoản sẽ được tự động kích hoạt với vai trò <strong>Doctor</strong>.</p>
+            <p class="small text-muted">Bác sĩ truy cập trang quản trị bằng link <code>/Doctor</code> thay vì giao diện Patient bên ngoài website.</p>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

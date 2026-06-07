@@ -1,0 +1,34 @@
+using HUTECH_Hospital.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+
+namespace HUTECH_Hospital.Data
+{
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options)
+        {
+        }
+
+        public DbSet<Patient> Patients { get; set; }
+        public DbSet<Doctor> Doctors { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            // Configure 1-to-1 relationship between ApplicationUser and Patient
+            builder.Entity<Patient>()
+                .HasOne(p => p.ApplicationUser)
+                .WithOne(u => u.Patient)
+                .HasForeignKey<Patient>(p => p.ApplicationUserId);
+
+            // Configure 1-to-1 relationship between ApplicationUser and Doctor
+            builder.Entity<Doctor>()
+                .HasOne(d => d.ApplicationUser)
+                .WithOne(u => u.Doctor)
+                .HasForeignKey<Doctor>(d => d.ApplicationUserId);
+        }
+    }
+}

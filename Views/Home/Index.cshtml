@@ -1,0 +1,424 @@
+@{
+    ViewData["Title"] = "HUTECH_Hospital - Bệnh viện thông minh";
+}
+
+<!-- Hero Section -->
+<section id="home" class="hospital-hero page-hero">
+    <div class="medical-bg-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="mesh-grid"></div>
+    </div>
+    
+    <div class="container relative z-10">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-5 mb-lg-0 text-center text-lg-start">
+                <div class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill bg-white shadow-sm mb-4" style="border: 1px solid var(--medical-soft)">
+                    <span class="spinner-grow spinner-grow-sm text-primary" role="status" aria-hidden="true"></span>
+                    <span class="font-weight-600 text-primary small">Y Tế Số Thông Minh</span>
+                </div>
+                
+                <h1 class="display-3 fw-bolder mb-4" style="color: var(--medical-dark); letter-spacing: -1px;">
+                    HUTECH_Hospital
+                </h1>
+                <h2 class="h4 text-muted mb-4 fw-normal line-height-base">
+                    Nền tảng quản lý bệnh viện và đặt lịch khám thông minh cho HUTECH Khu E
+                </h2>
+                <p class="lead mb-5 text-secondary">
+                    Kết nối bệnh nhân, bác sĩ và hệ thống quản trị trên một nền tảng y tế số hiện đại, nhanh chóng và an toàn.
+                </p>
+                
+                <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center justify-content-lg-start mb-5">
+                    <a href="#booking" class="btn btn-medical-primary btn-lg">
+                        <i class="fa-regular fa-calendar-check me-2"></i> Đặt lịch khám ngay
+                    </a>
+                    <a href="#doctors" class="btn btn-medical-outline btn-lg">
+                        <i class="fa-solid fa-user-doctor me-2"></i> Tìm bác sĩ
+                    </a>
+                </div>
+                
+                <div class="row g-3">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="stat-card p-3 d-flex flex-column align-items-center text-center">
+                            <h3 class="fs-4 text-primary fw-bold mb-1">120+</h3>
+                            <span class="small text-muted">Bác sĩ</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="stat-card p-3 d-flex flex-column align-items-center text-center">
+                            <h3 class="fs-4 text-primary fw-bold mb-1">8.000+</h3>
+                            <span class="small text-muted">Bệnh nhân</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="stat-card p-3 d-flex flex-column align-items-center text-center">
+                            <h3 class="fs-4 text-primary fw-bold mb-1">18+</h3>
+                            <span class="small text-muted">Chuyên khoa</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="stat-card p-3 d-flex flex-column align-items-center text-center">
+                            <h3 class="fs-4 text-primary fw-bold mb-1">98%</h3>
+                            <span class="small text-muted">Hài lòng</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 position-relative hero-doctor-img d-none d-lg-block">
+                <!-- Medical Technology Element: ECG Line -->
+                <div class="position-absolute top-50 start-0 w-100 bg-white rounded p-3 shadow" style="transform: translateY(-50%); z-index: 5;">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="small fw-bold text-muted">Hệ thống giám sát nhịp tim (Mô phỏng)</span>
+                        <span class="small fw-bold text-success"><i class="fa-solid fa-heart-pulse"></i> Hoạt động tốt</span>
+                    </div>
+                    <div class="ecg-line"></div>
+                </div>
+                <!-- Có thể thay bằng thẻ img mượn từ url nếu muốn -->
+                <div class="doctor-placeholder shadow-lg border border-4 border-white"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="page-section py-5 bg-white reveal">
+    <div class="container">
+        <div class="row align-items-center mb-5">
+            <div class="col-lg-5 mb-4 mb-lg-0">
+                <span class="text-primary fw-bold text-uppercase tracking-wide small mb-2 d-block">Về Chúng Tôi</span>
+                <h2 class="section-title mb-4">Quản lý bệnh viện thông minh thế hệ mới</h2>
+                <p class="text-muted">
+                    HUTECH_Hospital áp dụng công nghệ số vào y tế, giúp đơn giản hóa quy trình đặt lịch, lưu trữ hồ sơ bệnh án điện tử an toàn. Tự động hóa các thao tác cho bệnh nhân lẫn bác sĩ.
+                </p>
+                <a href="#departments" class="btn btn-medical-outline mt-3">Tìm hiểu dịch vụ</a>
+            </div>
+            <div class="col-lg-6 offset-lg-1">
+                <div class="row g-4">
+                    <div class="col-sm-6 text-center">
+                        <div class="p-4 bg-light rounded-4 page-card shadow-sm h-100 reveal-up">
+                            <div class="fs-1 text-primary mb-3"><i class="fa-solid fa-notes-medical"></i></div>
+                            <h5 class="fw-bold">Hồ sơ điện tử</h5>
+                            <p class="text-muted small">Cập nhật nhanh, đồng bộ với nền tảng y tế số.</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 text-center">
+                        <div class="p-4 bg-light rounded-4 page-card shadow-sm h-100 reveal-up" style="transition-delay: 0.1s">
+                            <div class="fs-1 text-primary mb-3"><i class="fa-solid fa-bell"></i></div>
+                            <h5 class="fw-bold">Thông báo tự động</h5>
+                            <p class="text-muted small">Nhắc hẹn kịp thời qua email hoặc tin nhắn.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Departments Section -->
+<section id="departments" class="page-section py-5 reveal">
+    <div class="container mt-5">
+        <div class="text-center">
+            <h2 class="section-title">Chuyên khoa khám bệnh</h2>
+            <p class="section-subtitle">Chúng tôi cung cấp đa dạng dịch vụ y tế với trang thiết bị hiện đại cùng đội ngũ chuyên gia hàng đầu</p>
+        </div>
+        
+        <div class="row g-4 mt-2">
+            <!-- 8 Chuyên khoa mẫu -->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="glass-card page-card department-card border-0">
+                    <div class="dept-icon"><i class="fa-solid fa-stethoscope"></i></div>
+                    <h5 class="fw-bold">Nội tổng quát</h5>
+                    <p class="small text-muted">Khám và điều trị các bệnh lý nội khoa thông thường.</p>
+                    <a href="#" class="btn btn-sm btn-link text-decoration-none">Xem chi tiết &rarr;</a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="glass-card page-card department-card border-0">
+                    <div class="dept-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+                    <h5 class="fw-bold">Tim mạch</h5>
+                    <p class="small text-muted">Chuẩn đoán chuyên sâu, điện tâm đồ, siêu âm тим.</p>
+                    <a href="#" class="btn btn-sm btn-link text-decoration-none">Xem chi tiết &rarr;</a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="glass-card page-card department-card border-0">
+                    <div class="dept-icon"><i class="fa-solid fa-ear-listen"></i></div>
+                    <h5 class="fw-bold">Tai mũi họng</h5>
+                    <p class="small text-muted">Xử lý các tình trạng bệnh lý chuyên sâu TMH.</p>
+                    <a href="#" class="btn btn-sm btn-link text-decoration-none">Xem chi tiết &rarr;</a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="glass-card page-card department-card border-0">
+                    <div class="dept-icon"><i class="fa-solid fa-hand-dots"></i></div>
+                    <h5 class="fw-bold">Da liễu</h5>
+                    <p class="small text-muted">Chẩn đoán và điều trị bệnh về da liễu.</p>
+                    <a href="#" class="btn btn-sm btn-link text-decoration-none">Xem chi tiết &rarr;</a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="glass-card page-card department-card border-0">
+                    <div class="dept-icon"><i class="fa-solid fa-teeth-open"></i></div>
+                    <h5 class="fw-bold">Răng hàm mặt</h5>
+                    <p class="small text-muted">Chăm sóc nha chu, nhổ răng khôn an toàn.</p>
+                    <a href="#" class="btn btn-sm btn-link text-decoration-none">Xem chi tiết &rarr;</a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="glass-card page-card department-card border-0">
+                    <div class="dept-icon"><i class="fa-solid fa-eye"></i></div>
+                    <h5 class="fw-bold">Mắt</h5>
+                    <p class="small text-muted">Đo khúc xạ, khám mống mắt, phẫu thuật nhẹ.</p>
+                    <a href="#" class="btn btn-sm btn-link text-decoration-none">Xem chi tiết &rarr;</a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="glass-card page-card department-card border-0">
+                    <div class="dept-icon"><i class="fa-solid fa-bone"></i></div>
+                    <h5 class="fw-bold">Cơ xương khớp</h5>
+                    <p class="small text-muted">Cố định chấn thương, vật lý trị liệu phục hồi.</p>
+                    <a href="#" class="btn btn-sm btn-link text-decoration-none">Xem chi tiết &rarr;</a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="glass-card page-card department-card border-0">
+                    <div class="dept-icon"><i class="fa-solid fa-user-shield"></i></div>
+                    <h5 class="fw-bold">Tư vấn sức khỏe</h5>
+                    <p class="small text-muted">Chăm sóc tâm lý, sức khỏe cho sinh viên.</p>
+                    <a href="#" class="btn btn-sm btn-link text-decoration-none">Xem chi tiết &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Doctors Section -->
+<section id="doctors" class="page-section py-5 bg-white reveal">
+    <div class="container mt-5">
+        <div class="text-center">
+            <h2 class="section-title">Bác sĩ nổi bật</h2>
+            <p class="section-subtitle">Gặp gỡ các chuyên gia xuất sắc đang trực tiếp khám chữa bệnh tại HUTECH_Hospital</p>
+        </div>
+        
+        <div class="row g-4 mt-2">
+            <!-- Mock Doctor Data -->
+            <div class="col-lg-4 col-md-6 border-0">
+                <div class="glass-card page-card medical-card doctor-card shadow-sm h-100">
+                    <div class="avatar-wrap">
+                        <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=400&q=80" alt="Doctor" class="img-fluid" />
+                    </div>
+                    <div class="info">
+                        <h5 class="fw-bold mb-1">ThS.BS Nguyễn Minh An</h5>
+                        <p class="text-primary fw-medium small mb-2">Nội tổng quát</p>
+                        <p class="text-muted small"><i class="fa-regular fa-clock me-1"></i> 10 năm kinh nghiệm</p>
+                        <div class="d-flex gap-2 justify-content-center mt-3">
+                            <a href="#" class="btn btn-sm btn-light border w-50">Xem hồ sơ</a>
+                            <a href="#booking" class="btn btn-sm btn-medical-primary w-50">Đặt lịch</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 border-0">
+                <div class="glass-card page-card medical-card doctor-card shadow-sm h-100">
+                    <div class="avatar-wrap">
+                        <img src="https://images.unsplash.com/photo-1594824436998-d1a29cd6d2c4?auto=format&fit=crop&w=400&q=80" alt="Doctor" class="img-fluid" />
+                    </div>
+                    <div class="info">
+                        <h5 class="fw-bold mb-1">BS Trần Thanh Bình</h5>
+                        <p class="text-primary fw-medium small mb-2">Tim mạch</p>
+                        <p class="text-muted small"><i class="fa-regular fa-clock me-1"></i> 8 năm kinh nghiệm</p>
+                        <div class="d-flex gap-2 justify-content-center mt-3">
+                            <a href="#" class="btn btn-sm btn-light border w-50">Xem hồ sơ</a>
+                            <a href="#booking" class="btn btn-sm btn-medical-primary w-50">Đặt lịch</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 border-0">
+                <div class="glass-card page-card medical-card doctor-card shadow-sm h-100">
+                    <div class="avatar-wrap">
+                        <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=400&q=80" alt="Doctor" class="img-fluid" />
+                    </div>
+                    <div class="info">
+                        <h5 class="fw-bold mb-1">BS Lê Hoàng My</h5>
+                        <p class="text-primary fw-medium small mb-2">Da liễu</p>
+                        <p class="text-muted small"><i class="fa-regular fa-clock me-1"></i> 6 năm kinh nghiệm</p>
+                        <div class="d-flex gap-2 justify-content-center mt-3">
+                            <a href="#" class="btn btn-sm btn-light border w-50">Xem hồ sơ</a>
+                            <a href="#booking" class="btn btn-sm btn-medical-primary w-50">Đặt lịch</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Process Section -->
+<section id="process" class="page-section py-5 reveal">
+    <div class="container my-5">
+        <div class="text-center">
+            <h2 class="section-title">Quy trình đặt lịch đơn giản</h2>
+            <p class="section-subtitle">Chỉ với 4 bước, bạn đã có ngay một lịch khám với chuyên gia y tế.</p>
+        </div>
+        <div class="row w-100 g-4 mx-0 mt-3 position-relative">
+            <div class="col-lg-3 col-md-6 process-step reveal-up">
+                <div class="step-icon"><i class="fa-solid fa-list"></i></div>
+                <h5 class="fw-bold">1. Chọn chuyên khoa</h5>
+                <p class="small text-muted">Lựa chọn chuyên khoa phù hợp với triệu chứng.</p>
+            </div>
+            <div class="col-lg-3 col-md-6 process-step reveal-up" style="transition-delay: 0.1s">
+                <div class="step-icon"><i class="fa-solid fa-user-doctor"></i></div>
+                <h5 class="fw-bold">2. Chọn bác sĩ</h5>
+                <p class="small text-muted">Chọn bác sĩ yêu thích theo hồ sơ.</p>
+            </div>
+            <div class="col-lg-3 col-md-6 process-step reveal-up" style="transition-delay: 0.2s">
+                <div class="step-icon"><i class="fa-regular fa-calendar-days"></i></div>
+                <h5 class="fw-bold">3. Chọn ngày giờ</h5>
+                <p class="small text-muted">Đặt lịch dựa vào lịch làm việc có sẵn.</p>
+            </div>
+            <div class="col-lg-3 col-md-6 process-step reveal-up" style="transition-delay: 0.3s">
+                <div class="step-icon"><i class="fa-solid fa-circle-check"></i></div>
+                <h5 class="fw-bold">4. Xác nhận</h5>
+                <p class="small text-muted">Nhận ngay thông báo xác nhận qua Email.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Roles Section: Patient / Doctor / Admin -->
+<section id="patient-area" class="page-section py-5 bg-white reveal">
+    <div class="container">
+        <!-- Patient Area -->
+        <div class="row align-items-center mb-5 reveal-left">
+            <div class="col-md-6 order-2 order-md-1">
+                <img src="https://images.unsplash.com/photo-1576091160550-2173ff9e5eb3?auto=format&fit=crop&q=80&w=600" class="img-fluid rounded-4 shadow" alt="Patient Area">
+            </div>
+            <div class="col-md-6 order-1 order-md-2 mb-4 mb-md-0 px-lg-5">
+                <span class="status-badge primary mb-3">Dành cho Bệnh nhân</span>
+                <h2 class="fw-bold mb-4">Quản lý hồ sơ cá nhân mượt mà</h2>
+                <ul class="list-unstyled d-flex flex-column gap-3 text-muted">
+                    <li><i class="fa-solid fa-check text-primary me-2"></i> Đăng ký tài khoản hệ thống</li>
+                    <li><i class="fa-solid fa-check text-primary me-2"></i> Đặt lịch khám, quản lý hồ sơ sức khỏe</li>
+                    <li><i class="fa-solid fa-check text-primary me-2"></i> Xem kết quả khám, đơn thuốc</li>
+                    <li><i class="fa-solid fa-check text-primary me-2"></i> Nhận thông báo tự động</li>
+                </ul>
+                <div class="mt-4">
+                    <a href="/Account/Register" class="btn btn-medical-primary">Đăng ký ngay</a>
+                    <a href="/Account/Login" class="btn btn-link text-primary text-decoration-none">Đăng nhập</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Doctor Area -->
+        <div id="doctor-area" class="row align-items-center mt-5 pt-5 border-top reveal-right">
+            <div class="col-md-6 mb-4 mb-md-0 pe-lg-5">
+                <span class="status-badge text-white mb-3" style="background: var(--medical-secondary);">Dành cho Bác sĩ</span>
+                <h2 class="fw-bold mb-4">Trang nghiệp vụ tiêu chuẩn</h2>
+                <ul class="list-unstyled d-flex flex-column gap-3 text-muted">
+                    <li><i class="fa-solid fa-stethoscope text-success me-2"></i> Xem lịch làm việc & lịch khám trong ngày</li>
+                    <li><i class="fa-solid fa-notes-medical text-success me-2"></i> Cập nhật kết quả khám, ghi chú chẩn đoán</li>
+                    <li><i class="fa-solid fa-clock-rotate-left text-success me-2"></i> Xem lại lịch sử y án bệnh nhân</li>
+                </ul>
+                <div class="mt-4">
+                    <a href="/Account/Login" class="btn btn-medical-outline text-decoration-none">Đăng nhập Bác sĩ</a>
+                </div>
+            </div>
+            <div class="col-md-6 text-center">
+                <div class="p-5 bg-light rounded-4 border page-card">
+                    <i class="fa-solid fa-user-doctor text-secondary mb-3" style="font-size: 5rem;"></i>
+                    <h4 class="fw-bold">Workpsace Bác Sĩ</h4>
+                    <p class="text-muted">Bảo mật & Tối ưu luồng khám chữa bệnh</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Area -->
+        <div id="admin-area" class="row align-items-center mt-5 pt-5 border-top reveal-left">
+            <div class="col-md-6 order-2 order-md-1 text-center">
+                <div class="p-5 bg-dark rounded-4 text-white page-card">
+                    <i class="fa-solid fa-server mb-3" style="font-size: 5rem; color: var(--medical-accent);"></i>
+                    <h4 class="fw-bold">Căn hộ Quản trị</h4>
+                    <p class="text-light">Bức tranh toàn cảnh về hoạt động y tế</p>
+                </div>
+            </div>
+            <div class="col-md-6 order-1 order-md-2 mb-4 mb-md-0 px-lg-5">
+                <span class="status-badge bg-dark text-white mb-3">Dành cho Admin</span>
+                <h2 class="fw-bold mb-4">Quản trị dữ liệu tập trung</h2>
+                <ul class="list-unstyled d-flex flex-column gap-3 text-muted">
+                    <li><i class="fa-solid fa-users text-dark me-2"></i> Quản lý toàn bộ tài khoản y bác sĩ & bệnh nhân</li>
+                    <li><i class="fa-solid fa-building text-dark me-2"></i> Quản lý danh mục chuyên khoa, lịch biểu bác sĩ</li>
+                    <li><i class="fa-solid fa-chart-line text-dark me-2"></i> Báo cáo thống kê hoạt động bệnh viện</li>
+                </ul>
+                <div class="mt-4">
+                    <a href="/Account/Login" class="btn btn-dark">Vào trang quản trị</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Quick Booking Form -->
+<section id="booking" class="page-section quick-booking-section py-5 my-5 reveal">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="glass-card form-card shadow-lg p-md-5">
+                    <div class="text-center mb-4">
+                        <i class="fa-solid fa-calendar-plus fs-1 text-primary mb-3"></i>
+                        <h2 class="fw-bold">Đặt lịch khám nhanh</h2>
+                        <p class="text-muted">Vui lòng điền thông tin để chúng tôi liên hệ xác nhận giờ ưu tiên.</p>
+                    </div>
+                    
+                    <form id="quickBookingForm">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Họ và tên</label>
+                                <input type="text" class="medical-input" placeholder="Nguyễn Văn A" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Số điện thoại</label>
+                                <input type="tel" class="medical-input" placeholder="0909..." required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Chuyên khoa</label>
+                                <select class="medical-select" required>
+                                    <option value="" disabled selected>Chọn chuyên khoa</option>
+                                    <option value="1">Nội tổng quát</option>
+                                    <option value="2">Tim mạch</option>
+                                    <option value="3">Tai mũi họng</option>
+                                    <option value="4">Khác</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Bác sĩ</label>
+                                <select class="medical-select">
+                                    <option value="" disabled selected>Chọn bác sĩ (Không bắt buộc)</option>
+                                    <option value="1">BS Nguyễn Minh An</option>
+                                    <option value="2">BS Trần Thanh Bình</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Ngày muốn khám</label>
+                                <input type="date" class="medical-input" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Giờ muốn khám</label>
+                                <input type="time" class="medical-input" required>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label small fw-bold">Lý do khám bệnh</label>
+                                <textarea class="medical-input" rows="3" placeholder="Ghi chú thêm phần triệu chứng..."></textarea>
+                            </div>
+                            <div class="col-12 text-center mt-4">
+                                <button type="submit" class="btn btn-medical-primary w-100 py-3">Gửi yêu cầu đặt lịch</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

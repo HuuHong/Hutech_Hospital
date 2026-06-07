@@ -1,0 +1,53 @@
+@model IEnumerable<HUTECH_Hospital.Models.Doctor>
+@{
+    ViewData["Title"] = "Quản lý Bác Sĩ";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold text-dark mb-0">Danh sách Bác Sĩ</h2>
+    <a href="/Admin/Doctor/Create" class="btn btn-primary rounded-pill px-4 shadow-sm">
+        <i class="fa-solid fa-plus me-2"></i> Tạo mới Bác sĩ
+    </a>
+</div>
+
+<div class="card border-0 shadow-sm rounded-4">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="ps-4">Mã BS / Tên</th>
+                        <th>Chuyên khoa</th>
+                        <th>Học vị</th>
+                        <th>Số điện thoại</th>
+                        <th class="text-end pe-4">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="5" class="text-center text-muted py-4">Chưa có dữ liệu bác sĩ.</td>
+                        </tr>
+                    }
+                    @foreach (var doctor in Model)
+                    {
+                        <tr>
+                            <td class="ps-4">
+                                <div class="fw-bold text-dark">@doctor.FullName</div>
+                                <div class="small text-muted">@doctor.DoctorCode</div>
+                            </td>
+                            <td><span class="badge bg-light text-dark border">@doctor.Specialization</span></td>
+                            <td>@doctor.Degree</td>
+                            <td>@doctor.PhoneNumber</td>
+                            <td class="text-end pe-4">
+                                <button class="btn btn-sm btn-outline-secondary rounded-pill"><i class="fa-solid fa-pen"></i></button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
