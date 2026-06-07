@@ -1,0 +1,72 @@
+@model HUTECH_Hospital.ViewModels.RegisterViewModel
+@{
+    ViewData["Title"] = "Đăng ký";
+}
+
+<div class="container py-5 mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-7 col-lg-6">
+            <div class="glass-card page-card shadow border-0">
+                <div class="text-center mb-4">
+                    <i class="fa-solid fa-address-card fs-1 text-primary mb-2"></i>
+                    <h3 class="fw-bold">Đăng ký tài khoản</h3>
+                    <p class="text-muted small">Khởi tạo hồ sơ sức khỏe điện tử thông minh</p>
+                </div>
+
+                <form asp-action="Register" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3 small"></div>
+                    
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label asp-for="FullName" class="form-label small fw-bold text-muted"></label>
+                            <input asp-for="FullName" class="medical-input" placeholder="Họ và tên" />
+                            <span asp-validation-for="FullName" class="text-danger small"></span>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label asp-for="PhoneNumber" class="form-label small fw-bold text-muted"></label>
+                            <input asp-for="PhoneNumber" class="medical-input" placeholder="Số điện thoại" />
+                            <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="StudentCode" class="form-label small fw-bold text-muted"></label>
+                            <input asp-for="StudentCode" class="medical-input" placeholder="Mã số quản lý (tuỳ chọn)" />
+                            <span asp-validation-for="StudentCode" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-12">
+                            <label asp-for="Email" class="form-label small fw-bold text-muted"></label>
+                            <input asp-for="Email" class="medical-input" placeholder="name@example.com" />
+                            <span asp-validation-for="Email" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="Password" class="form-label small fw-bold text-muted"></label>
+                            <input asp-for="Password" class="medical-input" placeholder="Mật khẩu" />
+                            <span asp-validation-for="Password" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="ConfirmPassword" class="form-label small fw-bold text-muted"></label>
+                            <input asp-for="ConfirmPassword" class="medical-input" placeholder="Xác nhận khẩu" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 mb-3">
+                        <button type="submit" class="btn btn-medical-primary w-100 py-2">Đăng ký ngay</button>
+                    </div>
+
+                    <div class="text-center small text-muted">
+                        Đã có tài khoản? <a href="/Account/Login" class="text-decoration-none fw-bold">Đăng nhập</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Doctor Workspace</title>
+    
+    <!-- Bootstrap 5 -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Doctor Custom CSS -->
+    <link rel="stylesheet" href="~/css/doctor.css" asp-append-version="true" />
+</head>
+<body class="doctor-bg">
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <div class="sidebar-doctor border-end bg-white shadow-sm" id="sidebar-wrapper">
+            <div class="sidebar-heading text-center py-4 border-bottom">
+                <i class="fa-solid fa-stethoscope text-primary fs-2 mb-2"></i><br/>
+                <span class="fw-bold text-dark">DOCTOR PORTAL</span>
+            </div>
+            <div class="list-group list-group-flush my-3">
+                <a href="/Doctor/Dashboard" class="list-group-item list-group-item-action border-0 fw-medium active">
+                    <i class="fa-solid fa-house-medical me-2"></i> Dashboard
+                </a>
+                <a href="#" class="list-group-item list-group-item-action border-0 fw-medium text-muted">
+                    <i class="fa-solid fa-calendar-check me-2"></i> Lịch khám (Sắp tới)
+                </a>
+                <a href="#" class="list-group-item list-group-item-action border-0 fw-medium text-muted">
+                    <i class="fa-solid fa-user-injured me-2"></i> Hồ sơ điện tử (Sắp tới)
+                </a>
+            </div>
+        </div>
+        
+        <!-- Page Content -->
+        <div id="page-content-wrapper" class="w-100">
+            <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom px-4 py-3 shadow-sm">
+                <div class="d-flex w-100 justify-content-between align-items-center">
+                    <h5 class="mb-0 fw-bold text-dark">Lâm sàng & Khám bệnh</h5>
+                    <div class="dropdown">
+                        <button class="btn btn-light rounded-pill dropdown-toggle border" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-user-doctor text-primary me-2"></i> BS. @User.Identity?.Name
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+                            <li><a class="dropdown-item" href="/"><i class="fa-solid fa-globe me-2 text-muted"></i>Xem Web Bệnh nhân</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form class="form-inline m-0 p-0 px-3 py-1" asp-area="" asp-controller="Account" asp-action="Logout" method="post">
+                                    <button type="submit" class="btn btn-sm btn-danger w-100 fw-bold">
+                                        <i class="fa-solid fa-power-off me-1"></i> Đăng xuất
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="container-fluid p-4">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

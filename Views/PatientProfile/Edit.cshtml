@@ -1,0 +1,67 @@
+@model HUTECH_Hospital.ViewModels.PatientProfileViewModel
+@{
+    ViewData["Title"] = "Cập nhật hồ sơ";
+}
+
+<div class="container py-5 mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="glass-card shadow-sm page-card px-md-5 py-5 border-0">
+                <div class="d-flex align-items-center mb-4 pb-3 border-bottom">
+                    <a href="/PatientProfile/Index" class="btn btn-light rounded-circle me-3"><i class="fa-solid fa-arrow-left"></i></a>
+                    <h4 class="fw-bold mb-0 text-dark">Chỉnh sửa hồ sơ cá nhân</h4>
+                </div>
+                
+                <form asp-action="Edit" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-4 small"></div>
+                    
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <label asp-for="FullName" class="form-label small fw-bold text-muted">Họ và tên</label>
+                            <input asp-for="FullName" class="medical-input bg-light" />
+                            <span asp-validation-for="FullName" class="text-danger small"></span>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label asp-for="StudentCode" class="form-label small fw-bold text-muted">Mã số Sinh viên / Học viên</label>
+                            <input asp-for="StudentCode" class="medical-input" />
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label asp-for="Gender" class="form-label small fw-bold text-muted">Giới tính</label>
+                            <select asp-for="Gender" class="medical-select">
+                                <option value="">-- Chọn giới tính --</option>
+                                <option value="Nam">Nam</option>
+                                <option value="Nữ">Nữ</option>
+                                <option value="Khác">Khác</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label asp-for="DateOfBirth" class="form-label small fw-bold text-muted">Ngày sinh</label>
+                            <input asp-for="DateOfBirth" type="date" class="medical-input" />
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label asp-for="PhoneNumber" class="form-label small fw-bold text-muted">Số điện thoại</label>
+                            <input asp-for="PhoneNumber" class="medical-input" />
+                        </div>
+                        
+                        <div class="col-12">
+                            <label asp-for="Address" class="form-label small fw-bold text-muted">Địa chỉ hiện tại</label>
+                            <textarea asp-for="Address" class="medical-input" rows="2"></textarea>
+                        </div>
+                        
+                        <div class="col-12 text-end mt-5">
+                            <button type="submit" class="btn btn-medical-primary px-5"><i class="fa-solid fa-floppy-disk me-2"></i> Lưu thay đổi</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

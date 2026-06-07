@@ -1,0 +1,34 @@
+## Bỏ qua các thư mục biên dịch và tệp nhị phân
+[Bb]in/
+[Oo]bj/
+
+## Thư mục cấu hình của IDE
+.vs/
+.vscode/
+*.user
+*.userosscache
+*.sln.docstates
+
+## Cơ sở dữ liệu nội bộ (Tránh lộ Data Website)
+*.mdf
+*.ldf
+*.ndf
+*.db
+*.sqlite
+app.db
+
+## Các file cấu hình chứa thông tin nhạy cảm (Connection String, JWT Secret, ...)
+appsettings.Development.json
+secrets.json
+
+## Log files báo lỗi
+*.log
+/logs/
+
+## Gói phụ thuộc (Trường hợp có npm)
+node_modules/
+npm-debug.log
+
+## Thư mục Cache và Môi trường
+.DS_Store
+Thumbs.db
