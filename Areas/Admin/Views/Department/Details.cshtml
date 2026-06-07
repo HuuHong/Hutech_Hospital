@@ -1,0 +1,89 @@
+@model HUTECH_Hospital.Models.Department
+@{
+    ViewData["Title"] = "Chi tiết Khoa";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-flex align-items-center justify-content-between mb-4 gap-3">
+    <div class="d-flex align-items-center gap-3">
+        <a asp-action="Index" class="btn btn-light rounded-circle shadow-sm" style="width:40px;height:40px;padding:8px;"><i class="fa-solid fa-arrow-left"></i></a>
+        <h2 class="fw-bold m-0 text-dark">Chi tiết Chuyên Khoa</h2>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary rounded-pill px-4 shadow-sm"><i class="fa-solid fa-pen me-2"></i>Chỉnh sửa</a>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm rounded-4 text-center p-4">
+            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <img src="@Model.ImageUrl" class="rounded-4 mx-auto mb-3 shadow-sm" style="width:180px;height:180px;object-fit:cover;" />
+            }
+            else
+            {
+                <div class="bg-light rounded-4 mx-auto mb-3 d-flex align-items-center justify-content-center text-muted shadow-sm" style="width:180px;height:180px;font-size:3rem;">
+                    <i class="fa-solid fa-hospital"></i>
+                </div>
+            }
+            <h4 class="fw-bold mb-1">@Model.Name</h4>
+            <div class="mb-3">
+                @if (Model.IsActive)
+                {
+                    <span class="badge bg-success-subtle text-success rounded-pill px-3 py-1">Đang hoạt động</span>
+                }
+                else
+                {
+                    <span class="badge bg-danger-subtle text-danger rounded-pill px-3 py-1">Ngừng hoạt động</span>
+                }
+            </div>
+            <p class="text-muted small mb-0">Ngày lập: @Model.CreatedAt.ToString("dd/MM/yyyy")</p>
+        </div>
+    </div>
+    
+    <div class="col-md-8">
+        <div class="card border-0 shadow-sm rounded-4 mb-4">
+            <div class="card-body p-4">
+                <h5 class="fw-bold mb-3"><i class="fa-solid fa-circle-info text-primary me-2"></i>Mô tả chức năng</h5>
+                <p class="text-muted">@Html.Raw((Model.Description ?? "Chưa có mô tả").Replace("\n", "<br/>"))</p>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="fw-bold m-0"><i class="fa-solid fa-user-doctor text-info me-2"></i>Bác sĩ cơ hữu (@Model.Doctors.Count)</h5>
+                </div>
+                
+                @if (Model.Doctors.Any())
+                {
+                    <div class="list-group list-group-flush border-top">
+                        @foreach(var doctor in Model.Doctors)
+                        {
+                            <div class="list-group-item d-flex align-items-center py-3 px-0">
+                                @if (!string.IsNullOrEmpty(doctor.AvatarUrl))
+                                {
+                                    <img src="@doctor.AvatarUrl" class="rounded-circle me-3" width="40" height="40" style="object-fit:cover;" />
+                                }
+                                else
+                                {
+                                    <div class="bg-light rounded-circle d-flex align-items-center justify-content-center text-muted me-3" style="width:40px; height:40px;">
+                                        <i class="fa-solid fa-user"></i>
+                                    </div>
+                                }
+                                <div>
+                                    <div class="fw-bold text-dark">Ths.Bs @doctor.FullName</div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <p class="text-muted fst-italic">Bệnh viện chưa phân công bác sĩ cho khoa này.</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>

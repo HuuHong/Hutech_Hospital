@@ -13,13 +13,22 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="navbar-collapse collapse d-lg-inline-flex justify-content-between" id="navbarMedical">
-                <ul class="navbar-nav flex-grow-1 mx-lg-4">
-                    <li class="nav-item"><a class="nav-link text-dark" href="/">Trang chủ</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark" href="/#about">Giới thiệu</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark" href="/#departments">Chuyên khoa</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark" href="/#doctors">Bác sĩ</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark" href="/#process">Quy trình</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark" href="/#booking">Đặt lịch</a></li>
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0 fw-medium">
+                    <li class="nav-item mx-2">
+                        <a class="nav-link active rounded-pill px-3" aria-current="page" asp-area="" asp-controller="Home" asp-action="Index">Trang Chủ</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link rounded-pill px-3" asp-area="" asp-controller="Department" asp-action="Index">Chuyên Khoa</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link rounded-pill px-3" asp-area="" asp-controller="Doctors" asp-action="Index">Đội Ngũ Bác Sĩ</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link rounded-pill px-3" href="#">Bảng Giá Dịch Vụ</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link rounded-pill px-3" href="#">Liên Hệ</a>
+                    </li>
                 </ul>
                 
                 <ul class="navbar-nav align-items-center">

@@ -1,0 +1,37 @@
+@model HUTECH_Hospital.Models.Doctor
+@{
+    ViewData["Title"] = "Thôi việc Bác sĩ";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-flex align-items-center mb-4 gap-3">
+    <a asp-action="Index" class="btn btn-light rounded-circle shadow-sm" style="width:40px;height:40px;padding:8px;"><i class="fa-solid fa-arrow-left"></i></a>
+    <h2 class="fw-bold m-0 text-danger">Khóa thẻ nhân sự: @Model.FullName</h2>
+</div>
+
+<div class="row">
+    <div class="col-md-8 col-lg-6">
+        <div class="card border-0 shadow-sm rounded-4 border-start border-danger border-4">
+            <div class="card-body p-4">
+                <div class="text-center mb-4">
+                    <div class="bg-danger rounded-circle mx-auto d-flex align-items-center justify-content-center text-white mb-3" style="width:80px;height:80px;font-size:2rem;">
+                        <i class="fa-solid fa-user-slash"></i>
+                    </div>
+                    <h4 class="fw-bold text-dark">Vô hiệu hóa Bác Sĩ</h4>
+                    <p class="text-muted">Hành động này sẽ tạm <b>Khoá</b> thẻ đăng nhập và hồ sơ hiển thị của bác sĩ <b>@Model.FullName</b>.</p>
+                </div>
+                
+                <div class="bg-light p-3 rounded-3 mb-4 text-center">
+                    <span class="text-danger fw-bold"><i class="fa-solid fa-shield-cat me-2"></i>Chính sách toàn vẹn dữ liệu y tế</span>
+                    <p class="small text-muted m-0 mt-1">Người dùng này có thể đã tạo ra nhiều đơn thuốc. Hệ thống sẽ <b>không gỡ bỏ</b> ra khỏi Database (Lệnh này sẽ biến cờ <i>IsActive = false</i>). Bạn có thể mở khóa lại sau này nếu cần.</p>
+                </div>
+
+                <form asp-action="Delete" method="post" class="d-flex gap-2">
+                    <input type="hidden" asp-for="Id" />
+                    <button type="submit" class="btn btn-danger flex-grow-1 rounded-pill fw-bold shadow-sm">Xác nhận Khóa</button>
+                    <a asp-action="Index" class="btn btn-light flex-grow-1 rounded-pill fw-bold shadow-sm border">Chưa khóa vội</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

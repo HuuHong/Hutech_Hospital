@@ -1,0 +1,89 @@
+@model HUTECH_Hospital.Models.Department
+@{
+    ViewData["Title"] = "Chuyên Khoa " + Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="bg-light pt-5 pb-4 mt-5">
+    <div class="container reveal-up">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index"><i class="fa-solid fa-house"></i> Trang chủ</a></li>
+                <li class="breadcrumb-item"><a asp-action="Index">Chuyên Khoa</a></li>
+                <li class="breadcrumb-item active fw-bold" aria-current="page">@Model.Name</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="container py-5">
+    <div class="row g-5">
+        <div class="col-lg-4 text-center reveal-left">
+            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <img src="@Model.ImageUrl" class="rounded-4 shadow-sm w-100 mb-4 border border-5 border-white" style="object-fit:cover; max-height:350px;" />
+            }
+            else
+            {
+                <div class="bg-primary bg-opacity-10 text-primary rounded-4 shadow-sm w-100 mb-4 d-flex align-items-center justify-content-center" style="height:350px; font-size:6rem;">
+                    <i class="fa-solid fa-hospital-user"></i>
+                </div>
+            }
+            
+            <div class="glass-card text-start">
+                <h5 class="fw-bold text-primary border-bottom pb-2 mb-3">Thông tin tóm tắt</h5>
+                <p class="mb-2"><i class="fa-solid fa-users text-muted me-2"></i><strong>Quy mô:</strong> @Model.Doctors.Count(x=>x.IsActive) bác sĩ</p>
+                <p class="mb-0"><i class="fa-regular fa-calendar-check text-muted me-2"></i><strong>Lập khoa:</strong> @Model.CreatedAt.ToString("MM/yyyy")</p>
+                <div class="mt-4">
+                    <a asp-controller="Doctors" asp-action="Index" asp-route-departmentId="@Model.Id" class="btn btn-medical-primary w-100">Tra cứu đội ngũ bác sĩ Khoa này</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8 reveal-right">
+            <h1 class="fw-bold text-dark mb-4">Khoa @Model.Name</h1>
+            
+            <div class="mb-5 content-area fs-5 text-muted lh-lg">
+                @Html.Raw((Model.Description ?? "Hệ thống đang cập nhật chuyên môn của khoa này.").Replace("\n", "<br/>"))
+            </div>
+
+            <h3 class="fw-bold text-dark border-bottom pb-3 mb-4"><i class="fa-solid fa-user-doctor text-primary me-2"></i>Đội ngũ Y bác sĩ Cơ hữu</h3>
+            
+            @if(Model.Doctors.Any(d=>d.IsActive))
+            {
+                <div class="row g-4">
+                    @foreach (var doc in Model.Doctors.Where(d=>d.IsActive))
+                    {
+                        <div class="col-md-6">
+                            <div class="card border-0 shadow-sm rounded-4 h-100 p-3">
+                                <div class="d-flex align-items-center">
+                                    @if (!string.IsNullOrEmpty(doc.AvatarUrl))
+                                    {
+                                        <img src="@doc.AvatarUrl" class="rounded-circle me-3 border border-2 border-primary" width="70" height="70" style="object-fit:cover;" />
+                                    }
+                                    else
+                                    {
+                                        <div class="bg-light rounded-circle me-3 d-flex align-items-center justify-content-center text-muted" style="width:70px; height:70px; font-size:2rem;">
+                                            <i class="fa-solid fa-user-md"></i>
+                                        </div>
+                                    }
+                                    <div>
+                                        <h5 class="fw-bold m-0 text-dark">@doc.Degree @doc.FullName</h5>
+                                        <p class="text-primary small mb-2"><i class="fa-solid fa-stethoscope"></i> @doc.Specialization</p>
+                                        <a asp-controller="Doctors" asp-action="Details" asp-route-id="@doc.Id" class="btn btn-sm btn-outline-primary rounded-pill px-3">Hồ sơ & Đặt lịch</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info">
+                    <i class="fa-solid fa-info-circle me-2"></i>Khoa @Model.Name hiện chưa công bố danh sách Bác sĩ phụ trách.
+                </div>
+            }
+        </div>
+    </div>
+</div>

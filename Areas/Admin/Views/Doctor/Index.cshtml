@@ -1,48 +1,90 @@
 @model IEnumerable<HUTECH_Hospital.Models.Doctor>
 @{
-    ViewData["Title"] = "Quản lý Bác Sĩ";
+    ViewData["Title"] = "Danh sách Bác sĩ";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="fw-bold text-dark mb-0">Danh sách Bác Sĩ</h2>
-    <a href="/Admin/Doctor/Create" class="btn btn-primary rounded-pill px-4 shadow-sm">
-        <i class="fa-solid fa-plus me-2"></i> Tạo mới Bác sĩ
-    </a>
+    <h2 class="fw-bold text-dark">Nguồn nhân lực (Bác Sĩ)</h2>
+    <a asp-action="Create" class="btn btn-primary rounded-pill px-4 shadow-sm"><i class="fa-solid fa-plus me-2"></i> Kết nạp Bác sĩ</a>
 </div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show shadow-sm border-0" role="alert">
+        <i class="fa-solid fa-circle-check me-2"></i>@TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
 
 <div class="card border-0 shadow-sm rounded-4">
     <div class="card-body p-0">
         <div class="table-responsive">
             <table class="table table-hover align-middle mb-0">
-                <thead class="table-light">
+                <thead class="table-light text-muted small text-uppercase">
                     <tr>
-                        <th class="ps-4">Mã BS / Tên</th>
-                        <th>Chuyên khoa</th>
-                        <th>Học vị</th>
-                        <th>Số điện thoại</th>
+                        <th class="ps-4">Hồ sơ</th>
+                        <th>Chức danh / Khoa</th>
+                        <th>Liên hệ</th>
+                        <th>Trạng thái</th>
                         <th class="text-end pe-4">Thao tác</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @if (!Model.Any())
+                    @foreach (var item in Model)
                     {
                         <tr>
-                            <td colspan="5" class="text-center text-muted py-4">Chưa có dữ liệu bác sĩ.</td>
+                            <td class="ps-4 py-3">
+                                <div class="d-flex align-items-center">
+                                    @if (!string.IsNullOrEmpty(item.AvatarUrl))
+                                    {
+                                        <img src="@item.AvatarUrl" class="rounded-circle me-3 border" width="48" height="48" style="object-fit:cover;" />
+                                    }
+                                    else
+                                    {
+                                        <div class="bg-light rounded-circle d-flex align-items-center justify-content-center text-muted me-3 border" style="width:48px; height:48px;">
+                                            <i class="fa-solid fa-user-doctor"></i>
+                                        </div>
+                                    }
+                                    <div>
+                                        <h6 class="mb-0 fw-bold text-dark">@item.FullName</h6>
+                                        <small class="text-muted">Mã NS: @item.DoctorCode</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="fw-bold text-primary">@item.Degree</div>
+                                <div class="small text-muted"><i class="fa-solid fa-stethoscope me-1"></i>@(item.Department?.Name ?? "Chưa phân khoa")</div>
+                            </td>
+                            <td>
+                                <div><i class="fa-regular fa-envelope me-2 text-muted"></i>@item.Email</div>
+                                <div><i class="fa-solid fa-phone me-2 text-muted"></i>@(item.PhoneNumber ?? "---")</div>
+                            </td>
+                            <td>
+                                @if (item.IsActive)
+                                {
+                                    <span class="badge bg-success-subtle text-success px-2 py-1 rounded-pill">Đang làm việc</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger-subtle text-danger px-2 py-1 rounded-pill">Tạm đình chỉ</span>
+                                }
+                            </td>
+                            <td class="text-end pe-4">
+                                <div class="btn-group shadow-sm">
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-light text-primary" title="Hồ sơ chi tiết"><i class="fa-solid fa-address-book"></i></a>
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-light text-warning" title="Sửa"><i class="fa-solid fa-pen"></i></a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-light text-danger" title="Khóa"><i class="fa-solid fa-user-slash"></i></a>
+                                </div>
+                            </td>
                         </tr>
                     }
-                    @foreach (var doctor in Model)
+                    @if(!Model.Any())
                     {
                         <tr>
-                            <td class="ps-4">
-                                <div class="fw-bold text-dark">@doctor.FullName</div>
-                                <div class="small text-muted">@doctor.DoctorCode</div>
-                            </td>
-                            <td><span class="badge bg-light text-dark border">@doctor.Specialization</span></td>
-                            <td>@doctor.Degree</td>
-                            <td>@doctor.PhoneNumber</td>
-                            <td class="text-end pe-4">
-                                <button class="btn btn-sm btn-outline-secondary rounded-pill"><i class="fa-solid fa-pen"></i></button>
+                            <td colspan="5" class="text-center py-5 text-muted">
+                                <i class="fa-solid fa-folder-open fs-1 mb-3 text-light-gray"></i>
+                                <p>Bệnh viện hiện chưa có Bác sĩ nào.</p>
                             </td>
                         </tr>
                     }

@@ -1,5 +1,7 @@
 using HUTECH_Hospital.Data;
 using HUTECH_Hospital.Models;
+using HUTECH_Hospital.Services;
+using HUTECH_Hospital.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,6 +9,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Register Repositories and Services cho PHẦN 2
+builder.Services.AddScoped<FileUploadService>();
+builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
+builder.Services.AddScoped<IDoctorScheduleRepository, DoctorScheduleRepository>();
 
 // 1. Add DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>

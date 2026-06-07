@@ -1,20 +1,34 @@
 using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using HUTECH_Hospital.Models;
+using HUTECH_Hospital.Repositories;
 
 namespace HUTECH_Hospital.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly IDepartmentRepository _departmentRepo;
+    private readonly IDoctorRepository _doctorRepo;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(IDepartmentRepository departmentRepo, IDoctorRepository doctorRepo)
     {
-        _logger = logger;
+        _departmentRepo = departmentRepo;
+        _doctorRepo = doctorRepo;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
+        // Lấy 6 chuyên khoa tiêu biểu
+        var departments = (await _departmentRepo.GetActiveAsync()).Take(6).ToList();
+        
+        // Lấy 4 bác sĩ tiêu biểu
+        var doctors = (await _doctorRepo.GetActiveAsync()).Take(4).ToList();
+
+        ViewBag.Departments = departments;
+        ViewBag.Doctors = doctors;
+
         return View();
     }
 
