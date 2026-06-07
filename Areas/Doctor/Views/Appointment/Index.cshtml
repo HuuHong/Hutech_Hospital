@@ -1,0 +1,62 @@
+@model IEnumerable<HUTECH_Hospital.Models.Appointment>
+
+@{
+    ViewData["Title"] = "Quản lý Lịch Khám";
+    Layout = "~/Areas/Doctor/Views/Shared/_DoctorLayout.cshtml";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 class="fw-bold m-0"><i class="fa-solid fa-list-check me-2 text-primary"></i>Tất Cả Cuộc Hẹn</h3>
+</div>
+
+<div class="card border-0 shadow-sm rounded-4">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="ps-4">Ngày giờ hẹn</th>
+                        <th>Hồ sơ bệnh nhân</th>
+                        <th>Lý do vào viện</th>
+                        <th>Phân loại</th>
+                        <th class="text-end pe-4">Chi tiết</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!Model.Any())
+                    {
+                        <tr><td colspan="5" class="text-center py-5 text-muted"><i class="fa-solid fa-calendar-xmark fa-2x mb-2 d-block text-secondary"></i>Bạn chưa có lịch khám nào.</td></tr>
+                    }
+                    else
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="ps-4">
+                                    <span class="text-primary fw-bold">@item.AppointmentDate.ToString("dd/MM/yyyy")</span><br />
+                                    <small><i class="fa-regular fa-clock me-1"></i>@item.AppointmentTime.ToString(@"hh\:mm")</small>
+                                </td>
+                                <td>
+                                    <strong>@item.Patient?.FullName</strong><br />
+                                    <small class="text-muted"><i class="fa-solid fa-phone me-1"></i>@item.Patient?.PhoneNumber</small>
+                                </td>
+                                <td>
+                                    <div class="text-truncate" style="max-width: 200px;" title="@item.Reason">@item.Reason</div>
+                                </td>
+                                <td>
+                                    @if(item.Status == "Pending") { <span class="badge bg-warning text-dark"><i class="fa-solid fa-user-clock me-1"></i>Chờ Admin Phê Duyệt</span> }
+                                    else if(item.Status == "Confirmed") { <span class="badge bg-success"><i class="fa-solid fa-check-to-slot me-1"></i>Có lịch</span> }
+                                    else if(item.Status == "Completed") { <span class="badge bg-info text-dark"><i class="fa-solid fa-clipboard-check me-1"></i>Đã xong</span> }
+                                    else { <span class="badge bg-danger"><i class="fa-solid fa-ban me-1"></i>Hủy bỏ</span> }
+                                </td>
+                                <td class="text-end pe-4">
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary rounded-pill px-3">Hồ sơ</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

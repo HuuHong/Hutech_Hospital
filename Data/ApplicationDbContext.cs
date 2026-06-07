@@ -15,6 +15,7 @@ namespace HUTECH_Hospital.Data
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<DoctorSchedule> DoctorSchedules { get; set; }
+        public DbSet<Appointment> Appointments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -45,6 +46,31 @@ namespace HUTECH_Hospital.Data
                 .WithMany(d => d.DoctorSchedules)
                 .HasForeignKey(s => s.DoctorId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            // Configure relationships for Appointment
+            builder.Entity<Appointment>()
+                .HasOne(a => a.Patient)
+                .WithMany(p => p.Appointments)
+                .HasForeignKey(a => a.PatientId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Appointment>()
+                .HasOne(a => a.Doctor)
+                .WithMany(d => d.Appointments)
+                .HasForeignKey(a => a.DoctorId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Appointment>()
+                .HasOne(a => a.Department)
+                .WithMany(d => d.Appointments)
+                .HasForeignKey(a => a.DepartmentId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Appointment>()
+                .HasOne(a => a.DoctorSchedule)
+                .WithMany()
+                .HasForeignKey(a => a.DoctorScheduleId)
+                .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

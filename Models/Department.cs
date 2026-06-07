@@ -24,5 +24,6 @@ namespace HUTECH_Hospital.Models
 
         // Navigation Property: 1 Department has many Doctors
         public ICollection<Doctor> Doctors { get; set; } = new List<Doctor>();
+        public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
     }
 }

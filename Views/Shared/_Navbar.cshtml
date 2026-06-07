@@ -21,13 +21,13 @@
                         <a class="nav-link rounded-pill px-3" asp-area="" asp-controller="Department" asp-action="Index">Chuyên Khoa</a>
                     </li>
                     <li class="nav-item mx-2">
-                        <a class="nav-link rounded-pill px-3" asp-area="" asp-controller="Doctors" asp-action="Index">Đội Ngũ Bác Sĩ</a>
+                        <a class="nav-link rounded-pill px-3" asp-area="" asp-controller="Doctor" asp-action="Index">Đội Ngũ Bác Sĩ</a>
                     </li>
                     <li class="nav-item mx-2">
-                        <a class="nav-link rounded-pill px-3" href="#">Bảng Giá Dịch Vụ</a>
+                        <a class="nav-link rounded-pill px-3" asp-area="" asp-controller="ServicePrice" asp-action="Index">Bảng Giá Dịch Vụ</a>
                     </li>
                     <li class="nav-item mx-2">
-                        <a class="nav-link rounded-pill px-3" href="#">Liên Hệ</a>
+                        <a class="nav-link rounded-pill px-3 fw-bold text-primary bg-light shadow-sm ms-2" asp-area="" asp-controller="Appointment" asp-action="Create"><i class="fa-solid fa-stethoscope me-1"></i>ĐẶT LỊCH KHÁM</a>
                     </li>
                 </ul>
                 
@@ -60,7 +60,7 @@
                                 {
                                     <li><a class="dropdown-item" href="/PatientProfile/Index"><i class="fa-solid fa-id-card me-2 text-primary"></i>Hồ sơ cá nhân</a></li>
                                     <li><a class="dropdown-item" href="/Appointment/MyAppointments"><i class="fa-regular fa-calendar-check me-2 text-primary"></i>Lịch hẹn của tôi</a></li>
-                                    <li><a class="dropdown-item" href="/MedicalRecord/Index"><i class="fa-solid fa-notes-medical me-2 text-primary"></i>Kết quả khám</a></li>
+                                    <li><a class="dropdown-item" href="/MedicalRecord/Index"><i class="fa-solid fa-notes-medical me-2 text-primary"></i>Khám & Đơn thuốc</a></li>
                                 }
                                 <li><hr class="dropdown-divider"></li>
                                 <li>

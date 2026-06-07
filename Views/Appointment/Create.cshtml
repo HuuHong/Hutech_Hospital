@@ -1,0 +1,91 @@
+@model HUTECH_Hospital.ViewModels.AppointmentCreateViewModel
+
+@{
+    ViewData["Title"] = "Đặt lịch khám";
+}
+
+<div class="container py-5 mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-body p-5">
+                    <h2 class="fw-bold text-primary mb-4 text-center"><i class="fa-solid fa-calendar-plus me-2"></i>Đặt Lịch Khám</h2>
+                    
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <div class="alert alert-danger rounded-3">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        </div>
+                    }
+
+                    <form asp-action="Create" method="post">
+                        <div class="mb-3">
+                            <label asp-for="DepartmentId" class="form-label fw-medium">Chuyên khoa <span class="text-danger">*</span></label>
+                            <select asp-for="DepartmentId" class="form-select border-primary" asp-items="Model.Departments" id="departmentSelect">
+                                <option value="">-- Chọn chuyên khoa --</option>
+                            </select>
+                            <span asp-validation-for="DepartmentId" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="DoctorId" class="form-label fw-medium">Bác sĩ <span class="text-danger">*</span></label>
+                            <select asp-for="DoctorId" class="form-select border-primary" asp-items="Model.Doctors" id="doctorSelect">
+                                <option value="">-- Chọn bác sĩ --</option>
+                            </select>
+                            <span asp-validation-for="DoctorId" class="text-danger small"></span>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label asp-for="AppointmentDate" class="form-label fw-medium">Ngày khám <span class="text-danger">*</span></label>
+                                <input asp-for="AppointmentDate" class="form-control" type="date" min="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                                <span asp-validation-for="AppointmentDate" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="AppointmentTime" class="form-label fw-medium">Giờ khám <span class="text-danger">*</span></label>
+                                <input asp-for="AppointmentTime" class="form-control" type="time" />
+                                <span asp-validation-for="AppointmentTime" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="Reason" class="form-label fw-medium">Lý do khám <span class="text-danger">*</span></label>
+                            <textarea asp-for="Reason" class="form-control" rows="3" placeholder="Mô tả triệu chứng của bạn..."></textarea>
+                            <span asp-validation-for="Reason" class="text-danger small"></span>
+                        </div>
+
+                        <div class="d-grid mt-4">
+                            <button type="submit" class="btn btn-medical-primary rounded-pill py-2 fw-bold text-uppercase shadow-sm">
+                                Xác nhận Đặt lịch
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            $('#departmentSelect').change(function () {
+                var deptId = $(this).val();
+                if (deptId) {
+                    $.getJSON('@Url.Action("GetDoctorsByDepartment", "Appointment")', { departmentId: deptId }, function (data) {
+                        var doctorSelect = $('#doctorSelect');
+                        doctorSelect.empty();
+                        doctorSelect.append($('<option/>', { value: '', text: '-- Chọn bác sĩ --' }));
+                        $.each(data, function (index, doc) {
+                            doctorSelect.append($('<option/>', { value: doc.id, text: doc.name }));
+                        });
+                    });
+                } else {
+                    $('#doctorSelect').empty();
+                    $('#doctorSelect').append($('<option/>', { value: '', text: '-- Chọn bác sĩ --' }));
+                }
+            });
+        });
+    </script>
+}

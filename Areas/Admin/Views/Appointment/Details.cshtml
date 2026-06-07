@@ -1,0 +1,81 @@
+@model HUTECH_Hospital.Models.Appointment
+
+@{
+    ViewData["Title"] = "Chi tiết Cuộc Hẹn";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 class="fw-bold m-0"><i class="fa-solid fa-file-medical me-2 text-primary"></i>Chi tiết Phiếu Lịch Hẹn #@Model.Id</h3>
+    <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4"><i class="fa-solid fa-arrow-left me-2"></i>Trở về</a>
+</div>
+
+<div class="card border-0 shadow-sm rounded-4">
+    <div class="card-body p-4 p-md-5">
+        <div class="row mb-5">
+            <div class="col-md-6 border-end">
+                <h5 class="fw-bold mb-3 border-bottom pb-2">Thông tin Bệnh nhân</h5>
+                <table class="table table-borderless table-sm">
+                    <tr><td width="120" class="text-muted">Họ và tên:</td><td class="fw-bold">@Model.Patient?.FullName</td></tr>
+                    <tr><td class="text-muted">Số ĐT:</td><td>@Model.Patient?.PhoneNumber</td></tr>
+                    <tr><td class="text-muted">Mã HS/SV:</td><td>@Model.Patient?.StudentCode</td></tr>
+                    <tr><td class="text-muted">Tài khoản:</td><td>@Model.Patient?.ApplicationUser?.Email</td></tr>
+                </table>
+            </div>
+            <div class="col-md-6 ps-md-4">
+                <h5 class="fw-bold mb-3 border-bottom pb-2">Thông tin Bác sĩ</h5>
+                <table class="table table-borderless table-sm">
+                    <tr><td width="120" class="text-muted">Họ tên BS:</td><td class="fw-bold">@Model.Doctor?.FullName</td></tr>
+                    <tr><td class="text-muted">Khoa:</td><td><span class="badge bg-light text-dark border">@Model.Department?.Name</span></td></tr>
+                    <tr><td class="text-muted">Email:</td><td>@Model.Doctor?.Email</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <h5 class="fw-bold mb-3 border-bottom pb-2">Nội dung Lịch Khám</h5>
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table table-borderless table-sm">
+                    <tr>
+                        <td width="150" class="text-muted">Trạng thái:</td>
+                        <td>
+                            @if(Model.Status == "Pending") { <span class="badge bg-warning text-dark px-3 py-2">Chờ duyệt</span> }
+                            else if(Model.Status == "Confirmed") { <span class="badge bg-success px-3 py-2">Khoa đã xác nhận</span> }
+                            else if(Model.Status == "Completed") { <span class="badge bg-info text-dark px-3 py-2">Đã khám</span> }
+                            else { <span class="badge bg-danger px-3 py-2">Đã hủy</span> }
+                        </td>
+                    </tr>
+                    <tr><td class="text-muted align-middle">Thời gian:</td><td><strong class="text-primary fs-5">@Model.AppointmentDate.ToString("dd/MM/yyyy") - @Model.AppointmentTime.ToString(@"hh\:mm")</strong></td></tr>
+                    <tr><td class="text-muted">Khung ca:</td><td>@(Model.DoctorScheduleId != null ? $"Phòng {Model.DoctorSchedule?.Room}" : "Chưa áp ca cứng")</td></tr>
+                    <tr><td class="text-muted">Ngày tạo lập:</td><td>@Model.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td></tr>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <div class="bg-light p-3 rounded-4">
+                    <p class="text-muted small mb-1 fw-bold">LỜI KHAI BỆNH (Lý do):</p>
+                    <p class="mb-0 fst-italic">"@Model.Reason"</p>
+                </div>
+            </div>
+        </div>
+
+        @if (!string.IsNullOrEmpty(Model.CancelReason))
+        {
+            <div class="alert alert-danger mt-4 rounded-4">
+                <strong><i class="fa-solid fa-triangle-exclamation me-1"></i> Lý do hủy/từ chối:</strong> @Model.CancelReason
+            </div>
+        }
+
+        <div class="mt-5 pt-3 border-top d-flex gap-2">
+            @if(Model.Status == "Pending")
+            {
+                <form asp-action="Confirm" asp-route-id="@Model.Id" method="post" onsubmit="return confirm('Bạn đồng ý phê duyệt lịch hẹn này?');">
+                    <button type="submit" class="btn btn-success fw-bold px-4"><i class="fa-solid fa-check me-2"></i>Duyệt Lịch Ngay</button>
+                </form>
+            }
+            @if(Model.Status != "Completed" && Model.Status != "Cancelled")
+            {
+                <a asp-action="Cancel" asp-route-id="@Model.Id" class="btn btn-danger fw-bold px-4"><i class="fa-solid fa-ban me-2"></i>Hủy Phiếu</a>
+            }
+        </div>
+    </div>
+</div>

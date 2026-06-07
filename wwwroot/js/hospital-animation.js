@@ -4,9 +4,11 @@
  */
 
 document.addEventListener("DOMContentLoaded", () => {
+    // Add js-enabled to body so CSS knows it can safely hide elements for animation
+    document.body.classList.add('js-enabled');
     
     // 1. Intersection Observer for Scroll Animations (Reveal Elements)
-    const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+    const revealElements = document.querySelectorAll('.reveal, .reveal-up, .reveal-left, .reveal-right');
     
     if (revealElements.length > 0 && 'IntersectionObserver' in window) {
         const revealOptions = {

@@ -1,0 +1,75 @@
+@{
+    ViewData["Title"] = "Bảng giá dịch vụ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="page-hero compact-page-hero">
+    <div class="medical-bg-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
+    <div class="mesh-grid"></div>
+
+    <div class="container text-center reveal-up position-relative" style="z-index: 10;">
+        <h1 class="section-title">Bảng giá tham khảo</h1>
+        <p class="section-subtitle">Minh bạch, rõ ràng và tối ưu chi phí nhằm mang lại dịch vụ chăm sóc sức khỏe tốt nhất cho cộng đồng HUTECH và bệnh nhân.</p>
+    </div>
+</section>
+
+<section class="page-section">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 reveal-up">
+                <div class="glass-card shadow-sm border-0 rounded-4 overflow-hidden">
+                    <div class="bg-primary bg-opacity-10 p-4 border-bottom border-primary-subtle d-flex align-items-center">
+                        <i class="fa-solid fa-money-bill-wave text-primary fs-3 me-3"></i>
+                        <h4 class="mb-0 fw-bold text-dark">Chi phí Dịch vụ Y tế</h4>
+                    </div>
+                    <div class="p-0">
+                        <table class="table table-hover table-borderless align-middle m-0" style="font-size: 1.1rem;">
+                            <thead class="table-light text-muted">
+                                <tr>
+                                    <th scope="col" class="ps-4 py-3 fw-medium">Tên dịch vụ</th>
+                                    <th scope="col" class="text-end pe-4 py-3 fw-medium">Giá tham khảo (VNĐ)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-bottom border-light">
+                                    <td class="ps-4 py-4 fw-medium text-dark"><i class="fa-solid fa-stethoscope text-primary opacity-50 me-2"></i>Khám tổng quát</td>
+                                    <td class="text-end pe-4 py-4 fw-bold text-primary">100.000đ</td>
+                                </tr>
+                                <tr class="border-bottom border-light">
+                                    <td class="ps-4 py-4 fw-medium text-dark"><i class="fa-solid fa-user-doctor text-primary opacity-50 me-2"></i>Khám chuyên khoa</td>
+                                    <td class="text-end pe-4 py-4 fw-bold text-primary">150.000đ</td>
+                                </tr>
+                                <tr class="border-bottom border-light bg-light bg-opacity-50">
+                                    <td class="ps-4 py-4 fw-medium text-dark"><i class="fa-solid fa-graduation-cap text-primary opacity-50 me-2"></i>Tư vấn sức khỏe sinh viên</td>
+                                    <td class="text-end pe-4 py-4 fw-bold text-success">50.000đ</td>
+                                </tr>
+                                <tr class="border-bottom border-light">
+                                    <td class="ps-4 py-4 fw-medium text-dark"><i class="fa-solid fa-heart-pulse text-danger opacity-50 me-2"></i>Khám tim mạch</td>
+                                    <td class="text-end pe-4 py-4 fw-bold text-danger">200.000đ</td>
+                                </tr>
+                                <tr class="border-bottom border-light">
+                                    <td class="ps-4 py-4 fw-medium text-dark"><i class="fa-solid fa-hand-dots text-warning opacity-50 me-2"></i>Khám da liễu</td>
+                                    <td class="text-end pe-4 py-4 fw-bold text-warning">180.000đ</td>
+                                </tr>
+                                <tr>
+                                    <td class="ps-4 py-4 fw-medium text-dark"><i class="fa-solid fa-head-side-cough text-info opacity-50 me-2"></i>Khám tai mũi họng</td>
+                                    <td class="text-end pe-4 py-4 fw-bold text-info">160.000đ</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="alert alert-warning mt-4 rounded-4 shadow-sm reveal-up d-flex align-items-center">
+                    <i class="fa-solid fa-circle-info fs-3 me-3 text-warning"></i>
+                    <div>
+                        <strong>Lưu ý:</strong> Bảng giá mang tính chất tham khảo có thể thay đổi tùy khu vực và cấp độ chuyên khoa. Giảm giá cho sinh viên hoặc BHYT sinh viên có hiệu lực sau khi xác nhận học thẻ tại quầy.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
