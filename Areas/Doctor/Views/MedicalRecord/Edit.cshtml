@@ -1,0 +1,163 @@
+@model HUTECH_Hospital.ViewModels.MedicalRecordViewModel
+@{
+    ViewData["Title"] = "Chỉnh sửa Kết quả khám";
+    Layout = "~/Areas/Doctor/Views/Shared/_DoctorLayout.cshtml";
+}
+
+<div class="container-fluid py-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h2 class="fw-bold mb-1">Chỉnh sửa Kết quả khám</h2>
+            <p class="text-muted">Bệnh nhân: <span class="fw-bold text-primary">@Model.PatientName</span> | Lịch hẹn ID: @Model.AppointmentId</p>
+        </div>
+    </div>
+
+    @if (TempData["InfoMessage"] != null)
+    {
+        <div class="alert alert-info">@TempData["InfoMessage"]</div>
+    }
+
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="AppointmentId" />
+        <input type="hidden" asp-for="PatientId" />
+        <input type="hidden" asp-for="DoctorId" />
+        <input type="hidden" asp-for="DoctorName" />
+
+        <div class="row">
+            <!-- Thông tin chẩn đoán -->
+            <div class="col-lg-8">
+                <div class="card shadow-sm border-0 mb-4 page-card">
+                    <div class="card-header bg-white border-bottom py-3">
+                        <h5 class="mb-0 fw-bold"><i class="fa-solid fa-notes-medical text-primary me-2"></i> Chẩn đoán & Hướng điều trị</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label asp-for="Symptoms" class="form-label fw-bold">Triệu chứng</label>
+                            <textarea asp-for="Symptoms" class="form-control" rows="2">@Model.Symptoms</textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Diagnosis" class="form-label fw-bold">Chẩn đoán bệnh <span class="text-danger">*</span></label>
+                            <textarea asp-for="Diagnosis" class="form-control" rows="2" required>@Model.Diagnosis</textarea>
+                            <span asp-validation-for="Diagnosis" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Treatment" class="form-label fw-bold">Hướng điều trị</label>
+                            <textarea asp-for="Treatment" class="form-control" rows="2">@Model.Treatment</textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="DoctorNote" class="form-label fw-bold">Lời dặn của bác sĩ</label>
+                                <textarea asp-for="DoctorNote" class="form-control" rows="2">@Model.DoctorNote</textarea>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="ReExaminationDate" class="form-label fw-bold">Ngày tái khám (nếu có)</label>
+                                <input asp-for="ReExaminationDate" class="form-control" type="date" value="@(Model.ReExaminationDate?.ToString("yyyy-MM-dd"))" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Đơn thuốc -->
+                <div class="card shadow-sm border-0 mb-4 page-card">
+                    <div class="card-header bg-white border-bottom py-3 d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0 fw-bold"><i class="fa-solid fa-pills text-success me-2"></i> Kê đơn thuốc</h5>
+                        <button type="button" class="btn btn-sm btn-outline-success" onclick="addMedicineRow()">
+                            <i class="fa-solid fa-plus"></i> Thêm thuốc
+                        </button>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0" id="prescriptionTable">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th style="width: 30%">Tên thuốc</th>
+                                        <th style="width: 15%">Số lượng</th>
+                                        <th style="width: 25%">Liều lượng</th>
+                                        <th style="width: 25%">Cách dùng</th>
+                                        <th style="width: 5%"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="prescriptionBody">
+                                    @for (int i = 0; i < Model.PrescriptionDetails.Count; i++)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <select asp-for="PrescriptionDetails[i].MedicineId" asp-items="ViewBag.Medicines" class="form-select">
+                                                    <option value="">- Chọn thuốc -</option>
+                                                </select>
+                                            </td>
+                                            <td><input asp-for="PrescriptionDetails[i].Quantity" class="form-control" type="number" min="1" value="@Model.PrescriptionDetails[i].Quantity" /></td>
+                                            <td><input asp-for="PrescriptionDetails[i].Dosage" class="form-control" value="@Model.PrescriptionDetails[i].Dosage" /></td>
+                                            <td><input asp-for="PrescriptionDetails[i].Usage" class="form-control" value="@Model.PrescriptionDetails[i].Usage" /></td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-danger remove-medicine">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hành động -->
+            <div class="col-lg-4">
+                <div class="card shadow-sm border-0 page-card sticky-top" style="top: 100px;">
+                    <div class="card-body">
+                        <h5 class="fw-bold mb-3">Lưu thay đổi</h5>
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fa-solid fa-save me-2"></i> Cập nhật hồ sơ
+                            </button>
+                            <a href="/Doctor/MedicalRecord/Details/@Model.Id" class="btn btn-light border">Hủy thao tác</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        function addMedicineRow() {
+            var rowCount = $('#prescriptionBody tr').length;
+            var newRow = `
+                <tr>
+                    <td>
+                        <select name="PrescriptionDetails[${rowCount}].MedicineId" class="form-select">
+                            <option value="">- Chọn thuốc -</option>
+                            @foreach(var item in ViewBag.Medicines)
+                            {
+                                <option value="@item.Value">@item.Text</option>
+                            }
+                        </select>
+                    </td>
+                    <td><input name="PrescriptionDetails[${rowCount}].Quantity" class="form-control" type="number" min="1" value="1" /></td>
+                    <td><input name="PrescriptionDetails[${rowCount}].Dosage" class="form-control" placeholder="1 viên x 2 lần" /></td>
+                    <td><input name="PrescriptionDetails[${rowCount}].Usage" class="form-control" placeholder="Sáng, Tối sau ăn" /></td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger remove-medicine">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>`;
+            $('#prescriptionBody').append(newRow);
+            bindRemoveEvent();
+        }
+
+        function bindRemoveEvent() {
+            $('.remove-medicine').off('click').on('click', function() {
+                $(this).closest('tr').remove();
+            });
+        }
+        
+        $(document).ready(function() {
+            bindRemoveEvent();
+        });
+    </script>
+}

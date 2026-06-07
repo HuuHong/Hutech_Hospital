@@ -22,5 +22,8 @@ namespace HUTECH_Hospital.Models
 
         // Navigation
         public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
+        public ICollection<MedicalRecord> MedicalRecords { get; set; } = new List<MedicalRecord>();
+        public ICollection<Notification> Notifications { get; set; } = new List<Notification>();
+        public ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
     }
 }

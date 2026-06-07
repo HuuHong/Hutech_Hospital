@@ -85,6 +85,21 @@ namespace HUTECH_Hospital.Data
                 context.Departments.AddRange(departments);
                 await context.SaveChangesAsync();
             }
+            // Seed Medicines - Phase 4
+            if (!context.Medicines.Any())
+            {
+                var medicines = new[]
+                {
+                    new Medicine { Name = "Paracetamol 500mg", Unit = "Viên", Description = "Giảm đau, hạ sốt", Usage = "1 viên x 2 lần/ngày sau ăn", IsActive = true, CreatedAt = DateTime.Now },
+                    new Medicine { Name = "Amoxicillin 500mg", Unit = "Viên", Description = "Kháng sinh đường hô hấp", Usage = "1 viên x 2 lần/ngày sau ăn", IsActive = true, CreatedAt = DateTime.Now },
+                    new Medicine { Name = "Vitamin C 500mg", Unit = "Viên", Description = "Tăng cường sức đề kháng", Usage = "1 viên/ngày sáng sau ăn", IsActive = true, CreatedAt = DateTime.Now },
+                    new Medicine { Name = "Omeprazole 20mg", Unit = "Viên", Description = "Thuốc trị viêm loét dạ dày", Usage = "1 viên trước ăn sáng 30 phút", IsActive = true, CreatedAt = DateTime.Now },
+                    new Medicine { Name = "Oresol", Unit = "Gói", Description = "Bù nước và điện giải", Usage = "Pha 1 gói với 200ml nước", IsActive = true, CreatedAt = DateTime.Now },
+                    new Medicine { Name = "Berberin", Unit = "Viên", Description = "Thuốc đau bụng, tiêu chảy", Usage = "2 viên x 2 lần/ngày", IsActive = true, CreatedAt = DateTime.Now }
+                };
+                context.Medicines.AddRange(medicines);
+                await context.SaveChangesAsync();
+            }
         }
     }
 }

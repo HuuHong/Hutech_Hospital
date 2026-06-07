@@ -1,0 +1,139 @@
+@model HUTECH_Hospital.Models.MedicalRecord
+@{
+    ViewData["Title"] = "Chi tiết Hồ sơ khám";
+    Layout = "~/Areas/Doctor/Views/Shared/_DoctorLayout.cshtml";
+}
+
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-1">Chi tiết Hồ sơ khám</h2>
+            <p class="text-muted">Mã hồ sơ: <span class="fw-bold text-primary">#MR-@Model.Id</span> | Khám ngày: @Model.CreatedAt.ToString("dd/MM/yyyy HH:mm")</p>
+        </div>
+        <div>
+            <a href="/Doctor/MedicalRecord/History?patientId=@Model.PatientId" class="btn btn-outline-secondary me-2">
+                <i class="fa-solid fa-clock-rotate-left"></i> Lịch sử bệnh nhân
+            </a>
+            <a href="/Doctor/MedicalRecord/Edit/@Model.Id" class="btn btn-primary">
+                <i class="fa-solid fa-pen"></i> Chỉnh sửa
+            </a>
+        </div>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible bg-success text-white border-0 fade show" role="alert">
+            <i class="fa-solid fa-circle-check me-2"></i> @TempData["SuccessMessage"]
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="row">
+        <!-- Thông tin chẩn đoán -->
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0 mb-4 page-card">
+                <div class="card-header bg-primary text-white border-bottom py-3">
+                    <h5 class="mb-0 fw-bold"><i class="fa-solid fa-file-medical me-2"></i> Thông tin Chẩn đoán</h5>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row mb-4">
+                        <div class="col-sm-3 text-muted fw-bold">Bệnh nhân:</div>
+                        <div class="col-sm-9 fw-bold text-dark">@Model.Patient?.FullName</div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-sm-3 text-muted fw-bold">Triệu chứng:</div>
+                        <div class="col-sm-9">@(string.IsNullOrEmpty(Model.Symptoms) ? "Không có dữ liệu" : Model.Symptoms)</div>
+                    </div>
+                    <hr class="text-muted opacity-25">
+                    <div class="row mb-4">
+                        <div class="col-sm-3 text-muted fw-bold">Chẩn đoán:</div>
+                        <div class="col-sm-9 text-danger fw-bold fs-5">@Model.Diagnosis</div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-sm-3 text-muted fw-bold">Hướng điều trị:</div>
+                        <div class="col-sm-9">@(string.IsNullOrEmpty(Model.Treatment) ? "Không có dữ liệu" : Model.Treatment)</div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-sm-3 text-muted fw-bold">Ghi chú của bác sĩ:</div>
+                        <div class="col-sm-9 fst-italic">@(string.IsNullOrEmpty(Model.DoctorNote) ? "Không có dặn dò thêm." : Model.DoctorNote)</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3 text-muted fw-bold">Tái khám:</div>
+                        <div class="col-sm-9">
+                            @if (Model.ReExaminationDate.HasValue)
+                            {
+                                <span class="badge bg-warning text-dark"><i class="fa-solid fa-calendar me-1"></i> @Model.ReExaminationDate.Value.ToString("dd/MM/yyyy")</span>
+                            }
+                            else
+                            {
+                                <span>Không chỉ định</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Đơn thuốc -->
+            <div class="card shadow-sm border-0 mb-4 page-card">
+                <div class="card-header bg-success text-white border-bottom py-3">
+                    <h5 class="mb-0 fw-bold"><i class="fa-solid fa-pills me-2"></i> Đơn Thuốc</h5>
+                </div>
+                <div class="card-body p-0">
+                    @if (Model.Prescription != null && Model.Prescription.PrescriptionDetails.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Thuốc</th>
+                                        <th>Đơn vị</th>
+                                        <th>Số lượng</th>
+                                        <th>Liều lượng</th>
+                                        <th>Cách dùng</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var pd in Model.Prescription.PrescriptionDetails)
+                                    {
+                                        <tr>
+                                            <td class="fw-bold text-dark">@pd.Medicine?.Name</td>
+                                            <td>@pd.Medicine?.Unit</td>
+                                            <td><span class="badge bg-secondary">@pd.Quantity</span></td>
+                                            <td>@pd.Dosage</td>
+                                            <td><span class="text-info"><i class="fa-solid fa-clock opacity-50"></i> @pd.Usage</span></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="p-5 text-center text-muted">
+                            <i class="fa-solid fa-prescription-bottle-medical fs-1 mb-3 opacity-25"></i>
+                            <p class="mb-0">Không có đơn thuốc nào được kê cho ca khám này.</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <!-- Patient Mini Summary -->
+            <div class="card border-0 mb-4 page-card shadow-sm">
+                <div class="card-body text-center p-4">
+                    <img src="@(string.IsNullOrEmpty(Model.Patient?.AvatarUrl) ? "https://ui-avatars.com/api/?name=" + Model.Patient?.FullName + "&background=random" : Model.Patient.AvatarUrl)" 
+                         class="rounded-circle mb-3" width="100" height="100" style="object-fit:cover" />
+                    <h5 class="fw-bold">@Model.Patient?.FullName</h5>
+                    <p class="text-muted mb-0"><i class="fa-solid fa-id-card"></i> MSSV: @Model.Patient?.StudentCode</p>
+                    <hr />
+                    <ul class="list-unstyled text-start mb-0 small">
+                        <li class="mb-2"><i class="fa-solid fa-venus-mars text-primary w-20 px-2 text-center"></i> Giới tính: <strong>@Model.Patient?.Gender</strong></li>
+                        <li class="mb-2"><i class="fa-solid fa-phone text-primary w-20 px-2 text-center"></i> SĐT: <strong>@Model.Patient?.PhoneNumber</strong></li>
+                        <li class="mb-0"><i class="fa-solid fa-location-dot text-primary w-20 px-2 text-center"></i> <strong>@Model.Patient?.Address</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

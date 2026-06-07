@@ -58,9 +58,11 @@
                             <ul class="dropdown-menu dropdown-menu-end shadow border-0" aria-labelledby="userDropdown">
                                 @if (isPatient)
                                 {
-                                    <li><a class="dropdown-item" href="/PatientProfile/Index"><i class="fa-solid fa-id-card me-2 text-primary"></i>Hồ sơ cá nhân</a></li>
-                                    <li><a class="dropdown-item" href="/Appointment/MyAppointments"><i class="fa-regular fa-calendar-check me-2 text-primary"></i>Lịch hẹn của tôi</a></li>
-                                    <li><a class="dropdown-item" href="/MedicalRecord/Index"><i class="fa-solid fa-notes-medical me-2 text-primary"></i>Khám & Đơn thuốc</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="PatientProfile" asp-action="Index"><i class="fa-solid fa-id-card me-2 text-primary"></i>Hồ sơ cá nhân</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Appointment" asp-action="MyAppointments"><i class="fa-regular fa-calendar-check me-2 text-primary"></i>Lịch hẹn khám</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="MedicalRecord" asp-action="Index"><i class="fa-solid fa-notes-medical me-2 text-primary"></i>Hồ sơ bệnh án</a></li>
+                                    <li><a class="dropdown-item" href="/Notification/Index"><i class="fa-solid fa-bell me-2 text-warning"></i>Thông báo</a></li>
+                                    <li><a class="dropdown-item" href="/Feedback/Create"><i class="fa-solid fa-comment-dots me-2 text-success"></i>Gửi phản hồi</a></li>
                                 }
                                 <li><hr class="dropdown-divider"></li>
                                 <li>

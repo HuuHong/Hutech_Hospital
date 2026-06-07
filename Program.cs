@@ -17,6 +17,11 @@ builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
 builder.Services.AddScoped<IDoctorScheduleRepository, DoctorScheduleRepository>();
 builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 
+// Phase 4 Repositories
+builder.Services.AddScoped<IMedicalRecordRepository, MedicalRecordRepository>();
+builder.Services.AddScoped<IMedicineRepository, MedicineRepository>();
+builder.Services.AddScoped<IFeedbackRepository, FeedbackRepository>();
+
 builder.Services.AddScoped<NotificationService>();
 builder.Services.AddScoped<EmailService>();
 builder.Services.AddScoped<AppointmentService>();

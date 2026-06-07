@@ -1,0 +1,57 @@
+@model HUTECH_Hospital.Models.Feedback
+@{
+    ViewData["Title"] = "Góp ý & Đánh giá";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-section bg-light py-5">
+    <div class="container mt-5 pt-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-sm rounded-4 page-card overflow-hidden">
+                    <div class="bg-primary text-white p-4 p-md-5 text-center">
+                        <i class="fa-solid fa-comments fa-3x mb-3"></i>
+                        <h3 class="fw-bold m-0">Chúng tôi luôn lắng nghe bạn</h3>
+                        <p class="text-white-50 mt-2 mb-0">Mọi ý kiến đóng góp của bạn đều giúp HUTECH_Hospital cải thiện chất lượng dịch vụ.</p>
+                    </div>
+                    
+                    <div class="card-body p-4 p-md-5">
+                        <form asp-action="Create" method="post">
+                            <div class="mb-4 text-center">
+                                <label class="form-label fw-bold d-block mb-3">Bạn đánh giá trải nghiệm thế nào?</label>
+                                <div class="rating-stars d-inline-block p-3 rounded-pill bg-light">
+                                    <!-- Đơn giản hóa Rating, trong thực tế dùng Radio hidden + JS -->
+                                    <select asp-for="Rating" class="form-select form-select-lg w-auto d-inline-block border-warning text-warning fw-bold">
+                                        <option value="5">⭐⭐⭐⭐⭐ (Rất hài lòng)</option>
+                                        <option value="4">⭐⭐⭐⭐ (Hài lòng)</option>
+                                        <option value="3">⭐⭐⭐ (Bình thường)</option>
+                                        <option value="2">⭐⭐ (Không hài lòng)</option>
+                                        <option value="1">⭐ (Rất tệ)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Title" class="form-label fw-bold">Chủ đề phản hồi <span class="text-danger">*</span></label>
+                                <input asp-for="Title" class="form-control form-control-lg" placeholder="Ví dụ: Thái độ phục vụ, Hệ thống đặt lịch..." required />
+                                <span asp-validation-for="Title" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-4">
+                                <label asp-for="Content" class="form-label fw-bold">Nội dung góp ý <span class="text-danger">*</span></label>
+                                <textarea asp-for="Content" class="form-control" rows="5" placeholder="Chia sẻ chi tiết trải nghiệm của bạn với chúng tôi..." required></textarea>
+                                <span asp-validation-for="Content" class="text-danger"></span>
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg rounded-pill fw-bold">
+                                    <i class="fa-regular fa-paper-plane me-2"></i> Gửi phản hồi
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

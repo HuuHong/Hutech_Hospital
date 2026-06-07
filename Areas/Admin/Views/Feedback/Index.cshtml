@@ -1,0 +1,51 @@
+@model IEnumerable<HUTECH_Hospital.Models.Feedback>
+@{
+    ViewData["Title"] = "Quản trị Phản hồi";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold m-0"><i class="fa-solid fa-comments text-warning me-2"></i>Quản lý Phản hồi Khách hàng</h2>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+
+<div class="card border-0 shadow-sm page-card">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Khách hàng</th>
+                        <th>Chủ đề</th>
+                        <th>Đánh giá</th>
+                        <th>Ngày gửi</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="fw-bold text-primary">@item.Patient?.FullName</td>
+                            <td>@item.Title</td>
+                            <td><span class="text-warning fw-bold">@item.Rating <i class="fa-solid fa-star"></i></span></td>
+                            <td>@item.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
+                            <td>
+                                @if (item.IsResolved) { <span class="badge bg-success">Đã xử lý</span> }
+                                else { <span class="badge bg-danger">Chưa xử lý</span> }
+                            </td>
+                            <td>
+                                <a href="/Admin/Feedback/Details/@item.Id" class="btn btn-sm btn-outline-info">Chi tiết</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

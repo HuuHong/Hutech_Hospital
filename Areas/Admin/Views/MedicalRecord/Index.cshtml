@@ -1,0 +1,45 @@
+@model IEnumerable<HUTECH_Hospital.Models.MedicalRecord>
+@{
+    ViewData["Title"] = "Quản trị Hồ sơ khám";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold m-0"><i class="fa-solid fa-folder-tree text-primary me-2"></i>Kho lưu trữ Hồ sơ Y tế (EHR)</h2>
+</div>
+
+<div class="card border-0 shadow-sm page-card">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Mã Hồ Sơ</th>
+                        <th>Bệnh nhân</th>
+                        <th>Chẩn đoán (Tóm tắt)</th>
+                        <th>Bác sĩ chỉ định</th>
+                        <th>Khởi tạo lúc</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td><span class="fw-bold text-primary">#MR-@item.Id</span></td>
+                            <td>
+                                <div><i class="fa-solid fa-user fa-sm opacity-50 me-1"></i> @item.Patient?.FullName</div>
+                            </td>
+                            <td>@(item.Diagnosis.Length > 40 ? item.Diagnosis.Substring(0, 40) + "..." : item.Diagnosis)</td>
+                            <td>@item.Doctor?.FullName</td>
+                            <td>@item.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
+                            <td>
+                                <a href="/Admin/MedicalRecord/Details/@item.Id" class="btn btn-sm btn-outline-info">Chi tiết EHR</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -38,5 +38,6 @@ namespace HUTECH_Hospital.Models
         // Navigation Properties: 1 Bác sĩ có nhiều Ca Khám
         public ICollection<DoctorSchedule> DoctorSchedules { get; set; } = new List<DoctorSchedule>();
         public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
+        public ICollection<MedicalRecord> MedicalRecords { get; set; } = new List<MedicalRecord>();
     }
 }

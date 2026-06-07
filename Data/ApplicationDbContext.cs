@@ -16,6 +16,12 @@ namespace HUTECH_Hospital.Data
         public DbSet<Department> Departments { get; set; }
         public DbSet<DoctorSchedule> DoctorSchedules { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
+        public DbSet<MedicalRecord> MedicalRecords { get; set; }
+        public DbSet<Prescription> Prescriptions { get; set; }
+        public DbSet<PrescriptionDetail> PrescriptionDetails { get; set; }
+        public DbSet<Medicine> Medicines { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
+        public DbSet<Feedback> Feedbacks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -71,6 +77,55 @@ namespace HUTECH_Hospital.Data
                 .WithMany()
                 .HasForeignKey(a => a.DoctorScheduleId)
                 .OnDelete(DeleteBehavior.SetNull);
+
+            // Phase 4 Relationships
+            builder.Entity<MedicalRecord>()
+                .HasOne(m => m.Appointment)
+                .WithOne(a => a.MedicalRecord)
+                .HasForeignKey<MedicalRecord>(m => m.AppointmentId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<MedicalRecord>()
+                .HasOne(m => m.Patient)
+                .WithMany(p => p.MedicalRecords)
+                .HasForeignKey(m => m.PatientId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<MedicalRecord>()
+                .HasOne(m => m.Doctor)
+                .WithMany(d => d.MedicalRecords)
+                .HasForeignKey(m => m.DoctorId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Prescription>()
+                .HasOne(p => p.MedicalRecord)
+                .WithOne(m => m.Prescription)
+                .HasForeignKey<Prescription>(p => p.MedicalRecordId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<PrescriptionDetail>()
+                .HasOne(pd => pd.Prescription)
+                .WithMany(p => p.PrescriptionDetails)
+                .HasForeignKey(pd => pd.PrescriptionId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<PrescriptionDetail>()
+                .HasOne(pd => pd.Medicine)
+                .WithMany(m => m.PrescriptionDetails)
+                .HasForeignKey(pd => pd.MedicineId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Notification>()
+                .HasOne(n => n.Patient)
+                .WithMany(p => p.Notifications)
+                .HasForeignKey(n => n.PatientId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Feedback>()
+                .HasOne(f => f.Patient)
+                .WithMany(p => p.Feedbacks)
+                .HasForeignKey(f => f.PatientId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

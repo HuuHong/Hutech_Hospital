@@ -73,8 +73,12 @@
                 <div class="text-end mt-5">
                     @if(Model.Status == "Confirmed")
                     {
-                        <!-- Tính năng Khám bệnh Phase 4 -->
-                        <button class="btn btn-primary rounded-pill px-5 py-2 fw-bold" onclick="alert('Tính năng Tạo Hồ sơ Bệnh Án và Kê Đơn Thuốc sẽ được phát triển ở Phase 4!');"><i class="fa-solid fa-stethoscope me-2"></i>Bắt Đầu Khám</button>
+                        <!-- Cập nhật Phase 4: Chuyển sang tạo kết quả khám -->
+                        <a href="/Doctor/MedicalRecord/Create?appointmentId=@Model.Id" class="btn btn-primary rounded-pill px-5 py-2 fw-bold"><i class="fa-solid fa-stethoscope me-2"></i>Bắt Đầu Khám</a>
+                    }
+                    else if(Model.Status == "Completed")
+                    {
+                        <a href="/Doctor/MedicalRecord/Details?id=@Model.Id" class="btn btn-info rounded-pill px-5 py-2 fw-bold text-white"><i class="fa-solid fa-file-medical me-2"></i>Xem Hồ Sơ</a>
                     }
                 </div>
             </div>
