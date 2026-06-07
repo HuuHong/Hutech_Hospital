@@ -1,0 +1,97 @@
+@model HUTECH_Hospital.Models.Doctor
+@{
+    ViewData["Title"] = "Hồ sơ BS. " + Model.FullName;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="page-section bg-light pt-5 pb-4 mt-5">
+    <div class="container reveal-up">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index"><i class="fa-solid fa-house"></i></a></li>
+                <li class="breadcrumb-item"><a asp-action="Index">Đội Ngũ Bác Sĩ</a></li>
+                <li class="breadcrumb-item active fw-bold" aria-current="page">@Model.FullName</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<section class="page-section">
+    <div class="container py-5">
+        <div class="row g-5">
+            <div class="col-lg-4 text-center reveal-left">
+                <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
+                    @if (!string.IsNullOrEmpty(Model.AvatarUrl))
+                    {
+                        <img src="@Model.AvatarUrl" class="w-100" style="object-fit:cover; aspect-ratio: 3/4;" />
+                    }
+                    else
+                    {
+                        <img src="https://ui-avatars.com/api/?name=@(Model.FullName)&background=random&size=800" class="w-100" style="object-fit:cover; aspect-ratio: 3/4;" />
+                    }
+                </div>
+                
+                <div class="glass-card text-start border shadow-sm">
+                    <h5 class="fw-bold text-primary border-bottom pb-2 mb-3">Tóm tắt Chuyên môn</h5>
+                    <p class="mb-2"><i class="fa-solid fa-building text-muted me-2 border bg-white p-2 rounded-circle"></i>Khoa: <strong>@(Model.Department?.Name ?? "Chưa rõ")</strong></p>
+                    <p class="mb-2"><i class="fa-solid fa-award text-muted me-2 border bg-white p-2 rounded-circle"></i>Học vị: <strong>@Model.Degree</strong></p>
+                    <p class="mb-2"><i class="fa-solid fa-stethoscope text-muted me-2 border bg-white p-2 rounded-circle"></i>Chuyên khoa: <strong>@Model.Specialization</strong></p>
+                    <p class="mb-0"><i class="fa-solid fa-stopwatch text-muted me-2 border bg-white p-2 rounded-circle"></i>Kinh nghiệm: <strong>Thâm niên @Model.ExperienceYears năm</strong></p>
+                </div>
+
+                <div class="mt-4">
+                    <a asp-action="Index" class="btn btn-outline-secondary w-100 mb-2 rounded-pill"><i class="fa-solid fa-arrow-left me-2"></i>Quay lại danh sách</a>
+                    <a asp-controller="Appointment" asp-action="Create" asp-route-doctorId="@Model.Id" class="btn btn-medical-primary w-100 rounded-pill"><i class="fa-regular fa-calendar-check me-2"></i>Đặt lịch khám</a>
+                </div>
+            </div>
+
+            <div class="col-lg-8 reveal-right">
+                <h1 class="fw-bold text-dark mb-1">BS @Model.Degree. @Model.FullName</h1>
+                <p class="text-primary fs-5 mb-4">@Model.Specialization</p>
+                
+                <h4 class="fw-bold text-dark border-bottom pb-2 mb-4"><i class="fa-solid fa-file-medical text-primary me-2"></i>Quá trình công tác</h4>
+                <div class="mb-5 text-muted lh-lg">
+                    @Html.Raw((Model.Description ?? "Hệ thống đang thu thập tiểu sử chuyên môn.").Replace("\n", "<br/>"))
+                </div>
+
+                <div class="card border border-primary-subtle shadow-sm rounded-4 bg-primary bg-opacity-10 overflow-hidden">
+                    <div class="card-header bg-primary text-white p-4">
+                        <h4 class="fw-bold m-0"><i class="fa-regular fa-calendar-check me-2"></i>Lịch Trực Sắp Tới</h4>
+                    </div>
+                    <div class="card-body p-0">
+                        @if(Model.DoctorSchedules != null && Model.DoctorSchedules.Any())
+                        {
+                            <div class="list-group list-group-flush">
+                                @foreach (var sched in Model.DoctorSchedules.Take(5))
+                                {
+                                    <div class="list-group-item d-flex justify-content-between align-items-center p-4 bg-transparent border-bottom border-primary-subtle">
+                                        <div>
+                                            <h5 class="fw-bold text-dark mb-1">@sched.WorkDate.ToString("dd/MM/yyyy") (Ca @sched.StartTime.ToString(@"hh\:mm"))</h5>
+                                            <p class="text-muted small m-0"><i class="fa-solid fa-door-open me-1"></i>Phòng: <strong>@sched.Room</strong> - Cố định tối đa: @sched.MaxPatients bệnh nhân.</p>
+                                        </div>
+                                        @if(sched.IsAvailable)
+                                        {
+                                            <a asp-controller="Appointment" asp-action="Create" class="btn btn-medical-primary rounded-pill px-4">Đăng Ký Khám</a>
+                                        }
+                                        else
+                                        {
+                                            <button class="btn btn-secondary rounded-pill px-4" disabled>Đã Kín Lịch</button>
+                                        }
+                                    </div>
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="p-5 text-center text-muted bg-white h-100 m-0">
+                                <i class="fa-solid fa-calendar-xmark fs-1 mb-3"></i>
+                                <h5>Bác sĩ chưa cập nhật lịch khám.</h5>
+                                <p>Vui lòng quay lại kiểm tra ca làm việc sau!</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

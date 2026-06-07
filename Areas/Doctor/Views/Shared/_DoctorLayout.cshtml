@@ -50,10 +50,13 @@
                     <i class="fa-solid fa-house-chimney-medical me-3 w-20px text-center"></i>Tổng Quan Tình Hình
                 </a>
                 <a href="/Doctor/Schedule" class="doctor-nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Schedule" ? "active" : "")">
-                    <i class="fa-regular fa-calendar-days me-3 w-20px text-center"></i>Lịch Giao Ban / Ca Khám
+                    <i class="fa-regular fa-calendar-days me-3 w-20px text-center"></i>Phân Ca Trực
                 </a>
-                <a href="/Doctor/Patients" class="doctor-nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Patients" ? "active" : "")">
-                    <i class="fa-solid fa-bed-pulse me-3 w-20px text-center"></i>Danh Sách Bệnh Nhân
+                <a href="/Doctor/Appointment/Today" class="doctor-nav-link @(ViewContext.RouteData.Values["Action"]?.ToString() == "Today" ? "active" : "")">
+                    <i class="fa-solid fa-sun me-3 w-20px text-center text-warning"></i>Phiếu Khám Hôm Nay
+                </a>
+                <a href="/Doctor/Appointment" class="doctor-nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Appointment" && ViewContext.RouteData.Values["Action"]?.ToString() == "Index" ? "active" : "")">
+                    <i class="fa-solid fa-list-check me-3 w-20px text-center"></i>Tất Cả Lịch Hẹn
                 </a>
                 <a href="/" class="doctor-nav-link text-info mt-3" target="_blank">
                     <i class="fa-solid fa-globe me-3 w-20px text-center"></i>Trang Chủ BV HUTECH

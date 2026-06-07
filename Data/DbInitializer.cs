@@ -57,16 +57,30 @@ namespace HUTECH_Hospital.Data
 
             var context = serviceProvider.GetRequiredService<ApplicationDbContext>();
             
+            // Cấp thêm quyền Admin cho lebao01121@gmail.com theo yêu cầu kiểm tra
+            var lebaoUser = await userManager.FindByEmailAsync("lebao01121@gmail.com");
+            if (lebaoUser != null)
+            {
+                if (!await userManager.IsInRoleAsync(lebaoUser, "Admin"))
+                {
+                    await userManager.AddToRoleAsync(lebaoUser, "Admin");
+                    await userManager.RemoveFromRoleAsync(lebaoUser, "Patient"); // Xóa role cũ nếu cần
+                }
+            }
+            
             // Seed Departments
             if (!context.Departments.Any())
             {
                 var departments = new[]
                 {
-                    new Department { Name = "Nội tổng quát", Description = "Khám và điều trị các bệnh lý nội khoa thông thường.", ImageUrl = "https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?w=400&q=80" },
-                    new Department { Name = "Tim mạch", Description = "Chuẩn đoán chuyên sâu, điện tâm đồ, siêu âm тим.", ImageUrl = "https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?w=400&q=80" },
-                    new Department { Name = "Tai mũi họng", Description = "Xử lý các tình trạng bệnh lý chuyên sâu TMH.", ImageUrl = "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=400&q=80" },
-                    new Department { Name = "Nhi Khoa", Description = "Chăm sóc sức khỏe toàn diện cho trẻ sơ sinh và trẻ nhỏ.", ImageUrl = "https://images.unsplash.com/photo-1519494140681-8b17d7678b1d?w=400&q=80" },
-                    new Department { Name = "Răng Hàm Mặt", Description = "Thẩm mỹ nha khoa, niềng răng, nhổ răng không đau.", ImageUrl = "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=400&q=80" }
+                    new Department { Name = "Nội tổng quát", Description = "Khám và điều trị các bệnh lý nội khoa thông thường, theo dõi sức khỏe định kỳ.", ImageUrl = "https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?w=400&q=80" },
+                    new Department { Name = "Tim mạch", Description = "Chẩn đoán chuyên sâu, điện tâm đồ, siêu âm тим và điều trị bệnh lý tim mạch.", ImageUrl = "https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?w=400&q=80" },
+                    new Department { Name = "Tai mũi họng", Description = "Khám và xử lý các tình trạng bệnh lý chuyên sâu liên quan đến Tai, Mũi, Họng.", ImageUrl = "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=400&q=80" },
+                    new Department { Name = "Da liễu", Description = "Khám, tư vấn và điều trị các bệnh lý về da, tóc, móng và thẩm mỹ da.", ImageUrl = "https://images.unsplash.com/photo-1612349317150-e410f62d1101?w=400&q=80" },
+                    new Department { Name = "Răng hàm mặt", Description = "Thẩm mỹ nha khoa, chỉnh nha niềng răng, nhổ răng không đau.", ImageUrl = "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=400&q=80" },
+                    new Department { Name = "Mắt", Description = "Kiểm tra thị lực, đo khúc xạ và điều trị các bệnh lý chuyên khoa mắt.", ImageUrl = "https://images.unsplash.com/photo-1512428559087-560fa5ceab42?w=400&q=80" },
+                    new Department { Name = "Cơ xương khớp", Description = "Điều trị các chấn thương, bệnh lý xương khớp và vật lý trị liệu phục hồi chức năng.", ImageUrl = "https://images.unsplash.com/photo-1583324113626-70df0f4deaab?w=400&q=80" },
+                    new Department { Name = "Tư vấn sức khỏe sinh viên", Description = "Phòng tư vấn tâm lý, đánh giá sức khỏe và hỗ trợ y tế đặc biệt cho sinh viên HUTECH.", ImageUrl = "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&q=80" }
                 };
                 context.Departments.AddRange(departments);
                 await context.SaveChangesAsync();

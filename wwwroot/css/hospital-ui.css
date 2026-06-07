@@ -195,9 +195,12 @@ a:hover {
     position: relative;
     min-height: 100vh;
     display: flex;
-    align-items: center;
-    padding-top: 80px; /* navbar offset */
+    padding-top: 120px; /* navbar offset + extra buffer */
+    padding-bottom: 50px;
     overflow: hidden;
+}
+.hospital-hero > .container {
+    margin: auto; /* Tự động căn giữa an toàn hơn align-items: center */
 }
 
 /* Orbs Background */
@@ -376,6 +379,59 @@ a:hover {
 .medical-footer a:hover {
     color: var(--medical-accent);
 }
+/* =========================================
+   ACHIEVEMENTS SECTION
+========================================= */
+.hospital-achievements-section {
+    background-color: var(--medical-bg);
+}
+
+.achievement-card {
+    border: 1px solid var(--medical-border);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--medical-shadow-sm);
+    border-radius: var(--radius-lg);
+    background: rgba(255, 255, 255, 0.85);
+}
+
+.achievement-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--medical-shadow);
+    border-color: rgba(14, 165, 233, 0.3);
+}
+
+.achievement-icon i {
+    transition: transform 0.3s ease;
+}
+
+.achievement-card:hover .achievement-icon i {
+    transform: scale(1.1);
+}
+
+.medical-info-panel {
+    border-radius: var(--radius-lg);
+    box-shadow: var(--medical-shadow);
+    border: 1px solid var(--medical-border);
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.medical-check-list li {
+    font-size: 1.05rem;
+    display: flex;
+    align-items: center;
+}
+
+.healthcare-dashboard-card {
+    border-radius: var(--radius-lg);
+    box-shadow: var(--medical-shadow);
+    border: 1px solid var(--medical-border);
+}
+
+.metric-bar {
+    overflow: hidden;
+    background-color: var(--medical-soft);
+}
+
 
 /* =========================================
    ANIMATION CLASSES
@@ -391,40 +447,49 @@ a:hover {
 .empty-state { text-align: center; padding: 3rem; color: var(--medical-muted); }
 
 /* Reveal Animation (Intersection Observer) */
-.reveal {
-    opacity: 0;
-    transform: translateY(50px);
+.reveal, .reveal-up, .reveal-left, .reveal-right {
+    opacity: 1;
+    transform: none;
     transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
 }
-.reveal.active {
+
+/* Animations apply only if JS is enabled */
+body.js-enabled .reveal {
+    opacity: 0;
+    transform: translateY(50px);
+}
+body.js-enabled .reveal.active {
     opacity: 1;
     transform: translateY(0);
 }
-.reveal-up {
+
+body.js-enabled .reveal-up {
     opacity: 0;
     transform: translateY(50px);
-    transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
 }
-.reveal-up.active { opacity: 1; transform: translateY(0); }
-.reveal-left {
+body.js-enabled .reveal-up.active { opacity: 1; transform: translateY(0); }
+
+body.js-enabled .reveal-left {
     opacity: 0;
     transform: translateX(-50px);
-    transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
 }
-.reveal-left.active { opacity: 1; transform: translateX(0); }
-.reveal-right {
+body.js-enabled .reveal-left.active { opacity: 1; transform: translateX(0); }
+
+body.js-enabled .reveal-right {
     opacity: 0;
     transform: translateX(50px);
-    transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
 }
-.reveal-right.active { opacity: 1; transform: translateX(0); }
+body.js-enabled .reveal-right.active { opacity: 1; transform: translateX(0); }
 
 /* Fade-in */
 .fade-in {
-    opacity: 0;
+    opacity: 1;
     transition: opacity 1s ease-in-out;
 }
-.fade-in.active { opacity: 1; }
+body.js-enabled .fade-in {
+    opacity: 0;
+}
+body.js-enabled .fade-in.active { opacity: 1; }
 
 /* Pulse Glow */
 .pulse-glow {

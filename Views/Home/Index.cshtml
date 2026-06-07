@@ -11,7 +11,7 @@
         <div class="mesh-grid"></div>
     </div>
     
-    <div class="container relative z-10">
+    <div class="container position-relative" style="z-index: 10;">
         <div class="row align-items-center">
             <div class="col-lg-6 mb-5 mb-lg-0 text-center text-lg-start">
                 <div class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill bg-white shadow-sm mb-4" style="border: 1px solid var(--medical-soft)">
@@ -30,7 +30,7 @@
                 </p>
                 
                 <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center justify-content-lg-start mb-5">
-                    <a href="#booking" class="btn btn-medical-primary btn-lg">
+                    <a asp-controller="Appointment" asp-action="Create" class="btn btn-medical-primary btn-lg">
                         <i class="fa-regular fa-calendar-check me-2"></i> Đặt lịch khám ngay
                     </a>
                     <a href="#doctors" class="btn btn-medical-outline btn-lg">
@@ -246,72 +246,125 @@
     </div>
 </section>
 
-<!-- Roles Section: Patient / Doctor / Admin -->
-<section id="patient-area" class="page-section py-5 bg-white reveal">
+<!-- Achievements Section -->
+<section class="page-section hospital-achievements-section py-5 bg-white reveal" id="achievements">
     <div class="container">
-        <!-- Patient Area -->
-        <div class="row align-items-center mb-5 reveal-left">
-            <div class="col-md-6 order-2 order-md-1">
-                <img src="https://images.unsplash.com/photo-1576091160550-2173ff9e5eb3?auto=format&fit=crop&q=80&w=600" class="img-fluid rounded-4 shadow" alt="Patient Area">
-            </div>
-            <div class="col-md-6 order-1 order-md-2 mb-4 mb-md-0 px-lg-5">
-                <span class="status-badge primary mb-3">Dành cho Bệnh nhân</span>
-                <h2 class="fw-bold mb-4">Quản lý hồ sơ cá nhân mượt mà</h2>
-                <ul class="list-unstyled d-flex flex-column gap-3 text-muted">
-                    <li><i class="fa-solid fa-check text-primary me-2"></i> Đăng ký tài khoản hệ thống</li>
-                    <li><i class="fa-solid fa-check text-primary me-2"></i> Đặt lịch khám, quản lý hồ sơ sức khỏe</li>
-                    <li><i class="fa-solid fa-check text-primary me-2"></i> Xem kết quả khám, đơn thuốc</li>
-                    <li><i class="fa-solid fa-check text-primary me-2"></i> Nhận thông báo tự động</li>
-                </ul>
-                <div class="mt-4">
-                    <a href="/Account/Register" class="btn btn-medical-primary">Đăng ký ngay</a>
-                    <a href="/Account/Login" class="btn btn-link text-primary text-decoration-none">Đăng nhập</a>
-                </div>
-            </div>
+        <div class="text-center mb-5">
+            <span class="status-badge primary mb-3">Năng lực y tế số</span>
+            <h2 class="section-title">Thành tựu và giá trị nổi bật của HUTECH_Hospital</h2>
+            <p class="section-subtitle">
+                Nền tảng hỗ trợ quản lý khám bệnh thông minh, tối ưu trải nghiệm cho sinh viên, bệnh nhân và đội ngũ y tế.
+            </p>
         </div>
-        
-        <!-- Doctor Area -->
-        <div id="doctor-area" class="row align-items-center mt-5 pt-5 border-top reveal-right">
-            <div class="col-md-6 mb-4 mb-md-0 pe-lg-5">
-                <span class="status-badge text-white mb-3" style="background: var(--medical-secondary);">Dành cho Bác sĩ</span>
-                <h2 class="fw-bold mb-4">Trang nghiệp vụ tiêu chuẩn</h2>
-                <ul class="list-unstyled d-flex flex-column gap-3 text-muted">
-                    <li><i class="fa-solid fa-stethoscope text-success me-2"></i> Xem lịch làm việc & lịch khám trong ngày</li>
-                    <li><i class="fa-solid fa-notes-medical text-success me-2"></i> Cập nhật kết quả khám, ghi chú chẩn đoán</li>
-                    <li><i class="fa-solid fa-clock-rotate-left text-success me-2"></i> Xem lại lịch sử y án bệnh nhân</li>
-                </ul>
-                <div class="mt-4">
-                    <a href="/Account/Login" class="btn btn-medical-outline text-decoration-none">Đăng nhập Bác sĩ</a>
+
+        <div class="row g-4 achievement-grid mb-5">
+            <div class="col-lg-3 col-md-6 reveal-up">
+                <div class="achievement-card glass-card text-center h-100 p-4">
+                    <div class="achievement-icon mb-3">
+                        <i class="fa-solid fa-calendar-check mt-3 mb-2" style="font-size: 2.5rem; color: var(--medical-primary);"></i>
+                    </div>
+                    <h3 class="fw-bold text-dark mb-1">8.000+</h3>
+                    <h5 class="fw-bold text-primary mb-3">Lượt đặt lịch</h5>
+                    <p class="small text-muted mb-0">Hỗ trợ sinh viên và bệnh nhân đặt lịch khám nhanh chóng, giảm thời gian chờ tại quầy.</p>
                 </div>
             </div>
-            <div class="col-md-6 text-center">
-                <div class="p-5 bg-light rounded-4 border page-card">
-                    <i class="fa-solid fa-user-doctor text-secondary mb-3" style="font-size: 5rem;"></i>
-                    <h4 class="fw-bold">Workpsace Bác Sĩ</h4>
-                    <p class="text-muted">Bảo mật & Tối ưu luồng khám chữa bệnh</p>
+
+            <div class="col-lg-3 col-md-6 reveal-up" style="transition-delay: 0.1s">
+                <div class="achievement-card glass-card text-center h-100 p-4">
+                    <div class="achievement-icon mb-3">
+                        <i class="fa-solid fa-user-doctor mt-3 mb-2" style="font-size: 2.5rem; color: var(--medical-primary);"></i>
+                    </div>
+                    <h3 class="fw-bold text-dark mb-1">120+</h3>
+                    <h5 class="fw-bold text-primary mb-3">Nhân sự y tế</h5>
+                    <p class="small text-muted mb-0">Đội ngũ bác sĩ, điều dưỡng và nhân sự vận hành được tổ chức theo quy trình chuyên nghiệp.</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 reveal-up" style="transition-delay: 0.2s">
+                <div class="achievement-card glass-card text-center h-100 p-4">
+                    <div class="achievement-icon mb-3">
+                        <i class="fa-solid fa-hospital mt-3 mb-2" style="font-size: 2.5rem; color: var(--medical-primary);"></i>
+                    </div>
+                    <h3 class="fw-bold text-dark mb-1">18+</h3>
+                    <h5 class="fw-bold text-primary mb-3">Chuyên khoa</h5>
+                    <p class="small text-muted mb-0">Đáp ứng nhu cầu khám tổng quát, chuyên khoa và tư vấn sức khỏe cho sinh viên.</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 reveal-up" style="transition-delay: 0.3s">
+                <div class="achievement-card glass-card text-center h-100 p-4">
+                    <div class="achievement-icon mb-3">
+                        <i class="fa-solid fa-heart-pulse mt-3 mb-2" style="font-size: 2.5rem; color: var(--medical-primary);"></i>
+                    </div>
+                    <h3 class="fw-bold text-dark mb-1">98%</h3>
+                    <h5 class="fw-bold text-primary mb-3">Hài lòng</h5>
+                    <p class="small text-muted mb-0">Tối ưu trải nghiệm khám bệnh bằng quy trình đặt lịch, thông báo và quản lý hồ sơ số.</p>
                 </div>
             </div>
         </div>
 
-        <!-- Admin Area -->
-        <div id="admin-area" class="row align-items-center mt-5 pt-5 border-top reveal-left">
-            <div class="col-md-6 order-2 order-md-1 text-center">
-                <div class="p-5 bg-dark rounded-4 text-white page-card">
-                    <i class="fa-solid fa-server mb-3" style="font-size: 5rem; color: var(--medical-accent);"></i>
-                    <h4 class="fw-bold">Căn hộ Quản trị</h4>
-                    <p class="text-light">Bức tranh toàn cảnh về hoạt động y tế</p>
+        <div class="row align-items-center mt-5 g-5">
+            <div class="col-lg-6 reveal-left">
+                <div class="medical-info-panel glass-card p-4 p-md-5">
+                    <span class="status-badge primary mb-3">Healthcare Technology</span>
+                    <h3 class="fw-bold mb-4">Nền tảng y tế số cho môi trường đại học hiện đại</h3>
+                    <p class="text-muted mb-4 line-height-base">
+                        HUTECH_Hospital hướng đến việc số hóa quy trình khám bệnh, kết nối bệnh nhân,
+                        bác sĩ và bộ phận quản trị trên một hệ thống thống nhất. Từ đặt lịch, quản lý hồ sơ,
+                        theo dõi kết quả khám đến phản hồi dịch vụ, mọi thao tác đều được thiết kế để nhanh hơn,
+                        minh bạch hơn và thuận tiện hơn.
+                    </p>
+                    <ul class="medical-check-list list-unstyled d-flex flex-column gap-3 mb-0">
+                        <li><i class="fa-solid fa-circle-check text-success me-3"></i> <span class="text-secondary fw-medium">Quy trình đặt lịch rõ ràng, dễ sử dụng</span></li>
+                        <li><i class="fa-solid fa-circle-check text-success me-3"></i> <span class="text-secondary fw-medium">Hồ sơ bệnh nhân được quản lý tập trung</span></li>
+                        <li><i class="fa-solid fa-circle-check text-success me-3"></i> <span class="text-secondary fw-medium">Thông tin bác sĩ và chuyên khoa minh bạch</span></li>
+                        <li><i class="fa-solid fa-circle-check text-success me-3"></i> <span class="text-secondary fw-medium">Tối ưu trải nghiệm cho sinh viên HUTECH</span></li>
+                        <li><i class="fa-solid fa-circle-check text-success me-3"></i> <span class="text-secondary fw-medium">Giao diện thân thiện trên máy tính và điện thoại</span></li>
+                    </ul>
                 </div>
             </div>
-            <div class="col-md-6 order-1 order-md-2 mb-4 mb-md-0 px-lg-5">
-                <span class="status-badge bg-dark text-white mb-3">Dành cho Admin</span>
-                <h2 class="fw-bold mb-4">Quản trị dữ liệu tập trung</h2>
-                <ul class="list-unstyled d-flex flex-column gap-3 text-muted">
-                    <li><i class="fa-solid fa-users text-dark me-2"></i> Quản lý toàn bộ tài khoản y bác sĩ & bệnh nhân</li>
-                    <li><i class="fa-solid fa-building text-dark me-2"></i> Quản lý danh mục chuyên khoa, lịch biểu bác sĩ</li>
-                    <li><i class="fa-solid fa-chart-line text-dark me-2"></i> Báo cáo thống kê hoạt động bệnh viện</li>
-                </ul>
-                <div class="mt-4">
-                    <a href="/Account/Login" class="btn btn-dark">Vào trang quản trị</a>
+
+            <div class="col-lg-6 reveal-right">
+                <div class="healthcare-dashboard-card glass-card p-4 p-md-5 bg-light border-0" style="background: linear-gradient(145deg, #ffffff, var(--medical-soft)) !important;">
+                    <div class="dashboard-header d-flex justify-content-between align-items-center mb-5">
+                        <div>
+                            <h4 class="fw-bold mb-1">Chỉ số vận hành y tế</h4>
+                            <p class="text-muted small mb-0">Theo dõi hiệu quả hoạt động khám bệnh</p>
+                        </div>
+                        <div class="icon-circle bg-white shadow-sm p-3 rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="fa-solid fa-chart-line fs-4 text-primary"></i>
+                        </div>
+                    </div>
+
+                    <div class="metric-container mb-4">
+                        <div class="metric-row d-flex justify-content-between mb-2">
+                            <span class="text-secondary fw-bold">Lịch hẹn được xử lý</span>
+                            <strong class="text-dark">92%</strong>
+                        </div>
+                        <div class="metric-bar progress" style="height: 10px; border-radius: 10px; background-color: #e2e8f0;">
+                            <div class="progress-bar bg-primary" role="progressbar" style="width: 92%; border-radius: 10px;"></div>
+                        </div>
+                    </div>
+
+                    <div class="metric-container mb-4">
+                        <div class="metric-row d-flex justify-content-between mb-2">
+                            <span class="text-secondary fw-bold">Hồ sơ được số hóa</span>
+                            <strong class="text-dark">87%</strong>
+                        </div>
+                        <div class="metric-bar progress" style="height: 10px; border-radius: 10px; background-color: #e2e8f0;">
+                            <div class="progress-bar bg-info" role="progressbar" style="width: 87%; border-radius: 10px;"></div>
+                        </div>
+                    </div>
+
+                    <div class="metric-container">
+                        <div class="metric-row d-flex justify-content-between mb-2">
+                            <span class="text-secondary fw-bold">Phản hồi tích cực</span>
+                            <strong class="text-dark">98%</strong>
+                        </div>
+                        <div class="metric-bar progress" style="height: 10px; border-radius: 10px; background-color: #e2e8f0;">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 98%; border-radius: 10px;"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -330,51 +383,17 @@
                         <p class="text-muted">Vui lòng điền thông tin để chúng tôi liên hệ xác nhận giờ ưu tiên.</p>
                     </div>
                     
-                    <form id="quickBookingForm">
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label small fw-bold">Họ và tên</label>
-                                <input type="text" class="medical-input" placeholder="Nguyễn Văn A" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label small fw-bold">Số điện thoại</label>
-                                <input type="tel" class="medical-input" placeholder="0909..." required>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label small fw-bold">Chuyên khoa</label>
-                                <select class="medical-select" required>
-                                    <option value="" disabled selected>Chọn chuyên khoa</option>
-                                    <option value="1">Nội tổng quát</option>
-                                    <option value="2">Tim mạch</option>
-                                    <option value="3">Tai mũi họng</option>
-                                    <option value="4">Khác</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label small fw-bold">Bác sĩ</label>
-                                <select class="medical-select">
-                                    <option value="" disabled selected>Chọn bác sĩ (Không bắt buộc)</option>
-                                    <option value="1">BS Nguyễn Minh An</option>
-                                    <option value="2">BS Trần Thanh Bình</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label small fw-bold">Ngày muốn khám</label>
-                                <input type="date" class="medical-input" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label small fw-bold">Giờ muốn khám</label>
-                                <input type="time" class="medical-input" required>
-                            </div>
-                            <div class="col-12">
-                                <label class="form-label small fw-bold">Lý do khám bệnh</label>
-                                <textarea class="medical-input" rows="3" placeholder="Ghi chú thêm phần triệu chứng..."></textarea>
-                            </div>
-                            <div class="col-12 text-center mt-4">
-                                <button type="submit" class="btn btn-medical-primary w-100 py-3">Gửi yêu cầu đặt lịch</button>
-                            </div>
+                    <div class="row g-3 text-center">
+                        <div class="col-12 text-center mt-4 mb-3">
+                            <i class="fa-solid fa-stethoscope fa-4x text-muted mb-3 opacity-50"></i>
+                            <h5 class="text-secondary fw-normal">Hệ thống đã nâng cấp chức năng Đặt lịch Điện tử</h5>
                         </div>
-                    </form>
+                        <div class="col-12 text-center mt-2">
+                            <a asp-controller="Appointment" asp-action="Create" class="btn btn-medical-primary w-100 py-3 d-flex align-items-center justify-content-center fw-bold fs-5 shadow-sm rounded-pill">
+                                <i class="fa-solid fa-calendar-check me-3"></i>ĐẶT LỊCH KHÁM CHÍNH THỨC TẠI ĐÂY
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

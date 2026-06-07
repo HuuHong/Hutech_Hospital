@@ -10,11 +10,16 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-// Register Repositories and Services cho PHẦN 2
+// Register Repositories and Services cho PHẦN 2 & PHẦN 3
 builder.Services.AddScoped<FileUploadService>();
 builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
 builder.Services.AddScoped<IDoctorScheduleRepository, DoctorScheduleRepository>();
+builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+
+builder.Services.AddScoped<NotificationService>();
+builder.Services.AddScoped<EmailService>();
+builder.Services.AddScoped<AppointmentService>();
 
 // 1. Add DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>

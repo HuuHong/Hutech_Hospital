@@ -35,7 +35,7 @@
                 <p class="mb-2"><i class="fa-solid fa-users text-muted me-2"></i><strong>Quy mô:</strong> @Model.Doctors.Count(x=>x.IsActive) bác sĩ</p>
                 <p class="mb-0"><i class="fa-regular fa-calendar-check text-muted me-2"></i><strong>Lập khoa:</strong> @Model.CreatedAt.ToString("MM/yyyy")</p>
                 <div class="mt-4">
-                    <a asp-controller="Doctors" asp-action="Index" asp-route-departmentId="@Model.Id" class="btn btn-medical-primary w-100">Tra cứu đội ngũ bác sĩ Khoa này</a>
+                    <a asp-controller="Doctor" asp-action="Index" asp-route-departmentId="@Model.Id" class="btn btn-medical-primary w-100">Tra cứu đội ngũ bác sĩ Khoa này</a>
                 </div>
             </div>
         </div>
@@ -70,7 +70,7 @@
                                     <div>
                                         <h5 class="fw-bold m-0 text-dark">@doc.Degree @doc.FullName</h5>
                                         <p class="text-primary small mb-2"><i class="fa-solid fa-stethoscope"></i> @doc.Specialization</p>
-                                        <a asp-controller="Doctors" asp-action="Details" asp-route-id="@doc.Id" class="btn btn-sm btn-outline-primary rounded-pill px-3">Hồ sơ & Đặt lịch</a>
+                                        <a asp-controller="Doctor" asp-action="Details" asp-route-id="@doc.Id" class="btn btn-sm btn-outline-primary rounded-pill px-3">Hồ sơ & Đặt lịch</a>
                                     </div>
                                 </div>
                             </div>

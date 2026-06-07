@@ -50,6 +50,11 @@
                         <i class="fa-solid fa-calendar-alt me-2"></i>Phân ca lịch trực
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="/Admin/Appointment" class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Appointment" ? "active" : "")">
+                        <i class="fa-solid fa-calendar-check me-2"></i>Quản lý Phiếu Khám
+                    </a>
+                </li>
                 <!-- Phân quyền chức năng khác có thể bỏ trống chờ Phase sau -->
                 <li class="nav-item mt-4">
                     <a href="/" class="nav-link text-info fw-bold" target="_blank">

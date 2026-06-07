@@ -1,0 +1,118 @@
+@model IEnumerable<HUTECH_Hospital.Models.Appointment>
+
+@{
+    ViewData["Title"] = "Quản lý Đặt Lịch";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 class="fw-bold m-0"><i class="fa-solid fa-calendar-check me-2 text-primary"></i>Danh sách Khám bệnh</h3>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show">
+        <i class="fa-solid fa-check me-2"></i>@TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show">
+        <i class="fa-solid fa-triangle-exclamation me-2"></i>@TempData["Error"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<div class="card border-0 shadow-sm rounded-4 mb-4">
+    <div class="card-body">
+        <form method="get" class="row g-3">
+            <div class="col-md-3">
+                <label class="form-label text-muted small fw-bold">Trạng thái</label>
+                <select name="status" class="form-select">
+                    <option value="">-- Tất cả --</option>
+                    <option value="Pending" selected="@(ViewBag.CurrentStatus == "Pending")">Chờ xác nhận</option>
+                    <option value="Confirmed" selected="@(ViewBag.CurrentStatus == "Confirmed")">Đã duyệt</option>
+                    <option value="Completed" selected="@(ViewBag.CurrentStatus == "Completed")">Hoàn tất</option>
+                    <option value="Cancelled" selected="@(ViewBag.CurrentStatus == "Cancelled")">Đã hủy</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label text-muted small fw-bold">Ngày hẹn</label>
+                <input type="date" name="date" class="form-control" value="@ViewBag.CurrentDate" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label text-muted small fw-bold">Tìm kiếm (Tên Bệnh nhân/Bác sĩ)</label>
+                <input type="text" name="searchString" class="form-control" value="@ViewBag.SearchString" placeholder="Nhập từ khóa..." />
+            </div>
+            <div class="col-md-2 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary w-100"><i class="fa-solid fa-filter me-2"></i>Lọc Data</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm rounded-4">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="ps-4">T.Gian Khám</th>
+                        <th>Bệnh Nhân</th>
+                        <th>Khoa - Bác Sĩ</th>
+                        <th>Trạng thái</th>
+                        <th class="text-end pe-4">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!Model.Any())
+                    {
+                        <tr><td colspan="5" class="text-center py-4 text-muted">Không tìm thấy bản ghi nào phù hợp.</td></tr>
+                    }
+                    else
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="ps-4">
+                                    <div class="fw-bold text-primary">@item.AppointmentDate.ToString("dd/MM/yyyy")</div>
+                                    <small><i class="fa-regular fa-clock me-1"></i>@item.AppointmentTime.ToString(@"hh\:mm")</small>
+                                </td>
+                                <td>
+                                    <div class="fw-medium">@item.Patient?.FullName</div>
+                                    <small class="text-muted"><i class="fa-solid fa-phone me-1"></i>@item.Patient?.PhoneNumber</small>
+                                </td>
+                                <td>
+                                    <div class="fw-bold">BS. @item.Doctor?.FullName</div>
+                                    <small class="text-muted">Khoa @item.Department?.Name</small>
+                                </td>
+                                <td>
+                                    @if(item.Status == "Pending") { <span class="badge bg-warning text-dark">Chờ xác nhận</span> }
+                                    else if(item.Status == "Confirmed") { <span class="badge bg-success">Đã duyệt</span> }
+                                    else if(item.Status == "Completed") { <span class="badge bg-info text-dark">Hoàn tất</span> }
+                                    else { <span class="badge bg-danger">Đã hủy</span> }
+                                </td>
+                                <td class="text-end pe-4">
+                                    <div class="btn-group btn-group-sm">
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-secondary" title="Xem chi tiết"><i class="fa-solid fa-eye"></i></a>
+                                        @if(item.Status == "Pending")
+                                        {
+                                            <form asp-action="Confirm" asp-route-id="@item.Id" method="post" class="d-inline" onsubmit="return confirm('Xác nhận duyệt lịch hẹn này?');">
+                                                <button type="submit" class="btn btn-outline-success" title="Duyệt lịch"><i class="fa-solid fa-check"></i></button>
+                                            </form>
+                                        }
+                                        @if(item.Status != "Completed" && item.Status != "Cancelled")
+                                        {
+                                            <a asp-action="Cancel" asp-route-id="@item.Id" class="btn btn-outline-danger" title="Từ chối/Hủy"><i class="fa-solid fa-ban"></i></a>
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
