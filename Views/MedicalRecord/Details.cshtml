@@ -74,7 +74,7 @@
                         <img src="@(string.IsNullOrEmpty(Model.Doctor?.AvatarUrl) ? "https://ui-avatars.com/api/?name=" + Model.Doctor?.FullName + "&background=random" : Model.Doctor.AvatarUrl)" class="rounded-circle mb-3 border shadow-sm" width="100" height="100" style="object-fit:cover"/>
                         <h5 class="fw-bold mb-1">BS. @Model.Doctor?.FullName</h5>
                         <p class="text-primary small mb-3">@Model.Doctor?.Specialization</p>
-                        <a href="/Doctor/Details/@Model.DoctorId" class="btn btn-sm btn-outline-primary rounded-pill px-3">Xem hồ sơ bác sĩ</a>
+                        <a href="/Doctors/Details/@Model.DoctorId" class="btn btn-sm btn-outline-primary rounded-pill px-3">Xem hồ sơ bác sĩ</a>
                     </div>
                 </div>
 
