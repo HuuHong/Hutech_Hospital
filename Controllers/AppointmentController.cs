@@ -293,11 +293,16 @@ namespace HUTECH_Hospital.Controllers
 
         // Endpoint for fetching doctors via AJAX
         [HttpGet]
-        public async Task<IActionResult> GetDoctorsByDepartment(int departmentId)
+        public async Task<IActionResult> GetDoctorsByDepartment(int? departmentId)
         {
             var doctors = await _doctorRepo.GetActiveAsync();
-            var filtered = doctors.Where(d => d.DepartmentId == departmentId)
-                                  .Select(d => new { id = d.Id, name = $"{d.DoctorCode} - {d.FullName}" });
+            
+             if (departmentId.HasValue && departmentId.Value > 0)
+            {
+                doctors = doctors.Where(d => d.DepartmentId == departmentId.Value);
+            }
+            
+            var filtered = doctors.Select(d => new { id = d.Id, name = $"{d.DoctorCode} - {d.FullName}", departmentId = d.DepartmentId });
             return Json(filtered);
         }
     }
