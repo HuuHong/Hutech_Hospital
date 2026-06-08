@@ -22,19 +22,22 @@ namespace HUTECH_Hospital.Areas.Doctor.Controllers
         private readonly IMedicineRepository _medicineRepository;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly NotificationService _notificationService;
+        private readonly HUTECH_Hospital.Data.ApplicationDbContext _context;
 
         public MedicalRecordController(
             IMedicalRecordRepository medicalRecordRepository,
             IAppointmentRepository appointmentRepository,
             IMedicineRepository medicineRepository,
             UserManager<ApplicationUser> userManager,
-            NotificationService notificationService)
+            NotificationService notificationService,
+            HUTECH_Hospital.Data.ApplicationDbContext context)
         {
             _medicalRecordRepository = medicalRecordRepository;
             _appointmentRepository = appointmentRepository;
             _medicineRepository = medicineRepository;
             _userManager = userManager;
             _notificationService = notificationService;
+            _context = context;
         }
 
         // GetCurrentDoctorAsync removed
@@ -90,6 +93,9 @@ namespace HUTECH_Hospital.Areas.Doctor.Controllers
                     new PrescriptionDetailViewModel { Medicines = medicineSelectList }
                 }
             };
+
+            var healthSurvey = _context.HealthSurveys.FirstOrDefault(s => s.PatientId == appointment.PatientId);
+            ViewBag.HealthSurvey = healthSurvey;
 
             ViewBag.Medicines = medicineSelectList;
             return View(viewModel);
@@ -213,6 +219,9 @@ namespace HUTECH_Hospital.Areas.Doctor.Controllers
                 model.PrescriptionDetails.Add(new PrescriptionDetailViewModel { Medicines = medicineSelectList });
             }
 
+            var healthSurvey = _context.HealthSurveys.FirstOrDefault(s => s.PatientId == record.PatientId);
+            ViewBag.HealthSurvey = healthSurvey;
+
             ViewBag.Medicines = medicineSelectList;
             return View(model);
         }
@@ -288,6 +297,9 @@ namespace HUTECH_Hospital.Areas.Doctor.Controllers
                 TempData["ErrorMessage"] = "Bạn không có quyền xem hồ sơ này.";
                 return RedirectToAction("Index", "Dashboard");
             }
+
+            var healthSurvey = _context.HealthSurveys.FirstOrDefault(s => s.PatientId == record.PatientId);
+            ViewBag.HealthSurvey = healthSurvey;
 
             return View(record);
         }

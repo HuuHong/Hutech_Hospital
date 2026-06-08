@@ -1,0 +1,195 @@
+@model HUTECH_Hospital.Models.HealthSurvey
+
+@{
+    ViewData["Title"] = "Chỉnh sửa Sức khỏe Ban đầu";
+}
+
+<style>
+    .survey-section {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.3);
+        border-radius: 1rem;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .survey-section:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 180, 216, 0.1);
+    }
+    .section-title {
+        color: #0077b6;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid rgba(0, 119, 182, 0.1);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+</style>
+
+<div class="container py-5 mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <div>
+            <h2 class="fw-bold text-primary mb-1"><i class="fa-solid fa-pen-to-square me-3"></i>Cập Nhật Sức Khỏe</h2>
+            <p class="text-muted">Lưu lại các thông tin mới nhất về tình trạng sức khỏe của bạn.</p>
+        </div>
+        <a asp-action="Details" class="btn btn-outline-secondary rounded-pill fw-bold">
+            <i class="fa-solid fa-arrow-left me-2"></i> Quay lại
+        </a>
+    </div>
+
+    <form asp-action="Edit" method="post" id="surveyForm">
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="alert alert-danger rounded-3">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            </div>
+        }
+
+        <!-- Section 1: Thông số cơ bản -->
+        <div class="survey-section" data-aos="fade-up">
+            <h4 class="section-title"><i class="fa-solid fa-user-doctor"></i> Thông số cơ bản</h4>
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <label asp-for="Height" class="form-label fw-medium">Chiều cao (cm)</label>
+                    <input asp-for="Height" class="form-control" type="number" step="0.1" />
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="Weight" class="form-label fw-medium">Cân nặng (kg)</label>
+                    <input asp-for="Weight" class="form-control" type="number" step="0.1" />
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="BloodType" class="form-label fw-medium">Nhóm máu</label>
+                    <select asp-for="BloodType" class="form-select">
+                        <option value="">-- Chọn --</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="AB">AB</option>
+                        <option value="O">O</option>
+                        <option value="Chưa rõ">Chưa rõ</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="Gender" class="form-label fw-medium">Giới tính</label>
+                    <select asp-for="Gender" class="form-select">
+                        <option value="">-- Chọn --</option>
+                        <option value="Nam">Nam</option>
+                        <option value="Nữ">Nữ</option>
+                        <option value="Khác">Khác</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="DateOfBirth" class="form-label fw-medium">Ngày sinh</label>
+                    <input asp-for="DateOfBirth" class="form-control" type="date" />
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Bệnh sử -->
+        <div class="survey-section" data-aos="fade-up" data-aos-delay="100">
+            <h4 class="section-title"><i class="fa-solid fa-book-medical"></i> Lịch sử bệnh lý & Di ứng</h4>
+            <div class="row g-4 mb-3">
+                <div class="col-md-6">
+                    <label asp-for="PersonalHistory" class="form-label fw-medium">Tiền sử bệnh cá nhân</label>
+                    <textarea asp-for="PersonalHistory" class="form-control" rows="2"></textarea>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="FamilyHistory" class="form-label fw-medium">Tiền sử bệnh gia đình</label>
+                    <textarea asp-for="FamilyHistory" class="form-control" rows="2"></textarea>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Allergies" class="form-label fw-medium">Dị ứng thuốc/thức ăn</label>
+                    <textarea asp-for="Allergies" class="form-control" rows="2"></textarea>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="CurrentMedication" class="form-label fw-medium">Thuốc đang sử dụng</label>
+                    <textarea asp-for="CurrentMedication" class="form-control" rows="2"></textarea>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-medium d-block">Bệnh nền (chọn nếu có)</label>
+                <div class="d-flex flex-wrap gap-3">
+                    @{ string conds = Model?.UnderlyingConditions ?? ""; }
+                    <div class="form-check">
+                        <input class="form-check-input condition-cb" type="checkbox" value="Cao huyết áp" id="cond1" @(conds.Contains("Cao huyết áp") ? "checked" : "")>
+                        <label class="form-check-label" for="cond1">Cao huyết áp</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input condition-cb" type="checkbox" value="Tiểu đường" id="cond2" @(conds.Contains("Tiểu đường") ? "checked" : "")>
+                        <label class="form-check-label" for="cond2">Tiểu đường</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input condition-cb" type="checkbox" value="Tim mạch" id="cond3" @(conds.Contains("Tim mạch") ? "checked" : "")>
+                        <label class="form-check-label" for="cond3">Tim mạch</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input condition-cb" type="checkbox" value="Hen suyễn" id="cond4" @(conds.Contains("Hen suyễn") ? "checked" : "")>
+                        <label class="form-check-label" for="cond4">Hen suyễn</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input condition-cb" type="checkbox" value="Bệnh thận" id="cond5" @(conds.Contains("Bệnh thận") ? "checked" : "")>
+                        <label class="form-check-label" for="cond5">Bệnh thận</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input condition-cb" type="checkbox" value="Bệnh gan" id="cond6" @(conds.Contains("Bệnh gan") ? "checked" : "")>
+                        <label class="form-check-label" for="cond6">Bệnh gan</label>
+                    </div>
+                </div>
+                <input type="hidden" asp-for="UnderlyingConditions" id="underlyingConditionsHidden" />
+            </div>
+        </div>
+
+        <!-- Section 3: Triệu chứng hiện tại -->
+        <div class="survey-section" data-aos="fade-up" data-aos-delay="200">
+            <h4 class="section-title"><i class="fa-solid fa-stethoscope"></i> Tình trạng hiện tại</h4>
+            <div class="row g-4">
+                <div class="col-md-12">
+                    <label asp-for="CurrentSymptoms" class="form-label fw-medium">Triệu chứng hiện tại</label>
+                    <textarea asp-for="CurrentSymptoms" class="form-control" rows="2"></textarea>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="SymptomDuration" class="form-label fw-medium">Thời gian xuất hiện triệu chứng</label>
+                    <input asp-for="SymptomDuration" class="form-control" type="text" />
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="DiscomfortLevel" class="form-label fw-medium">Mức độ khó chịu (1 - 10)</label>
+                    <div class="d-flex align-items-center gap-3">
+                        <input type="range" class="form-range flex-grow-1" min="1" max="10" step="1" asp-for="DiscomfortLevel" id="discomfortRange" oninput="document.getElementById('discomfortVal').innerText = this.value">
+                        <span id="discomfortVal" class="badge bg-danger rounded-circle p-2 fs-6">@(Model?.DiscomfortLevel ?? 5)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-5 mb-5 pb-5">
+            <button type="submit" class="btn btn-medical-primary rounded-pill py-3 px-5 fw-bold text-uppercase shadow-lg" style="font-size: 1.1rem; letter-spacing: 1px;">
+                <i class="fa-solid fa-cloud-arrow-up me-2"></i> Cập Nhật Thông Tin
+            </button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            // Apply initial discomfort val
+            var initVal = $('#discomfortRange').val() || 5;
+            $('#discomfortRange').val(initVal);
+            $('#discomfortVal').text(initVal);
+
+            $('#surveyForm').submit(function() {
+                var conditions = [];
+                $('.condition-cb:checked').each(function() {
+                    conditions.push($(this).val());
+                });
+                $('#underlyingConditionsHidden').val(conditions.join(', '));
+            });
+        });
+    </script>
+}

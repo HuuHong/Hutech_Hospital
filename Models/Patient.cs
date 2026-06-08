@@ -21,6 +21,7 @@ namespace HUTECH_Hospital.Models
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         // Navigation
+        public HealthSurvey? HealthSurvey { get; set; }
         public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
         public ICollection<MedicalRecord> MedicalRecords { get; set; } = new List<MedicalRecord>();
         public ICollection<Notification> Notifications { get; set; } = new List<Notification>();
