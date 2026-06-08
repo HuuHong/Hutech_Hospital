@@ -39,7 +39,16 @@
                         </div>
                         <div class="col-md-6">
                             <label asp-for="Degree" class="form-label fw-bold"></label>
-                            <input asp-for="Degree" class="form-control bg-light" />
+                            <select asp-for="Degree" class="form-select bg-light">
+                                <option value="">-- Chọn học vị --</option>
+                                <option value="Bác sĩ (BS)">Bác sĩ (BS)</option>
+                                <option value="Thạc sĩ, Bác sĩ (ThS. BS)">Thạc sĩ, Bác sĩ (ThS. BS)</option>
+                                <option value="Tiến sĩ, Bác sĩ (TS. BS)">Tiến sĩ, Bác sĩ (TS. BS)</option>
+                                <option value="Bác sĩ chuyên khoa I (BS CKI)">Bác sĩ chuyên khoa I (BS CKI)</option>
+                                <option value="Bác sĩ chuyên khoa II (BS CKII)">Bác sĩ chuyên khoa II (BS CKII)</option>
+                                <option value="Phó Giáo sư, Tiến sĩ, Bác sĩ (PGS. TS. BS)">Phó Giáo sư, Tiến sĩ, Bác sĩ (PGS. TS. BS)</option>
+                                <option value="Giáo sư, Tiến sĩ, Bác sĩ (GS. TS. BS)">Giáo sư, Tiến sĩ, Bác sĩ (GS. TS. BS)</option>
+                            </select>
                             <span asp-validation-for="Degree" class="text-danger small"></span>
                         </div>
                         <div class="col-md-6">
