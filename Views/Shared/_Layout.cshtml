@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" type="image/png" href="~/uploads/doctors/logo-hutech.png" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - HUTECH_Hospital</title>
@@ -22,12 +23,14 @@
     <!-- Custom UI Styles -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/hospital-ui.css" asp-append-version="true" />
+    <!-- AI Chatbot -->
+    <link rel="stylesheet" href="~/css/chatbot.css" asp-append-version="true" />
 </head>
 <body>
 
     <partial name="_Navbar" />
     
-    <main role="main" class="pb-3" style="min-height: 80vh;">
+    <main role="main" class="pb-3" style="min-height: 80vh; padding-top: 100px;">
         @RenderBody()
     </main>
 
@@ -39,6 +42,8 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/hospital-animation.js" asp-append-version="true"></script>
+    <!-- AI Chatbot Widget -->
+    <script src="~/js/chatbot.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
