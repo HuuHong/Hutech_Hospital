@@ -9,7 +9,7 @@ namespace HUTECH_Hospital.ViewModels
         [Display(Name = "Họ và tên")]
         public string FullName { get; set; } = null!;
 
-        [Display(Name = "Mã số sinh viên/Học viên (Nếu có)")]
+        [Display(Name = "Căn cước công dân (Nếu có)")]
         public string? StudentCode { get; set; }
 
         [Required(ErrorMessage = "Vui lòng nhập Email")]
@@ -51,6 +51,7 @@ namespace HUTECH_Hospital.ViewModels
     {
         [Required(ErrorMessage = "Họ và tên không được để trống")]
         public string FullName { get; set; } = null!;
+        [Display(Name = "Căn cước công dân")]
         public string? StudentCode { get; set; }
         public string? Gender { get; set; }
         public DateTime? DateOfBirth { get; set; }

@@ -1,10 +1,13 @@
 using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using HUTECH_Hospital.Data;
 using HUTECH_Hospital.Models;
 using HUTECH_Hospital.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace HUTECH_Hospital.Controllers
 {
@@ -40,6 +43,18 @@ namespace HUTECH_Hospital.Controllers
         {
             if (ModelState.IsValid)
             {
+                var existingUser = await _userManager.FindByEmailAsync(model.Email);
+                if (existingUser != null)
+                {
+                    var hasPassword = await _userManager.HasPasswordAsync(existingUser);
+                    if (!hasPassword) {
+                        ModelState.AddModelError(string.Empty, "Email này đã đăng ký qua Google. Vui lòng đăng nhập Google.");
+                    } else {
+                        ModelState.AddModelError(string.Empty, "Email này đã được đăng ký. Vui lòng đăng nhập.");
+                    }
+                    return View(model);
+                }
+
                 var user = new ApplicationUser
                 {
                     UserName = model.Email,
@@ -119,7 +134,20 @@ namespace HUTECH_Hospital.Controllers
                         return RedirectToAction("Index", "Dashboard", new { area = "Doctor" });
                     }
 
-                    // Mặc định hoặc Patient => Về Home
+                    // Mặc định hoặc Patient => Check HealthSurvey
+                    if (roles.Contains("Patient"))
+                    {
+                        var patient = await _context.Patients.FirstOrDefaultAsync(p => p.ApplicationUserId == user.Id);
+                        if (patient != null)
+                        {
+                            var hasSurvey = await _context.HealthSurveys.AnyAsync(s => s.PatientId == patient.Id);
+                            if (!hasSurvey)
+                            {
+                                return RedirectToAction("Create", "HealthSurvey");
+                            }
+                        }
+                    }
+
                     if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                     {
                         return LocalRedirect(returnUrl);
@@ -146,6 +174,99 @@ namespace HUTECH_Hospital.Controllers
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
+        }
+
+        // POST: /Account/ExternalLogin
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public IActionResult ExternalLogin(string provider, string? returnUrl = null)
+        {
+            var redirectUrl = Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl });
+            var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+            return Challenge(properties, provider);
+        }
+
+        // GET: /Account/ExternalLoginCallback
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> ExternalLoginCallback(string? returnUrl = null, string? remoteError = null)
+        {
+            returnUrl = returnUrl ?? Url.Content("~/");
+            if (remoteError != null)
+            {
+                ModelState.AddModelError(string.Empty, $"Lỗi từ nhà cung cấp bên ngoài: {remoteError}");
+                return View("Login");
+            }
+            
+            var info = await _signInManager.GetExternalLoginInfoAsync();
+            if (info == null)
+            {
+                return RedirectToAction("Login");
+            }
+
+            // Đăng nhập luôn nếu Google account đã link
+            var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
+            if (result.Succeeded)
+            {
+                return LocalRedirect(returnUrl);
+            }
+
+            // Nếu user chưa map
+            var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+            if (email != null)
+            {
+                var user = await _userManager.FindByEmailAsync(email);
+                if (user != null)
+                {
+                    var hasPassword = await _userManager.HasPasswordAsync(user);
+                    if (hasPassword) 
+                    {
+                        // User đã có password -> Cấm dùng Google
+                        ViewData["ReturnUrl"] = returnUrl;
+                        ModelState.AddModelError(string.Empty, "Tài khoản đã được tạo bằng mật khẩu. Không thể dùng Google để đăng nhập.");
+                        return View("Login");
+                    }
+                    
+                    await _userManager.AddLoginAsync(user, info);
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return LocalRedirect(returnUrl);
+                }
+                else
+                {
+                    // Lần đầu bằng Google => Auto Create Account
+                    var fullName = info.Principal.FindFirstValue(ClaimTypes.Name) ?? "Người dùng Google";
+
+                    var newUser = new ApplicationUser
+                    {
+                        UserName = email,
+                        Email = email,
+                        FullName = fullName,
+                        CreatedAt = DateTime.Now
+                    };
+                    var createResult = await _userManager.CreateAsync(newUser);
+                    if (createResult.Succeeded)
+                    {
+                        await _userManager.AddToRoleAsync(newUser, "Patient");
+                        var patient = new Patient
+                        {
+                            ApplicationUserId = newUser.Id,
+                            FullName = fullName,
+                            CreatedAt = DateTime.Now
+                        };
+                        _context.Patients.Add(patient);
+                        await _context.SaveChangesAsync();
+                        
+                        await _userManager.AddLoginAsync(newUser, info);
+                        await _signInManager.SignInAsync(newUser, isPersistent: false);
+                        return LocalRedirect(returnUrl);
+                    }
+                }
+            }
+
+            ViewData["ReturnUrl"] = returnUrl;
+            ModelState.AddModelError(string.Empty, "Lỗi đăng nhập qua Google.");
+            return View("Login");
         }
 
         // GET: /Account/AccessDenied

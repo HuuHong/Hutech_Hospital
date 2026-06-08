@@ -7,11 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HUTECH_Hospital.Controllers
 {
-    public class DoctorController : Controller
+    public class DoctorsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public DoctorController(ApplicationDbContext context)
+        public DoctorsController(ApplicationDbContext context)
         {
             _context = context;
         }

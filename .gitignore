@@ -1,64 +1,126 @@
-## Bỏ qua các thư mục biên dịch và tệp nhị phân
+# Source: https://raw.githubusercontent.com/github/gitignore/main/VisualStudio.gitignore
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.env
+
+# User-specific files (MonoDevelop/Xamarin Studio)
+*.userprefs
+
+# Mono auto generated files
+mono_crash.*
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+[Aa][Rr][Mm]64[Ee][Cc]/
+bld/
 [Bb]in/
 [Oo]bj/
 [Oo]ut/
 [Ll]og/
 [Ll]ogs/
-*.dll
-*.exe
-*.pdb
-*.cache
-*.rsp
 
-## Visual Studio & Visual Studio Code (Cấu hình cục bộ IDE)
+# Visual Studio 2015/2017 cache/options directory
 .vs/
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-*.user
-*.userosscache
-*.sln.docstates
-*.suo
-*.userprefs
-*.code-workspace
-.localhistory/
 
-## Cache hệ thống Runtime & Crash Dumps (Sinh ra khi chạy Web)
-*.crash
-*.dmp
-*.hdmp
-*.mdmp
-TestResults/
-*.coverage
-*.coveragexml
-ClientApp/dist/
-ClientApp/build/
-.aspnet/
+# MSTest test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+*.trx
+*.VisualState.xml
+TestResult.xml
+nunit-*.xml
+*.received.*
 
-## JetBrains Rider/WebStorm
-.idea/
-*.sln.iml
-_ReSharper*/
-*.[Rr]e[Ss]harper
+# ASP.NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+.artifacts/
+ScaffoldingReadMe.txt
 
-## Mac/Linux/Windows OS Files
-.DS_Store
-.AppleDouble
-.LSOverride
-Icon
-._*
-.Spotlight-V100
-.Trashes
-Thumbs.db
-ehthumbs.db
-Desktop.ini
+# StyleCop
+StyleCopReport.xml
 
-## CSDL nội bộ / SQL Server LocalDB
+# Files built by Visual Studio
+*_i.c
+*_p.c
+*_h.h
+*.ilk
+*.meta
+*.obj
+*.idb
+*.iobj
+*.pch
+*.pdb
+*.ipdb
+*.pgc
+*.pgd
+*.rsp
+!Directory.Build.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*_wpftmp.csproj
+*.log
+*.tlog
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.svclog
+*.scc
+
+# Web workbench (sass)
+.sass-cache/
+
+# NuGet Packages
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+
+# SQL Server files
 *.mdf
 *.ldf
 *.ndf
+
+# Local History for Visual Studio
+**/.localhistory/
+.vshistory/
+
+# Windows Installer files from build outputs
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+
+# ========================================
+# CUSTOM PROJECT-SPECIFIC IGNORES
+# ========================================
+
+## CSDL nội bộ / SQL Server LocalDB
 *.sqlite
 *.sqlite3
 *.db
@@ -66,29 +128,35 @@ Desktop.ini
 *.db-wal
 app.db
 
-## File cấu hình chứa thông tin nhạy cảm (Connection Strings, Tokens)
-appsettings.Development.json
-appsettings.Production.json
-appsettings.Staging.json
+## File cấu hình chứa thông tin nhạy cảm (Connection Strings, Tokens, API Keys)
+appsettings.json
+appsettings.*.json
+!appsettings.example.json
 secrets.json
-*.env
+
+# Environment variables
+.env
 .env.*
+*.env
+
+# Keys and credentials (API keys, certs, tokens)
+*.key
+*.pem
+*.pfx
+*.p12
+*.pub
+*secret*.json
+*credentials*.json
+*token*.json
+oauth.json
+clientID.json
 
 ## User Uploads (Bảo vệ dữ liệu hình ảnh, tệp tin người dùng tải lên)
 wwwroot/uploads/
 !wwwroot/uploads/.keep
 wwwroot/images/temp/
 
-## NuGet Packages
-*.nupkg
-*.snupkg
-*.smdx
-*.symbols.nupkg
-packages/
-project.lock.json
-.nuget/
-
-## Node.js & Javascript Tools (Trường hợp dự án dùng npm/webpack)
+## Node.js & Javascript Tools
 node_modules/
 npm-debug.log
 yarn-error.log

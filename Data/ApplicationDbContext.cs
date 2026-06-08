@@ -22,6 +22,7 @@ namespace HUTECH_Hospital.Data
         public DbSet<Medicine> Medicines { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
+        public DbSet<HealthSurvey> HealthSurveys { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -125,6 +126,13 @@ namespace HUTECH_Hospital.Data
                 .HasOne(f => f.Patient)
                 .WithMany(p => p.Feedbacks)
                 .HasForeignKey(f => f.PatientId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Configure 1-to-1 relationship between Patient and HealthSurvey
+            builder.Entity<HealthSurvey>()
+                .HasOne(h => h.Patient)
+                .WithOne(p => p.HealthSurvey)
+                .HasForeignKey<HealthSurvey>(h => h.PatientId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }
